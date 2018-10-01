@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Quadridge2.Models.Deal>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Deals</h2>
+
+@if (!Model.Any())
+{
+    <p> We do not have any deals yet </p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Deal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var deal in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(deal.Name, "Details", "Deals", new { id = deal.Id }, null)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
