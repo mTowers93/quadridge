@@ -10,6 +10,8 @@ namespace Quadridge2.Models
     {
         public int Id { get; set; }
 
+        public string code { get; set; }
+
         [Required]
         [StringLength(255)]
         public string Name { get; set; }

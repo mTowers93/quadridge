@@ -205,6 +205,22 @@
     <Compile Include="Migrations\201809301625392_InitialMigration.Designer.cs">
       <DependentUpon>201809301625392_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810011317597_AddCountryCode.cs" />
+    <Compile Include="Migrations\201810011317597_AddCountryCode.Designer.cs">
+      <DependentUpon>201810011317597_AddCountryCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810011321148_PopulateCountry.cs" />
+    <Compile Include="Migrations\201810011321148_PopulateCountry.Designer.cs">
+      <DependentUpon>201810011321148_PopulateCountry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810011415303_AddCodeToProvince.cs" />
+    <Compile Include="Migrations\201810011415303_AddCodeToProvince.Designer.cs">
+      <DependentUpon>201810011415303_AddCodeToProvince.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810011415595_PopulateProvince.cs" />
+    <Compile Include="Migrations\201810011415595_PopulateProvince.Designer.cs">
+      <DependentUpon>201810011415595_PopulateProvince.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Bank.cs" />
@@ -511,6 +527,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201809301625392_InitialMigration.resx">
       <DependentUpon>201809301625392_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810011317597_AddCountryCode.resx">
+      <DependentUpon>201810011317597_AddCountryCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810011321148_PopulateCountry.resx">
+      <DependentUpon>201810011321148_PopulateCountry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810011415303_AddCodeToProvince.resx">
+      <DependentUpon>201810011415303_AddCodeToProvince.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810011415595_PopulateProvince.resx">
+      <DependentUpon>201810011415595_PopulateProvince.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
