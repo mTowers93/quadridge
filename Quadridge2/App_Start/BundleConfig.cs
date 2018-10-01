@@ -23,7 +23,9 @@ namespace Quadridge2
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/assets/css/material-dashboard.css",
+                      "~/Content/assets/css/material-dashboard.css.map",
+                      "~/Content/assets/css/material-dashboard.min.css",
                       "~/Content/site.css"));
         }
     }
