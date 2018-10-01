@@ -19,6 +19,7 @@ namespace Quadridge2.Models
         [StringLength(100)]
         public string Surname { get; set; }
 
+        [Display(Name ="Company")]
         public int? CompanyId { get; set; }
 
         [Required]
@@ -52,6 +53,13 @@ namespace Quadridge2.Models
 
         public Province Province { get; set; }
 
+        [Display(Name = "Province")]
+        public int? ProvinceId { get; set; }
+
+        
         public Country Country { get; set; }
+
+        [Display(Name = "Country")]
+        public int CountryId { get; set; }
     }
 }

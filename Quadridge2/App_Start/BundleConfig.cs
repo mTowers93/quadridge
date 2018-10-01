@@ -24,8 +24,6 @@ namespace Quadridge2
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/assets/css/material-dashboard.css",
-                      "~/Content/assets/css/material-dashboard.css.map",
-                      "~/Content/assets/css/material-dashboard.min.css",
                       "~/Content/site.css"));
         }
     }

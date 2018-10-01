@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Quadridge2.ViewModels;
 
 namespace Quadridge2.Controllers
 {
@@ -19,6 +20,17 @@ namespace Quadridge2.Controllers
         protected override void Dispose(bool disposing)
         {
             _context.Dispose();
+        }
+
+        public ActionResult New()
+        {
+            var viewModel = new NewClientViewModel
+            {
+                Companies = _context.Companies,
+                Provinces = _context.Provinces,
+                Countries = _context.Countries
+            };
+            return View(viewModel);
         }
 
         // GET: Clients
