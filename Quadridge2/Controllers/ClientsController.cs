@@ -33,8 +33,22 @@ namespace Quadridge2.Controllers
             return View("ClientForm", viewModel);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Client client)
         {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new ClientFormViewModel
+                {
+                    Client = client,
+                    Provinces = _context.Provinces.ToList(),
+                    Countries = _context.Countries.ToList(),
+                    Companies = _context.Companies.ToList()
+                };
+
+                return View("ClientForm", viewModel);
+            }
             if (client.Id == 0)
                 _context.Clients.Add(client);
             else

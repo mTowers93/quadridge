@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Quadridge2.Models;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc.Html;
 
-namespace Quadridge2.Models
+namespace Quadridge2.Dtos
 {
-    public class Client
+    public class ClientDto
     {
         public int Id { get; set; }
 
@@ -19,7 +19,6 @@ namespace Quadridge2.Models
         [StringLength(100)]
         public string Surname { get; set; }
 
-        [Display(Name ="Company")]
         public int? CompanyId { get; set; }
 
         [Required]
@@ -38,11 +37,9 @@ namespace Quadridge2.Models
 
         [Required]
         [StringLength(255)]
-        [Display(Name ="First Address Line")]
         public string FirstAddressLine { get; set; }
 
         [StringLength(255)]
-        [Display(Name="Second Address Line")]
         public string SecondAddressLine { get; set; }
 
         [Required]
@@ -56,15 +53,8 @@ namespace Quadridge2.Models
         [StringLength(8)]
         public string Zip { get; set; }
 
-        public Province Province { get; set; }
-
-        [Display(Name = "Province")]
         public int? ProvinceId { get; set; }
 
-        
-        public Country Country { get; set; }
-
-        [Display(Name = "Country")]
         public int CountryId { get; set; }
     }
 }
