@@ -9,7 +9,14 @@
     </div>
     <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
     <ul class="list-unstyled">
-        <li class="active"><a href="index.html"> <i class="icon-home"></i>Home </a></li>
+        @if(ViewBag.Title == "Home")
+        {
+            <li class="active"><a href="@Url.Action("Index","Home")"> <i class="icon-home"></i>Home </a></li>
+        }
+        else
+        {
+            <li><a href="@Url.Action("Index","Home")"> <i class="icon-home"></i>Home </a></li>
+        }
         <li><a href="@Url.Action("Index", "Clients")"> <i class="icon-user"></i>Clients </a></li>
         
         <li><a href="@Url.Action("Index", "Deals")"> <i class="fa fa-bar-chart"></i>Deals </a></li>
@@ -24,12 +31,5 @@
                 <li><a href="#">Interaction Types</a></li>
             </ul>
         </li>
-        <li><a href="login.html"> <i class="icon-interface-windows"></i>Login page </a></li>
-    </ul><span class="heading">Extras</span>
-    <ul class="list-unstyled">
-        <li> <a href="#"> <i class="icon-flask"></i>Demo </a></li>
-        <li> <a href="#"> <i class="icon-screen"></i>Demo </a></li>
-        <li> <a href="#"> <i class="icon-mail"></i>Demo </a></li>
-        <li> <a href="#"> <i class="icon-picture"></i>Demo </a></li>
     </ul>
 </nav>

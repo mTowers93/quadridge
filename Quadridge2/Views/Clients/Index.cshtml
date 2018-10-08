@@ -4,7 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Clients</h2>
 <p>@Html.ActionLink("New Client", "New", "Clients", null, new { @class = "btn btn-primary" })</p>
 
 @if (!Model.Any())
@@ -17,12 +16,11 @@ else
         <thead>
             <tr>
                 <th>Name</th>
-                <th></th>
-                <th></th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
-            @*@foreach (var client in Model)
+            @foreach (var client in Model)
             {
                 <tr>
                     <td>@Html.ActionLink(client.Firstname + " " + client.Surname, "Details", "Clients", new { id = client.Id }, null)</td>
@@ -31,7 +29,7 @@ else
                         <button data-customer-id="@client.Id" class="btn btn-primary js-delete">Delete</button>
                     </td>
                 </tr>
-            }*@
+            }
         </tbody>
     </table>
 }

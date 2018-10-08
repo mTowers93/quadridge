@@ -11,7 +11,7 @@ namespace Quadridge2
             bundles.Add(new ScriptBundle("~/bundles/lib").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/bootstrap.js",
-                        "~/scripts/popper.js",
+                        //"~/scripts/popper.js",
                         "~/Scripts/respond.js"
                         ));
 
@@ -26,7 +26,7 @@ namespace Quadridge2
 
             bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
                 "~/scripts/datatables/jquery.datatables.js",
-                "~/scripts/datatables/datatables.bootstrap.js"
+                "~/scripts/datatables/datatables.bootstrap4.js"
                 ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
@@ -38,8 +38,8 @@ namespace Quadridge2
                       "~/Content/dashboard/vendor/font-awesome/css/font-awesome.min.css",
                       "~/Content/dashboard/css/style.default.css",
                       "~/Content/dashboard/css/fontastic.css",
-                      "~/Content/datatables/css/datatables.bootstrap.css",
                       "~/Content/bootstrap.css",
+                      "~/Content/datatables/css/datatables.bootstrap4.css",
                       "~/Content/site.css"
                       ));
         }

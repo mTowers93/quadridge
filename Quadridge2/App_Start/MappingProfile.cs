@@ -12,8 +12,8 @@ namespace Quadridge2.App_Start
     {
         public MappingProfile()
         {
-            Mapper.CreateMap<Client, ClientDto>();
-            Mapper.CreateMap<ClientDto, Client>()
+            CreateMap<Client, ClientDto>();
+            CreateMap<ClientDto, Client>()
                 .ForMember(m => m.Id, opt => opt.Ignore());
         }
     }
