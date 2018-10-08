@@ -36,7 +36,7 @@ namespace Quadridge2
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/dashboard/vendor/font-awesome/css/font-awesome.min.css",
-                      "~/Content/dashboard/css/style.default.css",
+                      "~/Content/dashboard/css/style.blue.css",
                       "~/Content/dashboard/css/fontastic.css",
                       "~/Content/bootstrap.css",
                       "~/Content/datatables/css/datatables.bootstrap4.css",

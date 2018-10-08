@@ -1901,10 +1901,10 @@ input.input-material.is-invalid ~ label {
   height: 100%;
   display: block;
   z-index: -1;
-  background: url(../img/bg.jpg);
+  background: #343a40;
   background-size: cover;
-  -webkit-filter: blur(10px);
-  filter: blur(10px);
+  /*-webkit-filter: blur(10px);
+  filter: blur(10px); */
   z-index: 1;
   position: absolute;
   top: 0;
@@ -1936,7 +1936,7 @@ input.input-material.is-invalid ~ label {
 }
 
 .login-page .form-holder .info {
-  background: rgba(43, 144, 217, 0.9);
+  background: rgba(23, 162, 184, 0.4);
   color: #fff;
 }
 

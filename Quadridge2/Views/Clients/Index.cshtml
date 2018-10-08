@@ -48,7 +48,7 @@ else
                         method: "DELETE",
                         success: function () {
                             //console.log("Success");
-                            button.parents("tr").remove();
+                            table.row(button.parents("tr")).remove().draw();
                         }
                     }); // ajax
                 }
