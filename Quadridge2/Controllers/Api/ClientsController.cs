@@ -20,28 +20,30 @@ namespace Quadridge2.Controllers.Api
         }
 
         //GET /api/clients
-        public IEnumerable<ClientDto> GetClients()
+        public IHttpActionResult GetClients()
         {
-            return _context.Clients.ToList().Select(Mapper.Map<Client, ClientDto>);
+            var customerDtos = _context.Clients.ToList().Select(Mapper.Map<Client, ClientDto>);
+
+            return Ok(customerDtos);
         }
 
         //GET /api/clients/1
-        public ClientDto GetClient(int id)
+        public IHttpActionResult GetClient(int id)
         {
             var client = _context.Clients.SingleOrDefault(c => c.Id == id);
 
             if (client == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                NotFound();
 
-            return Mapper.Map<Client, ClientDto>(client);
+            return Ok(Mapper.Map<Client, ClientDto>(client));
         }
 
         //POST /api/clients
         [HttpPost]
-        public ClientDto CreateClient(ClientDto clientDto)
+        public IHttpActionResult CreateClient(ClientDto clientDto)
         {
             if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                BadRequest();
 
             var client = Mapper.Map<ClientDto, Client>(clientDto);
 
@@ -50,36 +52,40 @@ namespace Quadridge2.Controllers.Api
 
             clientDto.Id = client.Id;
 
-            return clientDto;
+            return Created(new Uri(Request.RequestUri + "/" + client.Id), clientDto);
         }
 
         // PUT /api/clients/1
         [HttpPut]
-        public void UpdateClient(int id, ClientDto clientDto)
+        public IHttpActionResult UpdateClient(int id, ClientDto clientDto)
         {
             if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                BadRequest();
 
             var clientInDb = _context.Clients.SingleOrDefault(c => c.Id == id);
 
             if (clientInDb == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                NotFound();
 
             Mapper.Map(clientDto, clientInDb);
 
             _context.SaveChanges();
+
+            return Ok();
         }
 
         [HttpDelete]
-        public void DeleteClient(int id)
+        public IHttpActionResult DeleteClient(int id)
         {
             var clientInDb = _context.Clients.SingleOrDefault(c => c.Id == id);
 
             if (clientInDb == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                NotFound();
 
             _context.Clients.Remove(clientInDb);
             _context.SaveChanges();
+
+            return Ok();
         }
     }
 }

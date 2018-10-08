@@ -1,66 +1,35 @@
-﻿<div class="sidebar" data-color="azure" data-background-color="white" data-image="~/Content/assets/img/sidebar-1.jpg">
-    <!--
-        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-
-        Tip 2: you can also add an image using data-image tag
-    -->
-    <div class="logo">
-        <a href="@Url.Action("Index", "Home")">
-            <img src="~/Images/Quadridge-Web-Logo-Retina.png" width="80%"/> 
-        </a>
+﻿<nav class="side-navbar">
+    <!-- Sidebar Header-->
+    <div class="sidebar-header d-flex align-items-center">
+        <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+        <div class="title">
+            <h1 class="h4">Mark Stephen</h1>
+            <p>Web Designer</p>
+        </div>
     </div>
-    <div class="sidebar-wrapper">
-        <ul class="nav">
-            <li class="nav-item active  ">
-                <a class="nav-link" href="@Url.Action("Index", "Home")">
-                    <i class="material-icons">dashboard</i>
-                    <p>Dashboard</p>
-                </a>
-                
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="@Url.Action("Index", "Clients")">
-                    <i class="material-icons">person</i>
-                    <p>Clients</p>
-                </a>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="@Url.Action("Index", "Deals")">
-                    <i class="material-icons">whatshot</i>
-                    <p>Deals</p>
-                </a>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="./typography.html">
-                    <i class="material-icons">face</i>
-                    <p>Interactions</p>
-                </a>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="./icons.html">
-                    <i class="material-icons">local_atm</i>
-                    <p>Banks</p>
-                </a>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="./map.html">
-                    <i class="material-icons">gavel</i>
-                    <p>Lawyers</p>
-                </a>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="./notifications.html">
-                    <i class="material-icons">notifications</i>
-                    <p>Notifications</p>
-                </a>
-            </li>
-            <!-- <li class="nav-item active-pro ">
-                  <a class="nav-link" href="./upgrade.html">
-                      <i class="material-icons">unarchive</i>
-                      <p>Upgrade to PRO</p>
-                  </a>
-              </li> -->
-        </ul>
-    </div>
-</div>
-
+    <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
+    <ul class="list-unstyled">
+        <li class="active"><a href="index.html"> <i class="icon-home"></i>Home </a></li>
+        <li><a href="@Url.Action("Index", "Clients")"> <i class="icon-user"></i>Clients </a></li>
+        
+        <li><a href="@Url.Action("Index", "Deals")"> <i class="fa fa-bar-chart"></i>Deals </a></li>
+        <li><a href="@Url.Action("Index", "Interactions")"> <i class="icon-paper-airplane"></i>Interactions </a></li>
+        <li><a href="forms.html"> <i class="icon-padnote"></i>Forms </a></li>
+        <li>
+            <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Maintenance </a>
+            <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
+                <li><a href="#">Lawyers</a></li>
+                <li><a href="#">Banks</a></li>
+                <li><a href="#">Companies</a></li>
+                <li><a href="#">Interaction Types</a></li>
+            </ul>
+        </li>
+        <li><a href="login.html"> <i class="icon-interface-windows"></i>Login page </a></li>
+    </ul><span class="heading">Extras</span>
+    <ul class="list-unstyled">
+        <li> <a href="#"> <i class="icon-flask"></i>Demo </a></li>
+        <li> <a href="#"> <i class="icon-screen"></i>Demo </a></li>
+        <li> <a href="#"> <i class="icon-mail"></i>Demo </a></li>
+        <li> <a href="#"> <i class="icon-picture"></i>Demo </a></li>
+    </ul>
+</nav>
