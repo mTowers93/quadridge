@@ -22,14 +22,14 @@ namespace Quadridge2.Models
     {
         public DbSet<Bank> Banks { get; set; }
         public DbSet<Client> Clients { get; set; }
-        public DbSet<Company> Companies  { get; set; }
         public DbSet<Deal> Deals { get; set; }
         public DbSet<DealType> DealTypes { get; set; }
         public DbSet<Interaction> Interactions { get; set; }
-        public DbSet<Lawyer> Lawyers { get; set; }
         public DbSet<Province> Provinces { get; set; }
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Country> Countries { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
+        public DbSet<LawFirm> LawFirms { get; set; }
 
 
         public ApplicationDbContext()

@@ -25,7 +25,7 @@ namespace Quadridge2.Models
         public int StatusId { get; set; }
         public Status Status { get; set; }
 
-        public int? LawyerId { get; set; }
-        public Lawyer Lawyer { get; set; }
+        public int? LawFirmId { get; set; }
+        public LawFirm Lawfirm { get; set; }
     }
 }

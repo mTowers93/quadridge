@@ -10,7 +10,6 @@ namespace Quadridge2.ViewModels
     {
         public IEnumerable<Country> Countries { get; set; }
         public IEnumerable<Province> Provinces { get; set; }
-        public IEnumerable<Company> Companies { get; set; }
         public Client Client { get; set; }
     }
 }

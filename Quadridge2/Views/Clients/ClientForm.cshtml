@@ -4,84 +4,109 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("Save", "Clients"))
+<div class="card">
+    <div class="card-body">
+        @using (Html.BeginForm("Save", "Clients"))
+        {
+        <div class="form-row">
+            <div class="col-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Client.Firstname, new { @class = "form-control-label" })
+                    @Html.TextBoxFor(m => m.Client.Firstname, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Client.Firstname)
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Client.Surname, new { @class = "form-control-label" })
+                    @Html.TextBoxFor(m => m.Client.Surname, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Client.Surname)
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Client.Email, new { @class = "form-control-label" })
+                    @Html.TextBoxFor(m => m.Client.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Client.Email)
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+
+            <div class="col-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Client.BusinessNo, new { @class = "form-control-label" })
+                    @Html.TextBoxFor(m => m.Client.BusinessNo, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Client.CellNo, new { @class = "form-control-label" })
+                    @Html.TextBoxFor(m => m.Client.CellNo, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Client.FirstAddressLine, new { @class = "form-control-label" })
+                    @Html.TextBoxFor(m => m.Client.FirstAddressLine, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Client.SecondAddressLine, new { @class = "form-control-label" })
+                    @Html.TextBoxFor(m => m.Client.SecondAddressLine, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Client.Suburb, new { @class = "form-control-label" })
+                @Html.TextBoxFor(m => m.Client.Suburb, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Client.City, new { @class = "form-control-label" })
+                @Html.TextBoxFor(m => m.Client.City, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Client.Zip, new { @class = "form-control-label" })
+                @Html.TextBoxFor(m => m.Client.Zip, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Client.ProvinceId, new { @class = "form-control-label" })
+                @Html.DropDownListFor(m => m.Client.ProvinceId, new SelectList(Model.Provinces, "Id", "Name"), "", new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Client.CountryId, new { @class = "form-control-label" })
+                @Html.DropDownListFor(m => m.Client.CountryId, new SelectList(Model.Countries, "Id", "Name"), "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Client.CountryId)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Client.CompanyId, new { @class = "form-control-label" })
+                @Html.DropDownListFor(m => m.Client.CompanyId, new SelectList(Model.Companies, "Id", "Name"), "", new { @class = "form-control" })
+            </div>
+
+            @Html.AntiForgeryToken()
+            <button class="btn btn-primary">Save</button>
+
+        }
+        </div>
+</div>
+
+
+    @section scripts
 {
-    <div class="form-group">
-        @Html.LabelFor(m => m.Client.Firstname)
-        @Html.TextBoxFor(m => m.Client.Firstname, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Client.Firstname)
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Client.Surname)
-        @Html.TextBoxFor(m => m.Client.Surname, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Client.Surname)
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Client.Email)
-        @Html.TextBoxFor(m => m.Client.Email, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Client.Email)
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Client.BusinessNo)
-        @Html.TextBoxFor(m => m.Client.BusinessNo, new { @class = "form-control" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Client.CellNo)
-        @Html.TextBoxFor(m => m.Client.CellNo, new { @class = "form-control" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Client.FirstAddressLine)
-        @Html.TextBoxFor(m => m.Client.FirstAddressLine, new { @class = "form-control" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Client.SecondAddressLine)
-        @Html.TextBoxFor(m => m.Client.SecondAddressLine, new { @class = "form-control" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Client.Suburb)
-        @Html.TextBoxFor(m => m.Client.Suburb, new { @class = "form-control" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Client.City)
-        @Html.TextBoxFor(m => m.Client.City, new { @class = "form-control" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Client.Zip)
-        @Html.TextBoxFor(m => m.Client.Zip, new { @class = "form-control" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Client.ProvinceId)
-        @Html.DropDownListFor(m => m.Client.ProvinceId, new SelectList(Model.Provinces, "Id", "Name"), "", new { @class = "form-control" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Client.CountryId )
-        @Html.DropDownListFor(m => m.Client.CountryId, new SelectList(Model.Countries, "Id", "Name"), "", new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Client.CountryId)
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Client.CompanyId)
-        @Html.DropDownListFor(m => m.Client.CompanyId, new SelectList(Model.Companies, "Id", "Name"), "", new { @class = "form-control" })
-    </div>
-
-    @Html.AntiForgeryToken()
-    <button class="btn btn-primary">Save</button>
-
-}
-
-@section scripts
-{
-    @Scripts.Render("~/bundles/jqueryval")    
-}
+        @Scripts.Render("~/bundles/jqueryval")
+    }
 

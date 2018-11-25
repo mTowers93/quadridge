@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Quadridge2.Models;
@@ -136,7 +137,7 @@ namespace Quadridge2.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        [Authorize(Roles=(AdminRole.Admin))]
         public ActionResult Register()
         {
             return View();
@@ -145,7 +146,7 @@ namespace Quadridge2.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles = (AdminRole.Admin))]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
@@ -155,6 +156,12 @@ namespace Quadridge2.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    //temp code
+                    // var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    // var roleManager = new RoleManager<IdentityRole>(roleStore);
+                    // await roleManager.CreateAsync(new IdentityRole("Employee"));
+                     // await UserManager.AddToRoleAsync(user.Id, "Employee");
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771

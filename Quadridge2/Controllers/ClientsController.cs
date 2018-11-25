@@ -26,7 +26,6 @@ namespace Quadridge2.Controllers
         {
             var viewModel = new ClientFormViewModel
             {
-                Companies = _context.Companies.ToList(),
                 Provinces = _context.Provinces.ToList(),
                 Countries = _context.Countries.ToList()
             };
@@ -43,8 +42,7 @@ namespace Quadridge2.Controllers
                 {
                     Client = client,
                     Provinces = _context.Provinces.ToList(),
-                    Countries = _context.Countries.ToList(),
-                    Companies = _context.Companies.ToList()
+                    Countries = _context.Countries.ToList()
                 };
 
                 return View("ClientForm", viewModel);
@@ -55,11 +53,7 @@ namespace Quadridge2.Controllers
             {
                 var clientInDb = _context.Clients.Single(c => c.Id == client.Id);
 
-                clientInDb.Firstname = client.Firstname;
-                clientInDb.Surname = client.Surname;
-                clientInDb.Email = client.Email;
-                clientInDb.CellNo = client.CellNo;
-                clientInDb.BusinessNo = client.BusinessNo;
+                clientInDb.Name = client.Name;
                 clientInDb.FirstAddressLine = client.FirstAddressLine;
                 clientInDb.SecondAddressLine = client.SecondAddressLine;
                 clientInDb.Suburb = client.Suburb;
@@ -84,7 +78,6 @@ namespace Quadridge2.Controllers
             var viewModel = new ClientFormViewModel
             {
                 Client = client,
-                Companies = _context.Companies.ToList(),
                 Provinces = _context.Provinces.ToList(),
                 Countries = _context.Countries.ToList()
             };

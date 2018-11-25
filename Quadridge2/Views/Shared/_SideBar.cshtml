@@ -1,28 +1,37 @@
-﻿<nav class="side-navbar">
+﻿@using Quadridge2.Helpers
+@using Microsoft.AspNet.Identity
+
+<nav class="side-navbar">
     <!-- Sidebar Header-->
-    <div class="sidebar-header d-flex align-items-center">
-        <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
-        <div class="title">
-            <h1 class="h4">Mark Stephen</h1>
-            <p>Web Designer</p>
+    @if (Request.IsAuthenticated)
+    {
+        <div class="sidebar-header d-flex align-items-center">
+
+            <div class="avatar"><img src="~/Content/dashboard/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+            <div class="title">
+                @Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </div>
         </div>
-    </div>
+    }
     <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
     <ul class="list-unstyled">
-        @if(ViewBag.Title == "Home")
-        {
-            <li class="active"><a href="@Url.Action("Index","Home")"> <i class="icon-home"></i>Home </a></li>
-        }
-        else
-        {
-            <li><a href="@Url.Action("Index","Home")"> <i class="icon-home"></i>Home </a></li>
-        }
-        <li><a href="@Url.Action("Index", "Clients")"> <i class="icon-user"></i>Clients </a></li>
-        
-        <li><a href="@Url.Action("Index", "Deals")"> <i class="fa fa-bar-chart"></i>Deals </a></li>
-        <li><a href="@Url.Action("Index", "Interactions")"> <i class="icon-paper-airplane"></i>Interactions </a></li>
-        <li><a href="forms.html"> <i class="icon-padnote"></i>Forms </a></li>
-        <li>
+        <li class="@Html.IsSelected(actions: "Index", controllers: "Home")">
+            <a href="@Url.Action("Index","Home")"> <i class="icon-home"></i>Home </a>
+        </li>
+        <li class="@Html.IsSelected(actions: "Clients", controllers: "Default")">
+            <a href="@Url.Action("Index", "Clients")"> <i class="icon-user"></i>Clients </a>
+        </li>
+
+        <li class="@Html.IsSelected(actions: "Deals", controllers: "Default")">
+            <a href="@Url.Action("Index", "Deals")"> <i class="fa fa-bar-chart"></i>Deals </a>
+        </li>
+        <li class="@Html.IsSelected(actions: "Interactions", controllers: "Default")">
+            <a href="@Url.Action("Index", "Interactions")"> <i class="icon-paper-airplane"></i>Interactions </a>
+        </li>
+        <li class="@Html.IsSelected(actions: "Home", controllers: "Default")">
+            <a href="forms.html"> <i class="icon-padnote"></i>Forms </a>
+        </li>
+        <li class="active">
             <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Maintenance </a>
             <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
                 <li><a href="#">Lawyers</a></li>

@@ -10,7 +10,7 @@ namespace Quadridge2.ViewModels
     {
         public IEnumerable<DealType> Types { get; set; }
         public IEnumerable<Bank> Banks { get; set; }
-        public IEnumerable<Lawyer> Lawyeres { get; set; }
+        public IEnumerable<LawFirm> LawFirms { get; set; }
 
         public Deal Deal { get; set; }
     }

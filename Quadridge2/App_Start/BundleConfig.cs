@@ -20,7 +20,8 @@ namespace Quadridge2
 
             bundles.Add(new ScriptBundle("~/bundles/dashboard").Include(
                 "~/Content/dashboard/vendor/chart.js/Chart.min.js",
-                "~/Content/dashboard/vendor/jquery-validation/jquery.validate.min.js",
+                //"~/Content/dashboard/vendor/jquery-validation/jquery.validate.min.js",
+                "~/Content/dashboard/vendor/jquery.cookie/jquery.cookie.js",
                 "~/Content/dashboard/js/front.js"
                 ));
 

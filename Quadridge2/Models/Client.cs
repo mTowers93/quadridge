@@ -13,28 +13,15 @@ namespace Quadridge2.Models
 
         [Required]
         [StringLength(100)]
-        public string Firstname { get; set; }
-
-        [Required]
-        [StringLength(100)]
-        public string Surname { get; set; }
+        public string Name { get; set; }
 
         [Display(Name ="Company")]
         public int? CompanyId { get; set; }
 
-        [Required]
-        [EmailAddress]
-        [StringLength(255)]
-        public string Email { get; set; }
+        public Bank Bank { get; set; }
+        public int? BankReferralId { get; set; }
 
-        [Required]
-        [Phone]
-        [StringLength(10)]
-        public string CellNo { get; set; }
-
-        [Phone]
-        [StringLength(10)]
-        public string BusinessNo { get; set; }
+        public int? LawFirmReferralId { get; set; }
 
         [Required]
         [StringLength(255)]
@@ -66,5 +53,7 @@ namespace Quadridge2.Models
 
         [Display(Name = "Country")]
         public int CountryId { get; set; }
+
+        public IEnumerable<Comment> Comments { get; set; }
     }
 }
