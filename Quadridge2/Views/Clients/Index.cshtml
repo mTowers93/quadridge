@@ -23,7 +23,7 @@ else
             @foreach (var client in Model)
             {
                 <tr>
-                    <td>@Html.ActionLink(client.Firstname + " " + client.Surname, "Details", "Clients", new { id = client.Id }, null)</td>
+                    <td>@Html.ActionLink(client.Name, "Details", "Clients", new { id = client.Id }, null)</td>
                     <td>
                         <button class="btn btn-primary">Edit</button>
                         <button data-customer-id="@client.Id" class="btn btn-primary js-delete">Delete</button>

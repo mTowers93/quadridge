@@ -6,3 +6,61 @@
 
 <h2>DealForm</h2>
 
+<div class="card">
+    <div class="card-body">
+        @using (Html.BeginForm("Save", "Contacts"))
+        {
+            <div class="form-group">
+                @Html.LabelFor(c => c.Deal.ClientId, new { @class = "form-control-label" })
+                @Html.DropDownListFor(c => c.Deal.ClientId, new SelectList(Model.Clients, "Id", "Name"), "", new { @class = "form-control" })
+            </div>
+
+            <div class="form-row">
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.Deal.StructureName, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Deal.StructureName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(c => c.Deal.StructureName)
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    @Html.LabelFor(c => c.Deal.ServiceId, new { @class = "form-control-label" })
+                    @Html.DropDownListFor(c => c.Deal.ServiceId, new SelectList(Model.Services, "Id", "ServiceName"), "", new { @class = "form-control" })
+                </div>
+
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.Deal.FirstBillingDate, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Deal.FirstBillingDate, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(c => c.Deal.FirstBillingDate)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(c => c.Deal.BillingBasis, new { @class = "form-control-label" })
+                @Html.TextBoxFor(c => c.Deal.BillingBasis, new { @class = "form-control" })
+                @Html.ValidationMessageFor(c => c.Deal.BillingBasis)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(c => c.Deal.LawFirmId, new { @class = "form-control-label" })
+                @Html.DropDownListFor(c => c.Deal.LawFirmId, new SelectList(Model.LawFirms, "Id", "Name"), "", new { @class = "form-control" })
+            </div>
+
+            @Html.AntiForgeryToken()
+            <button class="btn btn-primary">Save</button>
+
+        }
+    </div>
+</div>
+
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

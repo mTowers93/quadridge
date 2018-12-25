@@ -19,6 +19,11 @@ namespace Quadridge2.Controllers.Api
             _context = new ApplicationDbContext();
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
         //GET /api/clients
         public IHttpActionResult GetClients()
         {

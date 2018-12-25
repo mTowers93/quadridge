@@ -55,5 +55,7 @@ namespace Quadridge2.Models
         public int CountryId { get; set; }
 
         public IEnumerable<Comment> Comments { get; set; }
+
+        public List<Contact> Contacts { get; set; }
     }
 }

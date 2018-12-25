@@ -50,7 +50,7 @@ namespace Quadridge2.Controllers
             {
                 var dealInDb = _context.Deals.Single(c => c.Id == deal.Id);
 
-                dealInDb.Name = deal.Name;
+                dealInDb.StructureName = deal.StructureName;
             }
             _context.Deals.Add(deal);
             _context.SaveChanges();

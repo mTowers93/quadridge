@@ -1,0 +1,60 @@
+﻿@if (Model.Client.CompanyId != null)
+{
+    <p>Company: Model.Client.CompanyId</p>
+}
+
+@if (Model.Client.LawFirmReferralId != null)
+{
+    <p>Referring Law Firm: Model.Client.CompanyId</p>
+}
+
+<p>First Address Line: @Model.Client.FirstAddressLine</p>
+
+@if (Model.Client.SecondAddressLine != null)
+{
+    <p>Second Address Line: @Model.Client.SecondAddressLine</p>
+}
+
+<p>Suburb: @Model.Client.Suburb</p>
+<p>City: @Model.Client.City</p>
+<p>Zip: @Model.Client.Zip</p>
+
+@if (Model.Client.ProvinceId != null)
+{
+    <p>Province: @Model.Client.Province</p>
+}
+
+<p>Country: @Model.Client.Country</p>
+<button class="btn btn-primary">Add Comment</button>
+<br />
+@if (Model.Comments.Count == 0)
+{
+    <p>No Comments yet</p>
+
+}
+else
+{
+    <div class="row">
+        <div class="col-md-12">
+            <table style="width:100%" class="table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Comment</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (var comment in Model.Comments)
+                {
+                    <tbody>
+                        <tr>
+                            <td>@comment.Date.ToShortDateString()</td>
+                            <td>@comment.CommentString</td>
+                            <td>Delete Edit</td>
+                        </tr>
+                    </tbody>
+                }
+            </table>
+        </div>
+    </div>
+}

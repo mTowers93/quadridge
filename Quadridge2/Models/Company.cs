@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Quadridge2.Models
 {
-    public class Bank
+    public class Company
     {
         public int Id { get; set; }
 

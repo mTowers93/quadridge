@@ -56,5 +56,7 @@ namespace Quadridge2.Dtos
         public int? ProvinceId { get; set; }
 
         public int CountryId { get; set; }
+
+        public List<Contact> Contacts { get; set; }
     }
 }

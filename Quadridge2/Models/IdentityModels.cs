@@ -17,29 +17,4 @@ namespace Quadridge2.Models
             return userIdentity;
         }
     }
-
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
-        public DbSet<Bank> Banks { get; set; }
-        public DbSet<Client> Clients { get; set; }
-        public DbSet<Deal> Deals { get; set; }
-        public DbSet<DealType> DealTypes { get; set; }
-        public DbSet<Interaction> Interactions { get; set; }
-        public DbSet<Province> Provinces { get; set; }
-        public DbSet<Status> Statuses { get; set; }
-        public DbSet<Country> Countries { get; set; }
-        public DbSet<Contact> Contacts { get; set; }
-        public DbSet<LawFirm> LawFirms { get; set; }
-
-
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-        {
-        }
-
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
-        }
-    }
 }

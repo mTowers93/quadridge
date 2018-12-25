@@ -13,5 +13,9 @@ namespace Quadridge2.ViewModels
         public IEnumerable<LawFirm> LawFirms { get; set; }
 
         public Deal Deal { get; set; }
+
+        public IEnumerable<Client> Clients { get; set; }
+
+        public IEnumerable<Service> Services { get; set; }
     }
 }

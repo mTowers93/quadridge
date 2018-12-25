@@ -97,10 +97,16 @@ namespace Quadridge2.Controllers
         {
             var client = _context.Clients.SingleOrDefault(c => c.Id == id);
 
+            var viewmodel = new ClientDetailsViewModel
+            {
+                Client = client,
+                Comments = _context.Comments.Where(c => c.ClientId == client.Id).ToList()
+            };
+
             if (client == null)
                 return HttpNotFound();
 
-            return View(client);
+            return View(viewmodel);
         }
     }
 }

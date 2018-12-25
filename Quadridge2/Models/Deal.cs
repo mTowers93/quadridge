@@ -13,7 +13,8 @@ namespace Quadridge2.Models
 
         [Required]
         [StringLength(255)]
-        public string Name { get; set; }
+        [Display(Name = "Structure Name")]
+        public string StructureName { get; set; }
 
         public int? RevenueId { get; set; }
 
@@ -25,7 +26,18 @@ namespace Quadridge2.Models
         public int StatusId { get; set; }
         public Status Status { get; set; }
 
+        [Display(Name ="Referring law firm")]
         public int? LawFirmId { get; set; }
         public LawFirm Lawfirm { get; set; }
+
+        public DateTime FirstBillingDate { get; set; }
+
+        public string BillingBasis { get; set; }
+
+        public int ServiceId { get; set; }
+        public Service Service { get; set; }
+
+        public int ClientId { get; set; }
+        public Client Client { get; set; }
     }
 }

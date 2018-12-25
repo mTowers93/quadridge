@@ -6,17 +6,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Quadridge2.Models
 {
-    public class Comment
+    public class ContactComment
     {
+        [Required]
         public int Id { get; set; }
 
-        public int ClientId { get; set; }
+        public int ContactId { get; set; }
 
-        public Client Client { get; set; }
+        public Contact Contact { get; set; }
 
         [Required]
-        [MaxLength(512)]
-        public string CommentString { get; set; }
+        public string Comment { get; set; }
 
         public DateTime Date { get; set; }
     }

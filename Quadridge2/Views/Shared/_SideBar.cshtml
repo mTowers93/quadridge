@@ -22,6 +22,10 @@
             <a href="@Url.Action("Index", "Clients")"> <i class="icon-user"></i>Clients </a>
         </li>
 
+        <li class="@Html.IsSelected(actions: "Contacts", controllers: "Default")">
+            <a href="@Url.Action("Index", "Contacts")"> <i class="icon-user"></i>Contacts </a>
+        </li>
+
         <li class="@Html.IsSelected(actions: "Deals", controllers: "Default")">
             <a href="@Url.Action("Index", "Deals")"> <i class="fa fa-bar-chart"></i>Deals </a>
         </li>
@@ -29,7 +33,10 @@
             <a href="@Url.Action("Index", "Interactions")"> <i class="icon-paper-airplane"></i>Interactions </a>
         </li>
         <li class="@Html.IsSelected(actions: "Home", controllers: "Default")">
-            <a href="forms.html"> <i class="icon-padnote"></i>Forms </a>
+            <a href="@Url.Action("Index", "Banks")"> <i class="icon-bill"></i>Banks </a>
+        </li>
+        <li class="@Html.IsSelected(actions: "Home", controllers: "Default")">
+            <a href="@Url.Action("Index", "LawFirms")"> <i class="icon-pencil-case"></i>Law Firms </a>
         </li>
         <li class="active">
             <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Maintenance </a>

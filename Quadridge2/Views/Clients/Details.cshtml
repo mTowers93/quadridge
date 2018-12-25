@@ -1,8 +1,26 @@
-﻿@model Quadridge2.Models.Client
+﻿@model Quadridge2.ViewModels.ClientDetailsViewModel
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.Firstname @Model.Surname</h2>
+<h2>@Model.Client.Name</h2>
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#details" aria-controls="home" role="tab" data-toggle="tab">Details</a></li>
+    <li role="presentation"><a href="#contacts" aria-controls="profile" role="tab" data-toggle="tab">Contacts</a></li>
+    <li role="presentation"><a href="#deals" aria-controls="messages" role="tab" data-toggle="tab">Deals</a></li>
+</ul>
+
+
+
+<!-- Tab panes -->
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="details">@Html.Partial("_details")</div>
+    <div role="tabpanel" class="tab-pane" id="contacts">@Html.Partial("_contacts", @Model)</div>
+    <div role="tabpanel" class="tab-pane" id="deals">@Html.Partial("_deals")</div>
+</div>
+
+
 

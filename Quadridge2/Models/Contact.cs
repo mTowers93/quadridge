@@ -11,6 +11,9 @@ namespace Quadridge2.Models
         [Required]
         public int Id { get; set; }
 
+        public Client Client { get; set; }
+        public int ClientId { get; set; }
+
         [Required]
         [MaxLength(100)]
         public string Firstname { get; set; }
@@ -19,10 +22,13 @@ namespace Quadridge2.Models
         [MaxLength(100)]
         public string Surname { get; set; }
 
-        public int? lawfirm { get; set; }
+        public LawFirm LawFirm { get; set; }
+        public int? LawfirmId { get; set; }
 
+        public Company Company { get; set; }
         public int? CompanyId { get; set; }
 
+        public Bank Bank { get; set; }
         public int? BankId { get; set; }
 
         [Required]

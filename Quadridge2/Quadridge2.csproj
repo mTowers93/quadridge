@@ -210,12 +210,23 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\ClientsController.cs" />
+    <Compile Include="Controllers\Api\ContactCommentsController.cs" />
     <Compile Include="Controllers\Api\DealsController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
+    <Compile Include="Migrations\201812251231130_AddedServicesAndUpdatedDeals.cs" />
+    <Compile Include="Migrations\201812251231130_AddedServicesAndUpdatedDeals.Designer.cs">
+      <DependentUpon>201812251231130_AddedServicesAndUpdatedDeals.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Service.cs" />
+    <Compile Include="ViewModels\ClientContactsViewModel.cs" />
+    <Compile Include="ViewModels\ContactFormViewModel.cs" />
+    <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\DealsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LawFirmsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Dtos\ClientDto.cs" />
+    <Compile Include="Dtos\ContactCommentDto.cs" />
     <Compile Include="Dtos\DealDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -305,13 +316,36 @@
     <Compile Include="Migrations\201811251349463_RemoveCompany.Designer.cs">
       <DependentUpon>201811251349463_RemoveCompany.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811251834051_ChangedBank.cs" />
+    <Compile Include="Migrations\201811251834051_ChangedBank.Designer.cs">
+      <DependentUpon>201811251834051_ChangedBank.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812240751434_AddedComments.cs" />
+    <Compile Include="Migrations\201812240751434_AddedComments.Designer.cs">
+      <DependentUpon>201812240751434_AddedComments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812240911189_AddedContactComment.cs" />
+    <Compile Include="Migrations\201812240911189_AddedContactComment.Designer.cs">
+      <DependentUpon>201812240911189_AddedContactComment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812241617281_AddedDateToBothCommentModels.cs" />
+    <Compile Include="Migrations\201812241617281_AddedDateToBothCommentModels.Designer.cs">
+      <DependentUpon>201812241617281_AddedDateToBothCommentModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812250637427_AddedCompany.cs" />
+    <Compile Include="Migrations\201812250637427_AddedCompany.Designer.cs">
+      <DependentUpon>201812250637427_AddedCompany.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminRole.cs" />
+    <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Bank.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\Company.cs" />
     <Compile Include="Models\Contact.cs" />
+    <Compile Include="Models\ContactComment.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Deal.cs" />
     <Compile Include="Models\DealType.cs" />
@@ -325,6 +359,7 @@
     <Compile Include="Models\SuperUserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ClientDetailsViewModel.cs" />
     <Compile Include="ViewModels\ClientFormViewModel.cs" />
     <Compile Include="ViewModels\DealFormViewModel.cs" />
   </ItemGroup>
@@ -848,6 +883,17 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\LawFirms\Index.cshtml" />
+    <Content Include="Views\LawFirms\Create.cshtml" />
+    <Content Include="Views\LawFirms\Delete.cshtml" />
+    <Content Include="Views\LawFirms\Details.cshtml" />
+    <Content Include="Views\LawFirms\Edit.cshtml" />
+    <Content Include="Views\Contacts\Index.cshtml" />
+    <Content Include="Views\Contacts\Details.cshtml" />
+    <Content Include="Views\Clients\_details.cshtml" />
+    <Content Include="Views\Clients\_contacts.cshtml" />
+    <Content Include="Views\Clients\_deals.cshtml" />
+    <Content Include="Views\Contacts\ContactForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -855,7 +901,7 @@
     <Folder Include="Content\dashboard\vendor\font-awesome\scss\" />
     <Folder Include="Views\Companies\" />
     <Folder Include="Views\Interactions\" />
-    <Folder Include="Views\Lawyers\" />
+    <Folder Include="Views\Services\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -925,6 +971,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811251349463_RemoveCompany.resx">
       <DependentUpon>201811251349463_RemoveCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811251834051_ChangedBank.resx">
+      <DependentUpon>201811251834051_ChangedBank.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812240751434_AddedComments.resx">
+      <DependentUpon>201812240751434_AddedComments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812240911189_AddedContactComment.resx">
+      <DependentUpon>201812240911189_AddedContactComment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812241617281_AddedDateToBothCommentModels.resx">
+      <DependentUpon>201812241617281_AddedDateToBothCommentModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812250637427_AddedCompany.resx">
+      <DependentUpon>201812250637427_AddedCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812251231130_AddedServicesAndUpdatedDeals.resx">
+      <DependentUpon>201812251231130_AddedServicesAndUpdatedDeals.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
