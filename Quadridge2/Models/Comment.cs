@@ -8,6 +8,10 @@ namespace Quadridge2.Models
 {
     public class Comment
     {
+        public Comment()
+        {
+            Date = DateTime.Now;
+        }
         public int Id { get; set; }
 
         public int ClientId { get; set; }

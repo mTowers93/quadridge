@@ -35,3 +35,11 @@ textarea {
 .login-page .form-holder .info {
     background: rgba(0, 148, 255, 0.2);
 }
+
+.tab-padding {
+    padding: 15px;
+}
+
+.tab-content-margin {
+    margin-bottom: 15px;
+}

@@ -27,7 +27,10 @@ namespace Quadridge2.Controllers
         {
             var viewModel = new DealFormViewModel
             {
-                Types = _context.DealTypes.ToList()
+                Types = _context.DealTypes.ToList(),
+                Clients = _context.Clients.ToList(),
+                Services = _context.Services.ToList(),
+                LawFirms = _context.LawFirms.ToList()
             };
             return View("DealForm", viewModel);
         }
@@ -52,7 +55,7 @@ namespace Quadridge2.Controllers
 
                 dealInDb.StructureName = deal.StructureName;
             }
-            _context.Deals.Add(deal);
+
             _context.SaveChanges();
             return RedirectToAction("Index", "Deals");
 

@@ -1,60 +1,146 @@
-﻿@if (Model.Client.CompanyId != null)
-{
-    <p>Company: Model.Client.CompanyId</p>
-}
+﻿@model Quadridge2.ViewModels.ClientDetailsViewModel
 
-@if (Model.Client.LawFirmReferralId != null)
-{
-    <p>Referring Law Firm: Model.Client.CompanyId</p>
-}
+<div class="tab-padding">
+    @using (Html.BeginForm("save", "clients"))
+    {
+        if (Model.Client.CompanyId != null)
+        {
+            <div class="form-row">
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Client.CompanyId, new { @class = "form-control-label" })
+                        @Html.DropDownListFor(m => m.Client.CompanyId, new SelectList(Model.Companies, "CompanyId", "Name"), new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
 
-<p>First Address Line: @Model.Client.FirstAddressLine</p>
+            </div>
+        }
+        <div class="form-row">
+            <div class="col-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Client.FirstAddressLine, new { @class = "form-control-label" })
+                    @Html.TextBoxFor(m => m.Client.FirstAddressLine, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
 
-@if (Model.Client.SecondAddressLine != null)
-{
-    <p>Second Address Line: @Model.Client.SecondAddressLine</p>
-}
+            <div class="col-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Client.SecondAddressLine, new { @class = "form-control-label" })
+                    @Html.TextBoxFor(m => m.Client.SecondAddressLine, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
 
-<p>Suburb: @Model.Client.Suburb</p>
-<p>City: @Model.Client.City</p>
-<p>Zip: @Model.Client.Zip</p>
+        </div>
 
-@if (Model.Client.ProvinceId != null)
-{
-    <p>Province: @Model.Client.Province</p>
-}
+        <div class="form-row">
+            <div class="col-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Client.Suburb, new { @class = "form-control-label" })
+                    @Html.TextBoxFor(m => m.Client.Suburb, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
 
-<p>Country: @Model.Client.Country</p>
-<button class="btn btn-primary">Add Comment</button>
-<br />
-@if (Model.Comments.Count == 0)
-{
-    <p>No Comments yet</p>
+        </div>
 
-}
-else
-{
-    <div class="row">
-        <div class="col-md-12">
-            <table style="width:100%" class="table">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Comment</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                @foreach (var comment in Model.Comments)
-                {
-                    <tbody>
+        <div class="form-row">
+            <div class="col-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Client.City, new { @class = "form-control-label" })
+                    @Html.TextBoxFor(m => m.Client.City, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Client.Zip, new { @class = "form-control-label" })
+                    @Html.TextBoxFor(m => m.Client.Zip, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
+
+        </div>
+
+        if (Model.Client.ProvinceId != null)
+        {
+            <div class="form-row">
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Client.ProvinceId, new { @class = "form-control-label" })
+                        @Html.DropDownListFor(m => m.Client.ProvinceId, new SelectList(Model.Provinces, "Id", "Name"), new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+
+            </div>
+        }
+
+        <div class="form-row">
+            <div class="col-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Client.CountryId, new { @class = "form-control-label" })
+                    @Html.DropDownListFor(m => m.Client.CountryId, new SelectList(Model.Countries, "Id", "Name"), new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
+
+        </div>
+
+    }
+
+
+    @if (Model.Client.LawFirmReferralId != null)
+    {
+        <p>Referring Law Firm: Model.Client.CompanyId</p>
+    }
+
+    <button class="btn btn-primary" data-target="addComment" data-toggle="modal" id="btnShowModal">New Comment</button>
+    <br />
+    @if (Model.Comments.Count() == 0)
+    {
+        <p>No Comments yet</p>
+
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <table style="width:100%" class="table">
+                    <thead>
                         <tr>
-                            <td>@comment.Date.ToShortDateString()</td>
-                            <td>@comment.CommentString</td>
-                            <td>Delete Edit</td>
+                            <th>Date</th>
+                            <th>Comment</th>
+                            <th></th>
                         </tr>
-                    </tbody>
-                }
-            </table>
+                    </thead>
+                    @foreach (var comment in Model.Comments)
+                    {
+                        <tbody>
+                            <tr>
+                                <td>@comment.Date.ToShortDateString()</td>
+                                <td>@comment.CommentString</td>
+                                <td>Delete Edit</td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </div>
+    }
+</div> 
+
+<div class="modal fade" id="addComment" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add New Comment</h4>
+            </div>
+            <div class="modal-body">
+                <form id="commentForm">
+                    <label for="comment">Comment</label>
+                    <textarea class="form-control" rows="5" id="comment"></textarea>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="saveComment" class="btn btn-primary">Submit</button>
+                <button type="button" id="btnHideModal" class="btn btn-primary">Hide</button>
+            </div>
         </div>
     </div>
-}
+</div> 

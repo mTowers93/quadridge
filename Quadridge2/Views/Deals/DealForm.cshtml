@@ -8,11 +8,16 @@
 
 <div class="card">
     <div class="card-body">
-        @using (Html.BeginForm("Save", "Contacts"))
+        @using (Html.BeginForm("Save", "Deals"))
         {
             <div class="form-group">
                 @Html.LabelFor(c => c.Deal.ClientId, new { @class = "form-control-label" })
                 @Html.DropDownListFor(c => c.Deal.ClientId, new SelectList(Model.Clients, "Id", "Name"), "", new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(c => c.Deal.ServiceId, new { @class = "form-control-label" })
+                @Html.DropDownListFor(c => c.Deal.ServiceId, new SelectList(Model.Services, "Id", "Name"), "", new { @class = "form-control" })
             </div>
 
             <div class="form-row">
@@ -29,7 +34,7 @@
             <div class="form-row">
                 <div class="form-group">
                     @Html.LabelFor(c => c.Deal.ServiceId, new { @class = "form-control-label" })
-                    @Html.DropDownListFor(c => c.Deal.ServiceId, new SelectList(Model.Services, "Id", "ServiceName"), "", new { @class = "form-control" })
+                    @Html.DropDownListFor(c => c.Deal.ServiceId, new SelectList(Model.Services, "Id", "Name"), "", new { @class = "form-control" })
                 </div>
 
                 <div class="col-3">

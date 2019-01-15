@@ -10,8 +10,23 @@ namespace Quadridge2.Models
     {
         public int Id { get; set; }
 
+        public InteractionType InteractionType { get; set; }
+
         [Required]
-        [StringLength(255)]
-        public string Type { get; set; }
+        [Display(Name="Interaction Type")]
+        public int InteractionTypeId { get; set; }
+
+        [Required]
+        [Display(Name ="Date")]
+        public DateTime InteractionDate { get; set; }
+
+        [Required]
+        [Display(Name ="Client")]
+        public int ClientId { get; set; }
+
+        public Client Client { get; set; }
+
+        public string Comment { get; set; }
+
     }
 }

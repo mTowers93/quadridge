@@ -1,26 +1,63 @@
 ﻿@model Quadridge2.ViewModels.ClientDetailsViewModel
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Details for " + Model.Client.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.Client.Name</h2>
-
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#details" aria-controls="home" role="tab" data-toggle="tab">Details</a></li>
-    <li role="presentation"><a href="#contacts" aria-controls="profile" role="tab" data-toggle="tab">Contacts</a></li>
-    <li role="presentation"><a href="#deals" aria-controls="messages" role="tab" data-toggle="tab">Deals</a></li>
+    <li class="active nav-item"><a class="nav-link active" href="#details" data-toggle="tab">Details</a></li>
+    <li class="nav-item"><a class="nav-link" href="#contacts" data-toggle="tab">Contacts</a></li>
+    <li class="nav-item"><a class="nav-link" href="#deals" data-toggle="tab">Deals</a></li>
 </ul>
 
 
 
 <!-- Tab panes -->
-<div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="details">@Html.Partial("_details")</div>
-    <div role="tabpanel" class="tab-pane" id="contacts">@Html.Partial("_contacts", @Model)</div>
-    <div role="tabpanel" class="tab-pane" id="deals">@Html.Partial("_deals")</div>
+<div class="tab-content bg-white tab-content-margin">
+    <div role="tabpanel" class="tab-pane fade show active" id="details">@Html.Partial("_details")</div>
+    <div role="tabpanel" class="tab-pane fade" id="contacts">@Html.Partial("_contacts")</div>
+    <div role="tabpanel" class="tab-paneade" id="deals">@Html.Partial("_deals")</div>
 </div>
 
+@section scripts
+{
+    <script>
+        $("#btnShowModal").click(function () {
+            button = $(this);
+            $("#addComment").modal('show');
+        });
+
+        $("#btnHideModal").on("click", function () {
+            $("#addComment").modal('hide');
+        });
+
+        $("#saveComment").click(function (e) {
+            e.preventDefault();
+            var comment = {};
+            comment.commentString = $("#comment").val();
+            comment.clientId = @Model.Client.Id;
+            $.ajax(
+                {
+                    method: "post",
+                    url: "/Clients/SaveComment",
+                    data: JSON.stringify(comment),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    complete: function () {
+                        toastr.success("Service successfully added");
+                        $("#addService").modal('hide');
+                        var inside = "<td>" + comment.comment + "/<td>" + "<td>" + comment.date + "</td>"
+                        $(button.parent("table")).append("<tr>" + inside + "</tr>");
+                        location.reload();
+                    },
+                    fail: function () {
+                        toastr.error("Failed to add service.");
+                    }
+                }
+            )
+        });
+    </script>
+}
 
 

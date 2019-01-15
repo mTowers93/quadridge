@@ -1,0 +1,118 @@
+﻿@using Quadridge2.Helpers
+
+@model IEnumerable<Quadridge2.Models.BillingBasis>
+@{
+    ViewBag.Title = "Billing Basis";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <button class="btn btn-primary" data-target="addBillingBasis" data-toggle="modal" id="btnShowModal">New Billing Basis</button>
+</div>
+@Html.AddNewModal("BillingBasis", "Billing Basis", "Billing Basis")
+
+@Html.DeleteModal()
+
+@Html.EditModal("Edit Billing Basis", "Billing Basis", "BillingBasis")
+
+<div class="row">
+    @if (Model == null)
+    {
+        <p>There are no sevices, please add one.</p>
+    }
+    else
+    {
+        <table id="billingBasis" class="table table-bordered table-hover">
+            @foreach (var billingbasis in Model)
+            {
+                <tr>
+                    <td>@billingbasis.Basis</td>
+                    <td><button class="btn btn-info edit" onclick="editGroupName('@billingbasis.Id', '@billingbasis.Basis'); return false;">Edit</button>  <button class="btn btn-danger delete" data-billingBasis-id=@billingbasis.Id data-target="#confirmDelete"><i class="fa fa-trash-o fa-lg"></i></button></td>
+                </tr>
+            }
+        </table>
+    }
+</div>
+
+@section Scripts
+{
+    <script>
+
+        function editGroupName(id, name) {
+            $('input#editId').val(id);
+            $('#editModalText').val(name);
+        };
+
+        $(document).ready(function () {
+
+            var button;
+
+            $("#btnShowModal").click(function () {
+                button = $(this);
+                $("#addBillingBasis").modal('show');
+            });
+
+            $("#btnHideModal").on("click", function () {
+                $("#addBillingBasis").modal('hide');
+            });
+
+            $("#btnHideEditModal").on("click", function () {
+                $("#editModal").modal("hide");
+            });
+
+            $(".edit").on("click", function () {
+                $("#editModal").modal("show");
+            });
+
+            $("#hideConfirmModal").on("click", function () {
+                $("#confirmDelete").modal('hide');
+            });
+
+            $(".delete").on("click", function () {
+                button = $(this);
+                $("#deleteId").val($(this).attr("data-billingBasis-id"));
+                $("#confirmDelete").modal('show');
+            });
+
+            $("#yes").on("click", function () {
+                $.ajax({
+                    url: "/BillingBases/DeleteBillingBasis/" + $("#deleteId").val(),
+                    method: "DELETE",
+                    success: function () {
+                        toastr.success("InteractionType removed");
+                        $("#confirmDelete").modal("hide");
+                        $(button.parent("tr")).remove();
+                        console.log("Success");
+                        location.reload();
+                    }
+                });
+            });
+
+            $("#saveInteractionType").click(function (e) {
+                e.preventDefault();
+                var billingBasis = {}
+                billingBasis.Basis = $("#BillingBasis").val();
+                $.ajax(
+                    {
+                        method: "post",
+                        url: "/BillingBases/SaveBillingBasis",
+                        data: JSON.stringify(InteractionType),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        complete: function () {
+                            toastr.success("Billing Basis successfully added");
+                            $("#addBillingBasis").modal('hide');
+                            var inside = "<td>" + billingBasis.Basis + "/<td>"
+                            $(button.parent("table")).append("<tr>" + inside + "</tr>");
+                            location.reload();
+                        },
+                        fail: function () {
+                            toastr.error("Failed to add Billing Basis.");
+                        }
+                    }
+                )
+            });
+        });
+
+    </script>
+}
+

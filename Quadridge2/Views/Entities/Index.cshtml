@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Quadridge2.Models.Entity>
+@{
+    ViewBag.Title = "Entities";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<p>@Html.ActionLink("New Entity", "New", "Entities", null, new { @class = "btn btn-primary" })</p>
+
+@if (!Model.Any())
+{
+    <p> We do not have any Entities yet </p>
+}
+else
+{
+    <table id="entities" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Services</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var entity in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(entity.Name, "Details", "Entities", new { id = entity.Id }, null)</td>
+                    <td>
+                        <ul>
+                            
+                        </ul>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary">Edit</button>
+                        <button data-entity-id="@entity.Id" class="btn btn-primary js-delete">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#entities").DataTable();
+
+            $("#customers .js-delete").on("click", function () {
+                var button = $(this);
+                if (confirm("Are you sure you want to delete this customer?")) {
+                    $.ajax({
+                        url: "/Entities/DeleteEntity" + button.attr("data-entity-id"),
+                        method: "DELETE",
+                        success: function () {
+                            //console.log("Success");
+                            table.row(button.parents("tr")).remove().draw();
+                        }
+                    }); // ajax
+                }
+            }); // on click function
+        }); // ready function
+    </script>
+}

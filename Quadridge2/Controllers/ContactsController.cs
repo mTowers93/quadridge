@@ -29,6 +29,13 @@ namespace Quadridge2.Controllers
             return View(contacts);
         }
 
+        public ActionResult Details(int id)
+        {
+            var contact = _context.Contacts.SingleOrDefault(c => c.Id == id);
+
+            return View(contact);
+        }
+
         public ActionResult New()
         {
             var viewModel = new ContactFormViewModel
@@ -58,7 +65,7 @@ namespace Quadridge2.Controllers
             {
                 var contactInDb = _context.Contacts.Single(c => c.Id == contact.Id);
 
-                contactInDb.ClientId = contact.ClientId;
+                contactInDb.EntityId = contact.EntityId;
                 contactInDb.Firstname = contact.Firstname;
                 contactInDb.Surname = contact.Surname;
                 contactInDb.Email = contact.Email;
@@ -69,7 +76,7 @@ namespace Quadridge2.Controllers
 
                
             }
-            _context.Contacts.Add(contact);
+
             _context.SaveChanges();
             return RedirectToAction("Index", "Contacts");
 

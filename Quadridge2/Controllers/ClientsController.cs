@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Quadridge2.ViewModels;
+using Quadridge2.ViewModels.Clients;
 
 namespace Quadridge2.Controllers
 {
@@ -62,7 +62,7 @@ namespace Quadridge2.Controllers
                 clientInDb.ProvinceId = client.ProvinceId;
                 clientInDb.CountryId = client.CountryId;
             }
-            _context.Clients.Add(client);
+
             _context.SaveChanges();
             return RedirectToAction("Index", "Clients");
 
@@ -100,7 +100,12 @@ namespace Quadridge2.Controllers
             var viewmodel = new ClientDetailsViewModel
             {
                 Client = client,
-                Comments = _context.Comments.Where(c => c.ClientId == client.Id).ToList()
+                Comments = _context.Comments.Where(c => c.ClientId == client.Id).ToList(),
+                Contacts = _context.Contacts.Where(c => c.EntityId == client.Id).ToList(),
+                Deals = _context.Deals.Where(c => c.ClientId == client.Id).ToList(),
+                Provinces = _context.Provinces.ToList(),
+                Countries = _context.Countries.ToList(),
+                Companies = _context.Companies.ToList()
             };
 
             if (client == null)
@@ -108,5 +113,20 @@ namespace Quadridge2.Controllers
 
             return View(viewmodel);
         }
+
+        public ActionResult SaveComment(Comment comment)
+        {
+            if (comment.Id == 0)
+                _context.Comments.Add(comment);
+            else
+            {
+                var commentInDb = _context.Comments.SingleOrDefault(c => c.Id == comment.Id);
+                commentInDb.CommentString = comment.CommentString;
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction("Details/" + comment.ClientId, "Clients");
+        }
+
     }
 }

@@ -212,13 +212,83 @@
     <Compile Include="Controllers\Api\ClientsController.cs" />
     <Compile Include="Controllers\Api\ContactCommentsController.cs" />
     <Compile Include="Controllers\Api\DealsController.cs" />
+    <Compile Include="Controllers\BanksController.cs" />
+    <Compile Include="Controllers\BillingBasesController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
+    <Compile Include="Controllers\EntitiesController.cs" />
+    <Compile Include="Controllers\FeeTypesController.cs" />
+    <Compile Include="Controllers\InteractionsController.cs" />
+    <Compile Include="Controllers\InteractionTypesController.cs" />
+    <Compile Include="Controllers\ServicesController.cs" />
+    <Compile Include="Controllers\StructureCategoriesController.cs" />
+    <Compile Include="Controllers\StructuresController.cs" />
     <Compile Include="Migrations\201812251231130_AddedServicesAndUpdatedDeals.cs" />
     <Compile Include="Migrations\201812251231130_AddedServicesAndUpdatedDeals.Designer.cs">
       <DependentUpon>201812251231130_AddedServicesAndUpdatedDeals.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812251311469_UpdatedInteractionsTable.cs" />
+    <Compile Include="Migrations\201812251311469_UpdatedInteractionsTable.Designer.cs">
+      <DependentUpon>201812251311469_UpdatedInteractionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812251656585_AddedInteractionTypeAndUpdated.cs" />
+    <Compile Include="Migrations\201812251656585_AddedInteractionTypeAndUpdated.Designer.cs">
+      <DependentUpon>201812251656585_AddedInteractionTypeAndUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901090952512_changestodeal.cs" />
+    <Compile Include="Migrations\201901090952512_changestodeal.Designer.cs">
+      <DependentUpon>201901090952512_changestodeal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901091408462_AddedStructureTrustsEntities.cs" />
+    <Compile Include="Migrations\201901091408462_AddedStructureTrustsEntities.Designer.cs">
+      <DependentUpon>201901091408462_AddedStructureTrustsEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901101606091_addedDirectorshipStartDateToEntity.cs" />
+    <Compile Include="Migrations\201901101606091_addedDirectorshipStartDateToEntity.Designer.cs">
+      <DependentUpon>201901101606091_addedDirectorshipStartDateToEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901101642587_AddedFeeTypeAndMoreToEntityAndTempAddedClientBackToContact.cs" />
+    <Compile Include="Migrations\201901101642587_AddedFeeTypeAndMoreToEntityAndTempAddedClientBackToContact.Designer.cs">
+      <DependentUpon>201901101642587_AddedFeeTypeAndMoreToEntityAndTempAddedClientBackToContact.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901131340464_new.cs" />
+    <Compile Include="Migrations\201901131340464_new.Designer.cs">
+      <DependentUpon>201901131340464_new.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901150837182_changedEntityValuesToBeNullable.cs" />
+    <Compile Include="Migrations\201901150837182_changedEntityValuesToBeNullable.Designer.cs">
+      <DependentUpon>201901150837182_changedEntityValuesToBeNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901151235209_CreateEntityServicesTable.cs" />
+    <Compile Include="Migrations\201901151235209_CreateEntityServicesTable.Designer.cs">
+      <DependentUpon>201901151235209_CreateEntityServicesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901151315387_AddedStructureCategory.cs" />
+    <Compile Include="Migrations\201901151315387_AddedStructureCategory.Designer.cs">
+      <DependentUpon>201901151315387_AddedStructureCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901151318421_ChangedStructureCategoryCategoryToString.cs" />
+    <Compile Include="Migrations\201901151318421_ChangedStructureCategoryCategoryToString.Designer.cs">
+      <DependentUpon>201901151318421_ChangedStructureCategoryCategoryToString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901151346515_MovedReferralToStructure.cs" />
+    <Compile Include="Migrations\201901151346515_MovedReferralToStructure.Designer.cs">
+      <DependentUpon>201901151346515_MovedReferralToStructure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BillingBasis.cs" />
+    <Compile Include="Models\ClientCategory.cs" />
+    <Compile Include="Models\Document.cs" />
+    <Compile Include="Models\DocumentType.cs" />
+    <Compile Include="Models\Entity.cs" />
+    <Compile Include="Models\FeeType.cs" />
+    <Compile Include="Models\InteractionType.cs" />
+    <Compile Include="Models\Interest.cs" />
     <Compile Include="Models\Service.cs" />
-    <Compile Include="ViewModels\ClientContactsViewModel.cs" />
+    <Compile Include="Models\Structure.cs" />
+    <Compile Include="Models\StructureCategory.cs" />
+    <Compile Include="Models\Trust.cs" />
+    <Compile Include="ViewModels\BanksFormViewModel.cs" />
+    <Compile Include="ViewModels\Clients\ClientContactsViewModel.cs" />
+    <Compile Include="ViewModels\Clients\ClientViewModel.cs" />
     <Compile Include="ViewModels\ContactFormViewModel.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\DealsController.cs" />
@@ -359,11 +429,16 @@
     <Compile Include="Models\SuperUserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\ClientDetailsViewModel.cs" />
-    <Compile Include="ViewModels\ClientFormViewModel.cs" />
+    <Compile Include="ViewModels\Clients\ClientDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Clients\ClientFormViewModel.cs" />
     <Compile Include="ViewModels\DealFormViewModel.cs" />
+    <Compile Include="ViewModels\Entities\EntityFormViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
+    <Compile Include="ViewModels\InteractionsFormViewModel.cs" />
+    <Compile Include="ViewModels\Structures\StructureFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\airdatepicker\datepicker.min.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -441,6 +516,21 @@
     <Content Include="Content\dashboard\vendor\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\dashboard\vendor\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\dashboard\vendor\font-awesome\HELP-US-OUT.txt" />
+    <Content Include="Content\dashboard\vendor\font-awesome\js\all.js" />
+    <Content Include="Content\dashboard\vendor\font-awesome\js\all.min.js" />
+    <Content Include="Content\dashboard\vendor\font-awesome\js\brands.js" />
+    <Content Include="Content\dashboard\vendor\font-awesome\js\brands.min.js" />
+    <Content Include="Content\dashboard\vendor\font-awesome\js\fontawesome.js" />
+    <Content Include="Content\dashboard\vendor\font-awesome\js\fontawesome.min.js" />
+    <Content Include="Content\dashboard\vendor\font-awesome\js\regular.js" />
+    <Content Include="Content\dashboard\vendor\font-awesome\js\regular.min.js" />
+    <Content Include="Content\dashboard\vendor\font-awesome\js\solid.js" />
+    <Content Include="Content\dashboard\vendor\font-awesome\js\solid.min.js" />
+    <Content Include="Content\dashboard\vendor\font-awesome\js\v4-shims.js" />
+    <Content Include="Content\dashboard\vendor\font-awesome\js\v4-shims.min.js" />
+    <Content Include="Content\dashboard\vendor\font-awesome\webfonts\fa-brands-400.svg" />
+    <Content Include="Content\dashboard\vendor\font-awesome\webfonts\fa-regular-400.svg" />
+    <Content Include="Content\dashboard\vendor\font-awesome\webfonts\fa-solid-900.svg" />
     <Content Include="Content\dashboard\vendor\jquery-validation\additional-methods.js" />
     <Content Include="Content\dashboard\vendor\jquery-validation\jquery.validate.js" />
     <Content Include="Content\dashboard\vendor\jquery-validation\jquery.validate.min.js" />
@@ -681,6 +771,8 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -726,6 +818,8 @@
     <Content Include="Content\DataTables\css\semanticui.scss" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
+    <Content Include="Scripts\datepicker.en.js" />
+    <Content Include="Scripts\datepicker.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -734,6 +828,20 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
+    <Content Include="Content\dashboard\vendor\font-awesome\webfonts\fa-brands-400.eot" />
+    <Content Include="Content\dashboard\vendor\font-awesome\webfonts\fa-brands-400.ttf" />
+    <Content Include="Content\dashboard\vendor\font-awesome\webfonts\fa-brands-400.woff" />
+    <Content Include="Content\dashboard\vendor\font-awesome\webfonts\fa-brands-400.woff2" />
+    <Content Include="Content\dashboard\vendor\font-awesome\webfonts\fa-regular-400.eot" />
+    <Content Include="Content\dashboard\vendor\font-awesome\webfonts\fa-regular-400.ttf" />
+    <Content Include="Content\dashboard\vendor\font-awesome\webfonts\fa-regular-400.woff" />
+    <Content Include="Content\dashboard\vendor\font-awesome\webfonts\fa-regular-400.woff2" />
+    <Content Include="Content\dashboard\vendor\font-awesome\webfonts\fa-solid-900.eot" />
+    <Content Include="Content\dashboard\vendor\font-awesome\webfonts\fa-solid-900.ttf" />
+    <Content Include="Content\dashboard\vendor\font-awesome\webfonts\fa-solid-900.woff" />
+    <Content Include="Content\dashboard\vendor\font-awesome\webfonts\fa-solid-900.woff2" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1-vsdoc.js" />
@@ -827,6 +935,8 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
@@ -894,14 +1004,25 @@
     <Content Include="Views\Clients\_contacts.cshtml" />
     <Content Include="Views\Clients\_deals.cshtml" />
     <Content Include="Views\Contacts\ContactForm.cshtml" />
+    <Content Include="Views\Services\Index.cshtml" />
+    <Content Include="Views\Interactions\index.cshtml" />
+    <Content Include="Views\Banks\Index.cshtml" />
+    <Content Include="Views\Interactions\InteractionsForm.cshtml" />
+    <Content Include="Views\InteractionTypes\Index.cshtml" />
+    <Content Include="Views\Shared\_deleteModalPartial.cshtml" />
+    <Content Include="Views\Entities\Index.cshtml" />
+    <Content Include="Views\Entities\EntityForm.cshtml" />
+    <Content Include="Views\FeeTypes\Index.cshtml" />
+    <Content Include="Views\BillingBases\Index.cshtml" />
+    <Content Include="Views\Structures\Index.cshtml" />
+    <Content Include="Views\Structures\StructureForm.cshtml" />
+    <Content Include="Views\StructureCategories\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\dashboard\vendor\font-awesome\less\" />
     <Folder Include="Content\dashboard\vendor\font-awesome\scss\" />
     <Folder Include="Views\Companies\" />
-    <Folder Include="Views\Interactions\" />
-    <Folder Include="Views\Services\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -989,6 +1110,42 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812251231130_AddedServicesAndUpdatedDeals.resx">
       <DependentUpon>201812251231130_AddedServicesAndUpdatedDeals.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812251311469_UpdatedInteractionsTable.resx">
+      <DependentUpon>201812251311469_UpdatedInteractionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812251656585_AddedInteractionTypeAndUpdated.resx">
+      <DependentUpon>201812251656585_AddedInteractionTypeAndUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901090952512_changestodeal.resx">
+      <DependentUpon>201901090952512_changestodeal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901091408462_AddedStructureTrustsEntities.resx">
+      <DependentUpon>201901091408462_AddedStructureTrustsEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901101606091_addedDirectorshipStartDateToEntity.resx">
+      <DependentUpon>201901101606091_addedDirectorshipStartDateToEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901101642587_AddedFeeTypeAndMoreToEntityAndTempAddedClientBackToContact.resx">
+      <DependentUpon>201901101642587_AddedFeeTypeAndMoreToEntityAndTempAddedClientBackToContact.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901131340464_new.resx">
+      <DependentUpon>201901131340464_new.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901150837182_changedEntityValuesToBeNullable.resx">
+      <DependentUpon>201901150837182_changedEntityValuesToBeNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901151235209_CreateEntityServicesTable.resx">
+      <DependentUpon>201901151235209_CreateEntityServicesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901151315387_AddedStructureCategory.resx">
+      <DependentUpon>201901151315387_AddedStructureCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901151318421_ChangedStructureCategoryCategoryToString.resx">
+      <DependentUpon>201901151318421_ChangedStructureCategoryCategoryToString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901151346515_MovedReferralToStructure.resx">
+      <DependentUpon>201901151346515_MovedReferralToStructure.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

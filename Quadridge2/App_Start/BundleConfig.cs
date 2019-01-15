@@ -12,6 +12,9 @@ namespace Quadridge2
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/bootstrap.js",
                         //"~/scripts/popper.js",
+                        "~/Scripts/toastr.js",
+                        "~/Scripts/datepicker.min.js",
+                        "~/Scripts/datepicker.en.js",
                         "~/Scripts/respond.js"
                         ));
 
@@ -41,6 +44,8 @@ namespace Quadridge2
                       "~/Content/dashboard/css/fontastic.css",
                       "~/Content/bootstrap.css",
                       "~/Content/datatables/css/datatables.bootstrap4.css",
+                      "~/Content/toastr.css",
+                      "~/Content/airdatepicker/datepicker.min.css",
                       "~/Content/site.css"
                       ));
         }

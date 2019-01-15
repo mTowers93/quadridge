@@ -15,36 +15,47 @@
     }
     <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
     <ul class="list-unstyled">
-        <li class="@Html.IsSelected(actions: "Index", controllers: "Home")">
+        <li class='@Html.IsActive("Home", "Index")'>
             <a href="@Url.Action("Index","Home")"> <i class="icon-home"></i>Home </a>
         </li>
-        <li class="@Html.IsSelected(actions: "Clients", controllers: "Default")">
-            <a href="@Url.Action("Index", "Clients")"> <i class="icon-user"></i>Clients </a>
+
+        <li class="@Html.IsActive("Clients","Index") @Html.IsActive("Entities","Index") @Html.IsActive("Trusts", "Index")">
+            <a href="#clientDropDown" aria-expanded="false" data-toggle="collapse"> <i class="icon-user"></i>Clients </a>
+            <ul id="clientDropDown" class="collapse list-unstyled ">
+                <li><a href="@Url.Action("Index", "Clients")">Clients</a></li>
+                <li><a href="@Url.Action("Index", "Entities")">Entities</a></li>
+                <li><a href="@Url.Action("Index", "Trusts")">Trusts</a></li>
+            </ul>
         </li>
 
-        <li class="@Html.IsSelected(actions: "Contacts", controllers: "Default")">
+        <li class="@Html.IsActive("Contacts", "Index")">
             <a href="@Url.Action("Index", "Contacts")"> <i class="icon-user"></i>Contacts </a>
         </li>
 
-        <li class="@Html.IsSelected(actions: "Deals", controllers: "Default")">
-            <a href="@Url.Action("Index", "Deals")"> <i class="fa fa-bar-chart"></i>Deals </a>
+        <li class="@Html.IsActive("Structures","Index")">
+            <a href="#dealDropDown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-bar-chart"></i>Deals </a>
+            <ul id="dealDropDown" class="collapse list-unstyled ">
+                <li><a href="@Url.Action("Index", "Structures")">Structures</a></li>
+            </ul>
         </li>
-        <li class="@Html.IsSelected(actions: "Interactions", controllers: "Default")">
+
+        <li class="@Html.IsActive("Interactions", "Index")">
             <a href="@Url.Action("Index", "Interactions")"> <i class="icon-paper-airplane"></i>Interactions </a>
         </li>
-        <li class="@Html.IsSelected(actions: "Home", controllers: "Default")">
+        <li class="@Html.IsActive("Banks", "Index")">
             <a href="@Url.Action("Index", "Banks")"> <i class="icon-bill"></i>Banks </a>
         </li>
-        <li class="@Html.IsSelected(actions: "Home", controllers: "Default")">
+        <li class="@Html.IsActive("LawFirms", "Index")">
             <a href="@Url.Action("Index", "LawFirms")"> <i class="icon-pencil-case"></i>Law Firms </a>
         </li>
-        <li class="active">
+        <li>
             <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Maintenance </a>
-            <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                <li><a href="#">Lawyers</a></li>
-                <li><a href="#">Banks</a></li>
-                <li><a href="#">Companies</a></li>
-                <li><a href="#">Interaction Types</a></li>
+            <ul id="exampledropdownDropdown" class="collapse list-unstyled @Html.IsActive("Services","Index") @Html.IsActive("InteractionTypes","Index") @Html.IsActive("BillingBases","Index") @Html.IsActive("FeeTpes","Index") ">
+                <li><a href="@Url.Action("Index", "Services")">Services</a></li>
+                <li><a href="@Url.Action("Index", "InteractionTypes")">Interaction Types</a></li>
+                <li><a href="@Url.Action("Index", "BillingBases")">Billing Bases</a></li>
+                <li><a href="@Url.Action("Index", "FeeTypes")">Fee Types</a></li>
+                <li><a href="@Url.Action("index", "StructureCategories")">Structure Categories</a></li>
             </ul>
         </li>
         @Html.Partial("_LoginPartial")

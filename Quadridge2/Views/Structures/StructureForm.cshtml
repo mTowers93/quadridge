@@ -1,0 +1,24 @@
+﻿@model Quadridge2.ViewModels.Structures.StructureFormViewModel
+@{
+    ViewBag.Title = "StructureForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-body">
+        @using (Html.BeginForm("Save", "Structures"))
+        {
+            <div class="row">
+                <div class="form-group">
+                    @Html.LabelFor(s => s.Structure.Name, new { @class = "form-control-label" })
+                    @Html.TextBoxFor(s => s.Structure.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(s => s.Structure.Name)
+                </div>
+            </div>
+
+            @Html.AntiForgeryToken()
+            <button class="btn btn-primary">Save</button>
+        }
+    </div>
+</div>
+

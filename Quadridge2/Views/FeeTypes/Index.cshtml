@@ -1,0 +1,117 @@
+﻿@using Quadridge2.Helpers
+
+@model IEnumerable<Quadridge2.Models.FeeType>
+@{
+    ViewBag.Title = "Fee Types";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <button class="btn btn-primary" data-target="addFeetype" data-toggle="modal" id="btnShowModal">New Fee Type</button>
+</div>
+
+@Html.AddNewModal("FeeType", "Fee Type", "Fee Type")
+@Html.DeleteModal()
+@Html.EditModal("Fee Type", "Fee Type", "FeeType")
+
+<div class="row">
+    @if (Model == null)
+    {
+        <p>There are no sevices, please add one.</p>
+    }
+    else
+    {
+        <table id="InteractionTypes" class="table table-bordered table-hover">
+            @foreach (var feeType in Model)
+            {
+                <tr>
+                    <td>@feeType.Type</td>
+                    <td><button class="btn btn-info edit" onclick="editGroupName('@feeType.Id', '@feeType.Type'); return false;">Edit</button>  <button class="btn btn-danger delete" data-feeType-id=@feeType.Id data-target="#confirmDelete"><i class="fa fa-trash-o fa-lg"></i></button></td>
+                </tr>
+            }
+        </table>
+    }
+</div>
+
+@section Scripts
+{
+    <script>
+
+        function editGroupName(id, name) {
+            $('input#editId').val(id);
+            $('#editModalText').val(name);
+        };
+
+        $(document).ready(function () {
+
+            var button;
+
+            $("#btnShowModal").click(function () {
+                button = $(this);
+                $("#addFeeType").modal('show');
+            });
+
+            $("#btnHideModal").on("click",function () {
+                $("#addFeeType").modal('hide');
+            });
+
+            $("#btnHideEditModal").on("click", function () {
+                $("#editModal").modal("hide");
+            });
+
+            $(".edit").on("click", function () {
+                $("#editModal").modal("show");
+            });
+
+            $("#hideConfirmModal").on("click", function () {
+                $("#confirmDelete").modal('hide');
+            });
+
+            $(".delete").on("click", function () {
+                button = $(this);
+                $("#deleteId").val($(this).attr("data-feeType-id"));
+                $("#confirmDelete").modal('show');
+            });
+
+            $("#yes").on("click", function () {
+                $.ajax({
+                    url: "/FeeTypes/DeleteFeeType/" + $("#deleteId").val(),
+                    method: "DELETE",
+                    success: function () {
+                        toastr.success("Fee Type removed");
+                        $("#confirmDelete").modal("hide");
+                        $(button.parent("tr")).remove();
+                        console.log("Success");
+                        location.reload();
+                    }
+                });
+            });
+
+            $("#saveInteractionType").click(function (e) {
+                e.preventDefault();
+                var feeType = {}
+                feeType.Type = $("#FeeType").val();
+                $.ajax(
+                    {
+                        method: "post",
+                        url: "/FeeTypes/SaveFeeTypes",
+                        data: JSON.stringify(InteractionType),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        complete: function () {
+                            toastr.success("Fee Type successfully added");
+                            $("#addFeeType").modal('hide');
+                            var inside = "<td>" + feeType.Type + "/<td>"
+                            $(button.parent("table")).append("<tr>" + inside + "</tr>");
+                            location.reload();
+                        },
+                        fail: function () {
+                            toastr.error("Failed to add Fee Type.");
+                        }
+                    }
+                )
+            });
+        });
+
+    </script>
+}
+

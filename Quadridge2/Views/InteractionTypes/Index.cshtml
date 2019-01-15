@@ -1,0 +1,171 @@
+﻿@model IEnumerable<Quadridge2.Models.InteractionType>
+@{
+    ViewBag.Title = "Interaction Types";
+}
+<div class="row">
+    <button class="btn btn-primary" data-target="addInteractionType" data-toggle="modal" id="btnShowModal">New Interaction Type</button>
+</div>
+<div class="modal fade" id="addInteractionType" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add New Interaction Type</h4>
+            </div>
+            <div class="modal-body">
+                <form id="InteractionTypeForm">
+                    <label for="InteractionType">Interaction Type</label>
+                    <input type="text" id="InteractionType" class="form-control" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="saveInteractionType" class="btn btn-primary">Submit</button>
+                <button type="button" id="btnHideModal" class="btn btn-primary">Hide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmDelete" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input id="deleteId" type="hidden" value="" />
+                </form>
+                <p>Are you sure you want to delete this interaction type?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="yes" class="btn btn-primary">Yes</button>
+                <button type="button" id="hideConfirmModal" class="btn btn-primary">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit InteractionType</h4>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <input type="hidden" value="" id="editId" />
+                    <label for="InteractionType">InteractionType Name</label>
+                    <input type="text" id="editModalText" class="form-control" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="saveInteractionType" class="btn btn-primary">Submit</button>
+                <button type="button" id="btnHideEditModal" class="btn btn-primary">Hide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    @if (Model == null)
+    {
+        <p>There are no sevices, please add one.</p>
+    }
+    else
+    {
+        <table id="InteractionTypes" class="table table-bordered table-hover">
+            @foreach (var InteractionType in Model)
+            {
+                <tr>
+                    <td>@InteractionType.Type</td>
+                    <td><button class="btn btn-info edit" onclick="editGroupName('@InteractionType.Id', '@InteractionType.Type'); return false;">Edit</button>  <button class="btn btn-danger delete" data-InteractionType-id=@InteractionType.Id data-target="#confirmDelete"><i class="fa fa-trash-o fa-lg"></i></button></td>
+                </tr>
+            }
+        </table>
+    }
+</div>
+
+@section Scripts
+{
+    <script>
+
+        function editGroupName(id, name) {
+            $('input#editId').val(id);
+            $('#editModalText').val(name);
+        };
+
+        $(document).ready(function () {
+
+            var button;
+
+            $("#btnShowModal").click(function () {
+                button = $(this);
+                $("#addInteractionType").modal('show');
+            });
+
+            $("#btnHideModal").on("click",function () {
+                $("#addInteractionType").modal('hide');
+            });
+
+            $("#btnHideEditModal").on("click", function () {
+                $("#editModal").modal("hide");
+            });
+
+            $(".edit").on("click", function () {
+                $("#editModal").modal("show");
+            });
+
+            $("#hideConfirmModal").on("click", function () {
+                $("#confirmDelete").modal('hide');
+            });
+
+            $(".delete").on("click", function () {
+                button = $(this);
+                $("#deleteId").val($(this).attr("data-InteractionType-id"));
+                $("#confirmDelete").modal('show');
+            });
+
+            $("#yes").on("click", function () {
+                console.log("Ive been pushed");
+                $.ajax({
+                    url: "/InteractionTypes/DeleteInteractionType/" + $("#deleteId").val(),
+                    method: "DELETE",
+                    success: function () {
+                        toastr.success("InteractionType removed");
+                        $("#confirmDelete").modal("hide");
+                        $(button.parent("tr")).remove();
+                        console.log("Success");
+                        location.reload();
+                    }
+                });
+            });
+
+            $("#saveInteractionType").click(function (e) {
+                e.preventDefault();
+                var InteractionType = {}
+                InteractionType.name = $("#InteractionType").val();
+                $.ajax(
+                    {
+                        method: "post",
+                        url: "/InteractionTypes/SaveInteractionType",
+                        data: JSON.stringify(InteractionType),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        complete: function () {
+                            toastr.success("InteractionType successfully added");
+                            $("#addInteractionType").modal('hide');
+                            var inside = "<td>" + InteractionType.name + "/<td>"
+                            $(button.parent("table")).append("<tr>" + inside + "</tr>");
+                            location.reload();
+                        },
+                        fail: function () {
+                            toastr.error("Failed to add InteractionType.");
+                        }
+                    }
+                )
+            });
+        });
+
+    </script>
+}
+

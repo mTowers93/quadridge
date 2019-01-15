@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Quadridge2.Models;
+using Quadridge2.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +10,30 @@ namespace Quadridge2.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext _context;
+
+        public HomeController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
         public ActionResult Index()
         {
-            return View();
+            var newContacts = _context.Contacts.OrderByDescending(c => c.Id).Take(5).ToList();
+            var newInteractions = _context.Interactions.OrderByDescending(i => i.Id).Take(5).ToList();
+            var newClients = _context.Clients.OrderByDescending(c => c.Id).Take(5).ToList();
+            var viewModel = new HomeViewModel
+            {
+                Contacts = newContacts,
+                Interactions = newInteractions,
+                Clients = newClients
+            };
+            return View(viewModel);
         }
 
         public ActionResult About()

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Quadridge2.Models.Structure>
+@{
+    ViewBag.Title = "Structures";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>@Html.ActionLink("New Structure", "New", "Structures", null, new { @class = "btn btn-primary" })</p>
+
+@if (!Model.Any())
+{
+    <p> We do not have any Structures yet </p>
+}
+else
+{
+    <table id="clients" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var structure in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(structure.Name, "Details", "Structures", new { id = structure.Id }, null)</td>
+                    <td>
+                        <button class="btn btn-primary">Edit</button>
+                        <button data-structure-id="@structure.Id" class="btn btn-primary js-delete">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#clients").DataTable();
+
+            $("#customers .js-delete").on("click", function () {
+                var button = $(this);
+                if (confirm("Are you sure you want to delete this customer?")) {
+                    $.ajax({
+                        url: "/Structures/DeleteStructure" + button.attr("data-structure-id"),
+                        method: "DELETE",
+                        success: function () {
+                            //console.log("Success");
+                            table.row(button.parents("tr")).remove().draw();
+                        }
+                    }); // ajax
+                }
+            }); // on click function
+        }); // ready function
+    </script>
+}

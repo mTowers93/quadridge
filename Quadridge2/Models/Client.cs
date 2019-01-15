@@ -56,6 +56,6 @@ namespace Quadridge2.Models
 
         public IEnumerable<Comment> Comments { get; set; }
 
-        public List<Contact> Contacts { get; set; }
+        public IEnumerable<Contact> Contacts { get; set; }
     }
 }

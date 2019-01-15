@@ -1,0 +1,51 @@
+﻿@model Quadridge2.ViewModels.InteractionsFormViewModel
+@{
+    ViewBag.Title = "New Interaction";
+}
+
+<div class="card">
+    <div class="card-body">
+        @using (Html.BeginForm("Save", "Interactions"))
+        {
+            <div class="form-row">
+                <div class="form-group">
+                    @Html.LabelFor(c => c.Interaction.ClientId, new { @class = "form-control-label" })
+                    @Html.DropDownListFor(c => c.Interaction.ClientId, new SelectList(Model.Clients, "Id", "Name"), "", new { @class = "form-control" })
+                </div>
+
+            </div>
+
+            <div class="form-row">
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(i => i.Interaction.InteractionTypeId, new { @class = "form-control-label" })
+                        @Html.DropDownListFor(i => i.Interaction.InteractionTypeId, new SelectList(Model.InteractionTypes, "Id", "Type"), "", new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(i => i.Interaction.InteractionDate, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(i => i.Interaction.InteractionDate, new { @class = "form-control datepicker-here", @data_language="en" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(i => i.Interaction.Comment, new { @class = "form-control-label" })
+                @Html.TextAreaFor(i => i.Interaction.Comment, new { @class = "form-control"})
+            </div>
+            
+            @Html.AntiForgeryToken()
+            <button class="btn btn-primary">Save</button>
+
+        }
+    </div>
+</div>
+
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

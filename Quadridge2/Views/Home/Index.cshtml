@@ -1,7 +1,97 @@
-﻿@model  IEnumerable<Quadridge2.Models.Client>
+﻿@model  Quadridge2.ViewModels.HomeViewModel
 @{
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="row">
+    <div class="col-6 col-lg">
+        <div class="card">
+            <div class="card-body">
+                <h4>Latest Interactions</h4>
 
-<p>Welcome to Quadridge CRM</p>
+                @if (Model.Interactions.Count() == 0)
+                {
+                    <p>No interactions yet</p>
+                    <button class="btn-primary btn">Add interaction</button>
+                }
+                else
+                {
+                    <ul class="list-group">
+                        @foreach (var interaction in Model.Interactions)
+                        {
+                            <li class="list-group-item">
+                                @Html.ActionLink(interaction.InteractionType + " with " + interaction.Client, "Details", "Interaction", new { id = interaction.Id }, null)
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-lg">
+        <div class="card">
+            <div class="card-body">
+                <h4>New Contacts</h4>
+                <ul class="list-group">
+                    @foreach (var contact in Model.Contacts)
+                    {
+                        <li class="list-group-item">
+                            @Html.ActionLink(contact.Firstname + " " + contact.Surname, "Details", "Contacts", new { id = contact.Id }, null)
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6 col-lg">
+        <div class="card">
+            <div class="card-body">
+                <h4>New Clients</h4>
+
+                @if (Model.Clients == null)
+                {
+                    <p>No clients yet</p>
+                    <button class="btn btn-primary">Add client</button>
+                }
+                else
+                {
+                    <ul class="list-group">
+                        @foreach (var client in Model.Clients)
+                        {
+                            <li class="list-group-item">
+                                @Html.ActionLink(client.Name, "Details", "Clients", new { id = client.Id }, null)
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-lg">
+        <div class="card">
+            <div class="card-body">
+                <h4>New Deals</h4>
+
+                @if (Model.Deals == null)
+                {
+                    <p>No deals yet</p>
+                    <button class="btn btn-primary">Add deal</button>
+                }
+                else
+                {
+                    <ul class="list-group">
+                        @foreach (var deal in Model.Deals)
+                        {
+                            <li class="list-group-item">
+                                @Html.ActionLink(deal.StructureName, "Details", "Contacts", new { id = deal.Id }, null)
+                            </li>
+                        }
+                    </ul>
+                }    
+                </div>
+        </div>
+    </div>
+</div>

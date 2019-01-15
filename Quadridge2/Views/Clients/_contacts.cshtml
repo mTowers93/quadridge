@@ -1,8 +1,33 @@
-﻿<table>
+﻿<table id="contacts" class="table">
     @foreach (var contact in Model.Contacts)
     {
         <tr>
-            <td>@Model.Firstname</td>
+            <td>@contact.Firstname</td>
+            <td>@contact.Surname</td>
+            <td><button data-contact-id="@contact.Id" class="btn btn-primary js-delete">Delete</button></td>
         </tr>
     }
 </table>
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#contacts").DataTable();
+
+            $("#customers .js-delete").on("click", function () {
+                var button = $(this);
+                if (confirm("Are you sure you want to delete this customer?")) {
+                    $.ajax({
+                        url: "/api/contacts/" + button.attr("data-contact-id"),
+                        method: "DELETE",
+                        success: function () {
+                            //console.log("Success");
+                            table.row(button.parents("tr")).remove().draw();
+                        }
+                    }); // ajax
+                }
+            }); // on click function
+        }); // ready function
+    </script>
+}
+

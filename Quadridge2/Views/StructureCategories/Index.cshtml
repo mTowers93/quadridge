@@ -1,0 +1,117 @@
+﻿@using Quadridge2.Helpers
+
+@model IEnumerable<Quadridge2.Models.StructureCategory>
+@{
+    ViewBag.Title = "Structure Categories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <button class="btn btn-primary" data-target="addStructureCategory" data-toggle="modal" id="btnShowModal">New Structure Category</button>
+</div>
+
+@Html.AddNewModal("StructureCategory", "Structure Category", "Structure Category")
+@Html.DeleteModal()
+@Html.EditModal("Structure Category", "Structure Category", "StructureCategory")
+
+<div class="row">
+    @if (Model == null)
+    {
+        <p>There are no structure categories, please add one.</p>
+    }
+    else
+    {
+        <table id="InteractionTypes" class="table table-bordered table-hover">
+            @foreach (var structureCategory in Model)
+            {
+                <tr>
+                    <td>@structureCategory.Category</td>
+                    <td><button class="btn btn-info edit" onclick="editGroupName('@structureCategory.Id', '@structureCategory.Category'); return false;">Edit</button>  <button class="btn btn-danger delete" data-structureCategory-id=@structureCategory.Id data-target="#confirmDelete"><i class="fa fa-trash-o fa-lg"></i></button></td>
+                </tr>
+            }
+        </table>
+    }
+</div>
+
+@section Scripts
+{
+    <script>
+
+        function editGroupName(id, name) {
+            $('input#editId').val(id);
+            $('#editModalText').val(name);
+        };
+
+        $(document).ready(function () {
+
+            var button;
+
+            $("#btnShowModal").click(function () {
+                button = $(this);
+                $("#addStructureCategory").modal('show');
+            });
+
+            $("#btnHideModal").on("click",function () {
+                $("#addStructureCategory").modal('hide');
+            });
+
+            $("#btnHideEditModal").on("click", function () {
+                $("#editModal").modal("hide");
+            });
+
+            $(".edit").on("click", function () {
+                $("#editModal").modal("show");
+            });
+
+            $("#hideConfirmModal").on("click", function () {
+                $("#confirmDelete").modal('hide');
+            });
+
+            $(".delete").on("click", function () {
+                button = $(this);
+                $("#deleteId").val($(this).attr("data-structureCategory-id"));
+                $("#confirmDelete").modal('show');
+            });
+
+            $("#yes").on("click", function () {
+                console.log("Ive been pushed");
+                $.ajax({
+                    url: "/StructureCategories/DeleteStructureCategory/" + $("#deleteId").val(),
+                    method: "DELETE",
+                    success: function () {
+                        toastr.success("InteractionType removed");
+                        $("#confirmDelete").modal("hide");
+                        $(button.parent("tr")).remove();
+                        console.log("Success");
+                        location.reload();
+                    }
+                });
+            });
+
+            $("#saveStructureCategory").click(function (e) {
+                e.preventDefault();
+                var structureCategory = {}
+                structureCategory.Category = $("#StructureCategory").val();
+                $.ajax(
+                    {
+                        method: "post",
+                        url: "/StructureCategories/SaveStructureCategory",
+                        data: JSON.stringify(InteractionType),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        complete: function () {
+                            toastr.success("InteractionType successfully added");
+                            $("#addStructureCategory").modal('hide');
+                            var inside = "<td>" + structureCategory.Category + "/<td>"
+                            $(button.parent("table")).append("<tr>" + inside + "</tr>");
+                            location.reload();
+                        },
+                        fail: function () {
+                            toastr.error("Failed to add Structure Category.");
+                        }
+                    }
+                )
+            });
+        });
+
+    </script>
+}

@@ -30,6 +30,8 @@ namespace Quadridge2.Models
         public int? LawFirmId { get; set; }
         public LawFirm Lawfirm { get; set; }
 
+        public DateTime DirectorshipStartDate { get; set; }
+
         public DateTime FirstBillingDate { get; set; }
 
         public string BillingBasis { get; set; }
