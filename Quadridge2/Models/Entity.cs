@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Quadridge2.Models.Maintenance;
+using Quadridge2.Models.Contacts;
+using Quadridge2.Models.Deals;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,6 +16,9 @@ namespace Quadridge2.Models
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
+
+        [Required]
+        public string RegistrationNumber { get; set; }
 
         [Display(Name="Directorship Start Date")]
         public DateTime DirectorshipStartDate { get; set; }

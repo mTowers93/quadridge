@@ -3,6 +3,7 @@ using Quadridge2.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -26,7 +27,8 @@ namespace Quadridge2.Controllers
         // GET: Banks
         public ActionResult Index()
         {
-            return View();
+            var banks = _context.Banks.ToList();
+            return View(banks);
         }
 
         public ActionResult New()
@@ -41,7 +43,6 @@ namespace Quadridge2.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Save(Bank bank)
         {
             if (!ModelState.IsValid)
@@ -62,18 +63,32 @@ namespace Quadridge2.Controllers
                 var bankInDb = _context.Banks.Single(c => c.Id == bank.Id);
 
                 bankInDb.Name = bank.Name;
-                bankInDb.FirstAddressLine = bank.FirstAddressLine;
-                bankInDb.SecondAddressLine = bank.SecondAddressLine;
-                bankInDb.Suburb = bank.Suburb;
-                bankInDb.City = bank.City;
-                bankInDb.Zip = bank.Zip;
-                bankInDb.ProvinceId = bank.ProvinceId;
-                bankInDb.CountryId = bank.CountryId;
             }
-
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "Banks");
             _context.SaveChanges();
-            return RedirectToAction("Index", "Banks");
+            return Json(new { Url = redirectUrl});
 
+        }
+
+        public ActionResult Delete(int? id)
+        {           
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            };
+
+            var bankInDb = _context.Banks.SingleOrDefault(b => b.Id == id);
+
+            if (bankInDb == null)
+            {
+                return HttpNotFound();
+            }
+            _context.Banks.Remove(bankInDb);
+            _context.SaveChanges();
+
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "Banks");
+            _context.SaveChanges();
+            return Json(new { Url = redirectUrl });
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Quadridge2.Models.Contact>
+﻿@model IEnumerable<Quadridge2.Models.Contacts.Contact>
 
 @{
     ViewBag.Title = "Contacts";
@@ -18,7 +18,6 @@ else
             <tr>
                 <th>Firstname</th>
                 <th>Surname</th>
-                <th>Company / Law firm / Bank</th>
                 <th>Delete</th>
             </tr>
         </thead>
@@ -28,19 +27,6 @@ else
                 <tr>
                     <td>@Html.ActionLink(contact.Firstname, "Details", "Contacts", new { id = contact.Id }, null)</td>
                     <td>@Html.ActionLink(contact.Surname, "Details", "Contacts", new { id = contact.Id }, null)</td>
-                    @if  (contact.CompanyId != null)
-                    {
-                        <td>@contact.Company.Name</td>
-                    } else if (contact.BankId != null)
-                    {
-                        <td>@contact.Bank.Name</td>
-                    } else if (contact.LawfirmId != null)
-                    {
-                        <td>@contact.LawFirm.Name</td>
-                    } else
-                    {
-                        <td></td>
-                    }
                     <td>
                         <button class="btn btn-primary">Edit</button>
                         <button data-customer-id="@contact.Id" class="btn btn-primary js-delete">Delete</button>

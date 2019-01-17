@@ -114,7 +114,7 @@ namespace Quadridge2.Controllers
             return View(viewmodel);
         }
 
-        public ActionResult SaveComment(Comment comment)
+        public ActionResult SaveComment(StructureComment comment)
         {
             if (comment.Id == 0)
                 _context.Comments.Add(comment);

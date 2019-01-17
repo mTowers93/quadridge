@@ -1,7 +1,10 @@
-[
+﻿[
   {
     "outputFile": "Content/assets/scss/material-dashboard.css",
-    "inputFile": "Content/assets/scss/material-dashboard.scss",
-    "sourceMap": false
+    "inputFile": "Content/assets/scss/material-dashboard.scss"
+  },
+  {
+    "outputFile": "Content/test.css",
+    "inputFile": "Content/test.scss"
   }
 ]

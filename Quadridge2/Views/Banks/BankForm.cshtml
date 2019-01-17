@@ -1,0 +1,25 @@
+﻿@model Quadridge2.ViewModels.BanksFormViewModel
+@{
+    ViewBag.Title = "Bank Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="card">
+    <div class="card-body">
+        @using (@Html.BeginForm("Save", "Banks"))
+        {
+            <div class="form-row">
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(b => b.Bank.Name, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(b => b.Bank.Name, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(b => b.Bank.Name)
+                    </div>
+                </div>
+            </div>
+
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+        }
+    </div>
+</div>

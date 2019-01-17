@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Quadridge2.Models;
+using Quadridge2.Models.Contacts;
 using System.ComponentModel.DataAnnotations;
 
 namespace Quadridge2.Dtos

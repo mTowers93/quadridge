@@ -214,7 +214,6 @@
     <Compile Include="Controllers\Api\DealsController.cs" />
     <Compile Include="Controllers\BanksController.cs" />
     <Compile Include="Controllers\BillingBasesController.cs" />
-    <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\EntitiesController.cs" />
     <Compile Include="Controllers\FeeTypesController.cs" />
     <Compile Include="Controllers\InteractionsController.cs" />
@@ -222,6 +221,7 @@
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\StructureCategoriesController.cs" />
     <Compile Include="Controllers\StructuresController.cs" />
+    <Compile Include="Controllers\TrustsController.cs" />
     <Compile Include="Migrations\201812251231130_AddedServicesAndUpdatedDeals.cs" />
     <Compile Include="Migrations\201812251231130_AddedServicesAndUpdatedDeals.Designer.cs">
       <DependentUpon>201812251231130_AddedServicesAndUpdatedDeals.cs</DependentUpon>
@@ -274,17 +274,38 @@
     <Compile Include="Migrations\201901151346515_MovedReferralToStructure.Designer.cs">
       <DependentUpon>201901151346515_MovedReferralToStructure.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\BillingBasis.cs" />
-    <Compile Include="Models\ClientCategory.cs" />
+    <Compile Include="Migrations\201901160839089_AddedContactAssociativeTables.cs" />
+    <Compile Include="Migrations\201901160839089_AddedContactAssociativeTables.Designer.cs">
+      <DependentUpon>201901160839089_AddedContactAssociativeTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901160957492_Changes.cs" />
+    <Compile Include="Migrations\201901160957492_Changes.Designer.cs">
+      <DependentUpon>201901160957492_Changes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901161233098_addedStandalone.cs" />
+    <Compile Include="Migrations\201901161233098_addedStandalone.Designer.cs">
+      <DependentUpon>201901161233098_addedStandalone.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901170823076_AddedBankOffices.cs" />
+    <Compile Include="Migrations\201901170823076_AddedBankOffices.Designer.cs">
+      <DependentUpon>201901170823076_AddedBankOffices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BankOffice.cs" />
+    <Compile Include="Models\Contacts\BankContact.cs" />
+    <Compile Include="Models\Contacts\LawFirmContact.cs" />
+    <Compile Include="Models\Contacts\StandaloneContact.cs" />
+    <Compile Include="Models\Maintenance\BillingBasis.cs" />
+    <Compile Include="Models\Maintenance\ClientCategory.cs" />
     <Compile Include="Models\Document.cs" />
-    <Compile Include="Models\DocumentType.cs" />
+    <Compile Include="Models\Maintenance\DocumentType.cs" />
     <Compile Include="Models\Entity.cs" />
-    <Compile Include="Models\FeeType.cs" />
-    <Compile Include="Models\InteractionType.cs" />
-    <Compile Include="Models\Interest.cs" />
-    <Compile Include="Models\Service.cs" />
-    <Compile Include="Models\Structure.cs" />
-    <Compile Include="Models\StructureCategory.cs" />
+    <Compile Include="Models\Maintenance\FeeType.cs" />
+    <Compile Include="Models\Maintenance\InteractionType.cs" />
+    <Compile Include="Models\Contacts\Interest.cs" />
+    <Compile Include="Models\Maintenance\Service.cs" />
+    <Compile Include="Models\Deals\Structure.cs" />
+    <Compile Include="Models\Maintenance\StructureCategory.cs" />
+    <Compile Include="Models\Standalone.cs" />
     <Compile Include="Models\Trust.cs" />
     <Compile Include="ViewModels\BanksFormViewModel.cs" />
     <Compile Include="ViewModels\Clients\ClientContactsViewModel.cs" />
@@ -412,20 +433,19 @@
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Bank.cs" />
     <Compile Include="Models\Client.cs" />
-    <Compile Include="Models\Comment.cs" />
-    <Compile Include="Models\Company.cs" />
-    <Compile Include="Models\Contact.cs" />
-    <Compile Include="Models\ContactComment.cs" />
+    <Compile Include="Models\Deals\StructureComment.cs" />
+    <Compile Include="Models\Contacts\Contact.cs" />
+    <Compile Include="Models\Contacts\ContactComment.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Deal.cs" />
-    <Compile Include="Models\DealType.cs" />
+    <Compile Include="Models\Maintenance\DealType.cs" />
     <Compile Include="Models\EmployeeRole.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Interaction.cs" />
     <Compile Include="Models\LawFirm.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Province.cs" />
-    <Compile Include="Models\Status.cs" />
+    <Compile Include="Models\Maintenance\Province.cs" />
+    <Compile Include="Models\Maintenance\Status.cs" />
     <Compile Include="Models\SuperUserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -435,6 +455,7 @@
     <Compile Include="ViewModels\Entities\EntityFormViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\InteractionsFormViewModel.cs" />
+    <Compile Include="ViewModels\LawFirms\LawFirmFormViewModel.cs" />
     <Compile Include="ViewModels\Structures\StructureFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -994,10 +1015,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\LawFirms\Index.cshtml" />
-    <Content Include="Views\LawFirms\Create.cshtml" />
-    <Content Include="Views\LawFirms\Delete.cshtml" />
     <Content Include="Views\LawFirms\Details.cshtml" />
-    <Content Include="Views\LawFirms\Edit.cshtml" />
     <Content Include="Views\Contacts\Index.cshtml" />
     <Content Include="Views\Contacts\Details.cshtml" />
     <Content Include="Views\Clients\_details.cshtml" />
@@ -1017,11 +1035,16 @@
     <Content Include="Views\Structures\Index.cshtml" />
     <Content Include="Views\Structures\StructureForm.cshtml" />
     <Content Include="Views\StructureCategories\Index.cshtml" />
+    <Content Include="Views\Banks\BankForm.cshtml" />
+    <Content Include="Views\LawFirms\LawFirmForm.cshtml" />
+    <Content Include="Views\Trusts\Index.cshtml" />
+    <Content Include="Views\Banks\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\dashboard\vendor\font-awesome\less\" />
     <Folder Include="Content\dashboard\vendor\font-awesome\scss\" />
+    <Folder Include="ViewModels\Banks\" />
     <Folder Include="Views\Companies\" />
   </ItemGroup>
   <ItemGroup>
@@ -1146,6 +1169,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901151346515_MovedReferralToStructure.resx">
       <DependentUpon>201901151346515_MovedReferralToStructure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901160839089_AddedContactAssociativeTables.resx">
+      <DependentUpon>201901160839089_AddedContactAssociativeTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901160957492_Changes.resx">
+      <DependentUpon>201901160957492_Changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901161233098_addedStandalone.resx">
+      <DependentUpon>201901161233098_addedStandalone.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901170823076_AddedBankOffices.resx">
+      <DependentUpon>201901170823076_AddedBankOffices.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

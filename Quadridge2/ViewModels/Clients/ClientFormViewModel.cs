@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Quadridge2.Models;
+using Quadridge2.Models.Maintenance;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Quadridge2.Models;
+
 
 namespace Quadridge2.ViewModels.Clients
 {
@@ -10,7 +12,6 @@ namespace Quadridge2.ViewModels.Clients
     {
         public IEnumerable<Country> Countries { get; set; }
         public IEnumerable<Province> Provinces { get; set; }
-        public IEnumerable<Company> Companies { get; set; }
         public Client Client { get; set; }
     }
 }

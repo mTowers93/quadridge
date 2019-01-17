@@ -1,60 +1,108 @@
 ﻿@model Quadridge2.ViewModels.ContactFormViewModel
 @{
-    ViewBag.Title = "ContactForm";
+    ViewBag.Title = "Contact Form";
 }
 
 <div class="card">
     <div class="card-body">
-        @using (Html.BeginForm("Save", "Contacts"))
+        @using (Html.BeginForm("Save", "Contacts", FormMethod.Post))
         {
-            <div class="form-group">
-                @Html.LabelFor(c => c.Contact.ClientId, new { @class = "form-control-label" })
-                @Html.DropDownListFor(c => c.Contact.ClientId, new SelectList(Model.Clients, "Id", "Name"), "", new { @class = "form-control" })
+
+        <div class="form-row">
+            <div class="col-3">
+                <div class="form-group">
+                    @Html.LabelFor(c => c.Contact.Firstname, new { @class = "form-control-label" })
+                    @Html.TextBoxFor(c => c.Contact.Firstname, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(c => c.Contact.Firstname)
+                </div>
             </div>
 
+            <div class="col-3">
+                <div class="form-group">
+                    @Html.LabelFor(c => c.Contact.Surname, new { @class = "form-control-label" })
+                    @Html.TextBoxFor(c => c.Contact.Surname, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(c => c.Contact.Surname)
+                </div>
+            </div>
+        </div>
+
+            <div class="form-row">
+
+            <div class="col-3">
+                <div class="form-group">
+                    @Html.LabelFor(c => c.Contact.Email, new { @class = "form-control-label" })
+                    @Html.TextBoxFor(c => c.Contact.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(c => c.Contact.Email)
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    @Html.LabelFor(c => c.Contact.Birthday, new { @class = "form-control-label" })
+                    @Html.TextBoxFor(c => c.Contact.Birthday, new { @class = "form-control datepicker-here", @data_language = "en", @autocomplete = "off" })
+                </div>
+            </div>
+        </div>
             <div class="form-row">
                 <div class="col-3">
                     <div class="form-group">
-                        @Html.LabelFor(c => c.Contact.Firstname, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.Contact.Firstname, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(c => c.Contact.Firstname)
+                        @Html.LabelFor(c => c.Contact.ContactNo, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Contact.ContactNo, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(c => c.Contact.ContactNo)
                     </div>
                 </div>
+
+                <div class="col-3">
+                <div class="form-group">
+                    @Html.LabelFor(c => c.Contact.AltContactNo, new { @class = "form-control-label" })
+                    @Html.TextBoxFor(c => c.Contact.AltContactNo, new { @class = "form-control" })
+                </div>
+                    </div>
 
             </div>
 
             <div class="form-row">
-                <div class="col-3">
+                <div class="col-4">
                     <div class="form-group">
-                        @Html.LabelFor(c => c.Contact.Surname, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.Contact.Surname, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(c => c.Contact.Surname)
+                        <input type="radio" name="choice-contact-type" id="choice-contact-type-bank" required>
+                        <label for="choice-contact-type-bank">Bank</label>
+
+                        <div class="reveal-if-active">
+
+                            @Html.DropDownListFor(b => b.RelationId, new SelectList(Model.Banks, "Id", "Name "), "", new { @class = "form-control" })
+                            @Html.HiddenFor(v => v.IsBank)
+                        </div>
                     </div>
                 </div>
 
-                <div class="col-3">
+                <div class="col-4">
                     <div class="form-group">
-                        @Html.LabelFor(c => c.Contact.Email, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.Contact.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(c => c.Contact.Email)
+                        <input type="radio" name="choice-contact-type" id="choice-contact-type-lawFirm">
+                        <label for="choice-contact-type-lawFirm">Law Firm</label>
+
+                        <div class="reveal-if-active">
+
+                            @Html.DropDownListFor(l => l.RelationId, new SelectList(Model.LawFirms, "Id", "Name"), "", new { @class = "form-control" })
+                            @Html.HiddenFor(v => v.IsLawFirm)
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(c => c.Contact.ContactNo, new { @class = "form-control-label" })
-                @Html.TextBoxFor(c => c.Contact.ContactNo, new { @class = "form-control" })
-                @Html.ValidationMessageFor(c => c.Contact.ContactNo)
-            </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <input type="radio" name="choice-contact-type" id="choice-contact-type-standalone">
+                        <label for="choice-contact-type-standalone">Other</label>
 
-            <div class="form-group">
-                @Html.LabelFor(c => c.Contact.AltContactNo, new { @class = "form-control-label" })
-                @Html.TextBoxFor(c => c.Contact.AltContactNo, new { @class = "form-control" })
+                        <div class="reveal-if-active">
+
+                            @Html.DropDownListFor(s => s.RelationId, new SelectList(Model.Standalones, "Id", "Name"), "", new { @class = "form-control" })
+                            @Html.HiddenFor(v => v.IsStandalone)
+                        </div>
+                    </div>
+                </div>
             </div>
 
             @Html.AntiForgeryToken()
-            <button class="btn btn-primary">Save</button>
-
+            <button type="submit" class="btn btn-primary">Save</button>
         }
     </div>
 </div>
@@ -63,5 +111,22 @@
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $('#choice-contact-type-bank').on("click", function () {
+                $("#IsBank").val(this.checked);
+            });
+
+            $('#choice-contact-type-lawFirm').on("click", function () {
+                $("#IsBank").val(this.checked);
+            });
+
+            $('#choice-contact-type-standalone').on("click", function () {
+                $("#IsStandalone").val(this.checked);
+            });
+        });
+    </script>
 }
+
 

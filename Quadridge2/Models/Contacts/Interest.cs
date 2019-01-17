@@ -1,10 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Quadridge2.Models.Contacts;
+using System.ComponentModel.DataAnnotations;
 
-namespace Quadridge2.Models
+namespace Quadridge2.Models.Contacts
 {
     public class Interest
     {
         public int Id { get; set; }
+
+        [Required]
+        public string InterestText { get; set; }
 
         [Required]
         [Display(Name="Contact")]

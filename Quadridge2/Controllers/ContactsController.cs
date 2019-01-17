@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Quadridge2.Models;
+using Quadridge2.Models.Contacts;
+using Quadridge2.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Quadridge2.Models;
-using Quadridge2.ViewModels;
 
 namespace Quadridge2.Controllers
 {
@@ -40,41 +41,78 @@ namespace Quadridge2.Controllers
         {
             var viewModel = new ContactFormViewModel
             {
-                Clients = _context.Clients.ToList()
+                Banks = _context.Banks.ToList(),
+                LawFirms = _context.LawFirms.ToList(),
+                Standalones = _context.Standalones.ToList(),
+                IsBank = false,
+                IsLawFirm = false,
+                IsStandalone = false
             };
+
             return View("ContactForm", viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Save(Contact contact)
+        public ActionResult Save(ContactFormViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
-                var viewModel = new ContactFormViewModel
-                {
-                    Contact = contact,
-                    Clients = _context.Clients.ToList()
-                };
-
                 return View("ContactForm", viewModel);
             }
-            if (contact.Id == 0)
-                _context.Contacts.Add(contact);
+            if (viewModel.Contact.Id == 0)
+            {
+                _context.Contacts.Add(viewModel.Contact);
+                _context.SaveChanges();
+
+                var contactId = viewModel.Contact.Id;
+                if (viewModel.IsBank)
+                {
+                    var bankContact = new BankContact()
+                    {
+                        BankId = viewModel.RelationId,
+                        Bank = _context.Banks.Single(b => b.Id == viewModel.RelationId),
+                        ContactId = contactId,
+                        Contact = viewModel.Contact
+                    };
+                    _context.BankContacts.Add(bankContact);
+                }
+                else if (viewModel.IsLawFirm)
+                {
+                    var lawFirmContact = new LawFirmContact()
+                    {
+                        LawFirmId = viewModel.RelationId,
+                        LawFirm = _context.LawFirms.Single(l => l.Id == viewModel.RelationId),
+                        ContactId = contactId,
+                        Contact = viewModel.Contact,
+
+                    };
+                    _context.LawFirmContacts.Add(lawFirmContact);
+                }
+                else if (viewModel.IsStandalone)
+                {
+                    var standaloneContact = new StandaloneContact()
+                    {
+                        StandAloneId = viewModel.RelationId,
+                        Standalone = _context.Standalones.Single(s => s.Id == viewModel.RelationId),
+                        Contact = viewModel.Contact,
+                        ContactId = contactId
+                    };
+                    _context.StandaloneContacts.Add(standaloneContact);
+                }
+            }
+                
             else
             {
-                var contactInDb = _context.Contacts.Single(c => c.Id == contact.Id);
+                var contactInDb = _context.Contacts.Single(c => c.Id == viewModel.Contact.Id);
 
-                contactInDb.EntityId = contact.EntityId;
-                contactInDb.Firstname = contact.Firstname;
-                contactInDb.Surname = contact.Surname;
-                contactInDb.Email = contact.Email;
-                contactInDb.ContactNo = contact.ContactNo;
+                contactInDb.Firstname = viewModel.Contact.Firstname;
+                contactInDb.Surname = viewModel.Contact.Surname;
+                contactInDb.Email = viewModel.Contact.Email;
+                contactInDb.ContactNo = viewModel.Contact.ContactNo;
 
-                if (!String.IsNullOrWhiteSpace(contact.AltContactNo))
-                    contactInDb.AltContactNo = contact.AltContactNo;
-
-               
+                if (!String.IsNullOrWhiteSpace(viewModel.Contact.AltContactNo))
+                    contactInDb.AltContactNo = viewModel.Contact.AltContactNo;            
             }
 
             _context.SaveChanges();

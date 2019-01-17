@@ -4,14 +4,16 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 
-namespace Quadridge2.Models
+namespace Quadridge2.Models.Maintenance
 {
-    public class Status
+    public class Province
     {
         public int Id { get; set; }
 
+        public string Code {get; set;}
+
         [Required]
         [StringLength(100)]
-        public string Type { get; set; }
+        public string Name { get; set; }
     }
 }

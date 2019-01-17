@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quadridge2.Models.Maintenance;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -53,9 +54,5 @@ namespace Quadridge2.Models
 
         [Display(Name = "Country")]
         public int CountryId { get; set; }
-
-        public IEnumerable<Comment> Comments { get; set; }
-
-        public IEnumerable<Contact> Contacts { get; set; }
     }
 }

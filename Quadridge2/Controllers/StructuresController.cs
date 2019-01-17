@@ -1,4 +1,6 @@
 ﻿using Quadridge2.Models;
+using Quadridge2.Models.Deals;
+using Quadridge2.Models.Maintenance;
 using Quadridge2.ViewModels;
 using Quadridge2.ViewModels.Structures;
 using System;
@@ -34,6 +36,8 @@ namespace Quadridge2.Controllers
         {
             var viewModel = new StructureFormViewModel
             {
+                StructureCategories = _context.StructureCategories.ToList(),
+                Contacts = _context.Contacts.ToList()
             };
             return View("StructureForm", viewModel);
         }

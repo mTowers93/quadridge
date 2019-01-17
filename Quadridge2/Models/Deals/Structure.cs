@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Quadridge2.Models.Contacts;
+using Quadridge2.Models.Maintenance;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 
-namespace Quadridge2.Models
+namespace Quadridge2.Models.Deals
 {
     public class Structure
     {
