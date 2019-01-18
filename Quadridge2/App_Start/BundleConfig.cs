@@ -10,13 +10,13 @@ namespace Quadridge2
         {
             bundles.Add(new ScriptBundle("~/bundles/lib").Include(
                         "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/popper.min.js",
                         "~/Scripts/bootstrap.js",
-                        //"~/scripts/popper.js",
+                        "~/Scripts/bootstrap-select.min.js",
+                        "~/Scripts/bootstrap/i18n/defaults-en_US.min.js",
                         "~/Scripts/toastr.js",
                         "~/Scripts/datepicker.min.js",
                         "~/Scripts/datepicker.en.js",
-                        "~/Scripts/select-picker/bootstrap-select.min.js",
-                        "~/Scripts/select-picker/defaults-en_US.min.js",
                         "~/Scripts/respond.js"
                         ));
 
@@ -48,7 +48,7 @@ namespace Quadridge2
                       "~/Content/datatables/css/datatables.bootstrap4.css",
                       "~/Content/toastr.css",
                       "~/Content/airdatepicker/datepicker.min.css",
-                      "~/Content/select-picker/bootstrap-select.min.css",
+                      "~/Content/bootstrap-select.min.css",
                       "~/Content/site.css"
                       ));
         }

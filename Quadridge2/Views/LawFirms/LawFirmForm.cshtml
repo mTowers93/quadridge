@@ -26,9 +26,6 @@
                         @Html.ValidationMessageFor(l => l.LawFirm.FirstAddressLine)
                     </div>
                 </div>
-            </div>
-
-            <div class="form-row">
                 <div class="col-3">
                     <div class="form-group">
                         @Html.LabelFor(l => l.LawFirm.SecondAddressLine, new { @class = "form-control-label" })
@@ -45,9 +42,6 @@
                         @Html.ValidationMessageFor(l => l.LawFirm.Suburb)
                     </div>
                 </div>
-            </div>
-
-            <div class="form-row">
                 <div class="col-3">
                     <div class="form-group">
                         @Html.LabelFor(l => l.LawFirm.City, new { @class = "form-control-label" })
@@ -55,9 +49,6 @@
                         @Html.ValidationMessageFor(l => l.LawFirm.City)
                     </div>
                 </div>
-            </div>
-
-            <div class="form-row">
                 <div class="col-3">
                     <div class="form-group">
                         @Html.LabelFor(l => l.LawFirm.Zip, new { @class = "form-control-label" })
@@ -68,16 +59,17 @@
             </div>
 
             <div class="form-row">
-                <div class="form-group">
-                    @Html.LabelFor(l => l.LawFirm.ProvinceId, new { @class = "form-control-lable" })
-                    @Html.DropDownListFor(l => l.LawFirm.ProvinceId, new SelectList(Model.Provinces, "Id", "Name"), "Please select province", new { @class = "form-control" })
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(l => l.LawFirm.ProvinceId, new { @class = "form-control-lable" })
+                        @Html.DropDownListFor(l => l.LawFirm.ProvinceId, new SelectList(Model.Provinces, "Id", "Name"), "Please select province", new { @class = "form-control" })
+                    </div>
                 </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    @Html.LabelFor(l => l.LawFirm.CountryId, new { @class = "form-control-lable" })
-                    @Html.DropDownListFor(l => l.LawFirm.CountryId, new SelectList(Model.Countries, "Id", "Name"), "Please select country", new { @class = "form-control" })
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(l => l.LawFirm.CountryId, new { @class = "form-control-lable" })
+                        @Html.DropDownListFor(l => l.LawFirm.CountryId, new SelectList(Model.Countries, "Id", "Name"), "Please select country", new { @class = "form-control" })
+                    </div>
                 </div>
             </div>
 

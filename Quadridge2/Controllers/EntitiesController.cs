@@ -61,7 +61,11 @@ namespace Quadridge2.Controllers
                 return View("EntityForm", viewModel);
             }
             if (entity.Id == 0)
+            {
                 _context.Entities.Add(entity);
+                _context.SaveChanges();
+
+            }  
             else
             {
                 var entityInDb = _context.Entities.Single(c => c.Id == entity.Id);

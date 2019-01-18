@@ -42,5 +42,13 @@ namespace Quadridge2.Models.Contacts
 
         public ICollection<ContactComment> ContactComments { get; set; }
 
+        public string Fullname
+        {
+            get
+            {
+                return Firstname + " " + Surname;
+            }
+        }
+
     }
 }

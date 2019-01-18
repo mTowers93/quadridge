@@ -17,9 +17,9 @@ namespace Quadridge2.Models
 
         public Structure Structure { get; set; }
 
-        public IEnumerable<Entity> Entities { get; set; }
-
         [Display(Name="Associated Structure")]
         public int? StructureId { get; set; }
+
+        public IEnumerable<Entity> Entities { get; set; }
     }
 }

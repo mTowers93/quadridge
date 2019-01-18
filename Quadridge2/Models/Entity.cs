@@ -18,6 +18,7 @@ namespace Quadridge2.Models
         public string Name { get; set; }
 
         [Required]
+        [Display(Name="Registration Number")]
         public string RegistrationNumber { get; set; }
 
         [Display(Name="Directorship Start Date")]

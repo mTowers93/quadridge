@@ -59,3 +59,7 @@ input[type="checkbox"]:checked ~ .reveal-if-active {
     overflow: visible;
     transform: scale(1);
 }
+
+.service-heading {
+    background: #eee;
+}
