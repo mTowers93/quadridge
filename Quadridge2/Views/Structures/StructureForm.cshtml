@@ -9,18 +9,43 @@
         @using (Html.BeginForm("Save", "Structures"))
         {
             <div class="form-row">
-                <div class="form-group">
-                    @Html.LabelFor(s => s.Structure.Name, new { @class = "form-control-label" })
-                    @Html.TextBoxFor(s => s.Structure.Name, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(s => s.Structure.Name)
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(s => s.Structure.Name, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(s => s.Structure.Name, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(s => s.Structure.Name)
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(s => s.Structure.StructureCategoryId, new { @class = "form-control-label" })
+                        @Html.DropDownListFor(s => s.Structure.StructureCategoryId, new SelectList(Model.StructureCategories, "Id", "Category"), "Select Category", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(s => s.Structure.Name)
+                    </div>
                 </div>
             </div>
 
             <div class="form-row">
-                <div class="form-group">
-                    @Html.LabelFor(s => s.Structure.StructureCategoryId, new { @class = "form-control-label" })
-                    @Html.DropDownListFor(s => s.Structure.StructureCategoryId, new SelectList(Model.StructureCategories, "Id", "Category"), "Select Category", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(s => s.Structure.Name)
+                <div class="col-3">
+                    <div class="form-group">
+                        <input type="radio" name="choice-inst-type" id="choice-inst-type-financial" required>
+                        <label for="choice-inst-type-financial">Financial Institution</label>
+
+                        <div class="reveal-if-active">
+                            @Html.DropDownListFor(b => b.Structure.FinancialInstitutionId, new SelectList(Model.FinancialInstitutions, "Id", "Name "), "", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-3">
+                    <div class="form-group">
+                        <input type="radio" name="choice-inst-type" id="choice-inst-type-other">
+                        <label for="choice-inst-type-other">Other Institution</label>
+
+                        <div class="reveal-if-active">
+                            @Html.DropDownListFor(l => l.Structure.OtherInstitutionId, new SelectList(Model.OtherInstitutions, "Id", "Name"), "", new { @class = "form-control" })
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -29,7 +54,12 @@
                     <div class="form-group">
                         @Html.LabelFor(s => s.Structure.ContactId, new { @class = "form-control-label" })
                         @Html.DropDownListFor(s => s.Structure.ContactId, new SelectList(Model.Contacts, "Id", "Fullname"), "Select Contact", new { @class = "form-control selectpicker", @data_live_search = "true" })
-                        @Html.ValidationMessageFor(s => s.Structure.Name)
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        @Html.LabelFor(s => s.Structure.StatusId, new { @class = "form-control-label" })
+                        @Html.DropDownListFor(s => s.Structure.StatusId, new SelectList(Model.Statuses, "Id", "Type"), "Select Status", new { @class = "form-control" })
                     </div>
                 </div>
             </div>

@@ -15,11 +15,21 @@ namespace Quadridge2.Models
         [StringLength(100)]
         public string Name { get; set; }
 
+        [Required]
+        public string Donor { get; set; }
+
         public Structure Structure { get; set; }
 
-        [Display(Name="Associated Structure")]
+        [Display(Name = "Associated Structure")]
         public int? StructureId { get; set; }
 
-        public IEnumerable<Entity> Entities { get; set; }
+        public DateTime AppointmentDate { get; set;}
+
+        [Display(Name = "Trustee Representitive")]
+        public string TrusteeRepresentitive { get; set; }
+
+        public ICollection<Company> Companies { get; set; }
+
+        public ICollection<TrustService> TrustServices { get; set; }
     }
 }

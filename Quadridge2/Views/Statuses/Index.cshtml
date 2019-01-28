@@ -1,0 +1,119 @@
+﻿@using Quadridge2.Helpers
+@model ICollection<Quadridge2.Models.Maintenance.Status>
+@{
+    ViewBag.Title = "Status";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <button class="btn btn-primary" data-target="addStatus" data-toggle="modal" id="btnShowModal">New Status</button>
+</div>
+
+@Html.AddNewModal("Status","Add New Status", "Status")
+@Html.DeleteModal("Status")
+@Html.EditModal("Edit Status", "Status", "Status")
+
+<div class="row">
+    @if (Model.Count() == 0)
+    {
+        <p>There are no statuses, please add one.</p>
+    }
+    else
+    {
+        <table id="statuses" class="table table-bordered table-hover">
+            @foreach (var status in Model)
+            {
+                <tr>
+                    <td>@status.Type</td>
+                    <td><button class="btn btn-info edit" onclick="editGroupName('@status.Id', '@status.Type'); return false;">Edit</button>  <button class="btn btn-danger delete" data-status-id=@status.Id data-target="#confirmDelete"><i class="fa fa-trash-o fa-lg"></i></button></td>
+                </tr>
+            }
+        </table>
+    }
+</div>
+
+@section Scripts
+{
+    <script>
+
+        function editGroupName(id, name) {
+            $('input#editId').val(id);
+            $('#editModalText').val(name);
+        };
+
+        $(document).ready(function () {
+
+            var button;
+
+            $("#btnShowModal").click(function () {
+                button = $(this);
+                $("#addStatus").modal('show');
+            });
+
+            $("#btnHideModal").on("click",function () {
+                $("#addStatus").modal('hide');
+            });
+
+            $("#btnHideEditModal").on("click", function () {
+                $("#editModal").modal("hide");
+            });
+
+            $(".edit").on("click", function () {
+                $("#editModal").modal("show");
+            });
+
+            $("#hideConfirmModal").on("click", function () {
+                $("#confirmDelete").modal('hide');
+            });
+
+            $(".delete").on("click", function () {
+                button = $(this);
+                $("#deleteId").val($(this).attr("data-status-id"));
+                $("#confirmDelete").modal('show');
+            });
+
+            $("#yes").on("click", function () {
+                $.ajax({
+                    url: "/Statuses/Delete/" + $("#deleteId").val(),
+                    method: "DELETE",
+                    success: function (result) {
+                        toastr.success("Status removed");
+                        $("#confirmDelete").modal("hide");
+                        $(button.parent("tr")).remove();
+                        window.location.href = result.Url;
+                    }
+                });
+            });
+
+            $(".saveStatus").click(function (e) {
+                e.preventDefault();
+                var status = {}
+                if ($('input#editId').val() != '') {
+                    status.Id = $('input#editId').val();
+                    status.Type = $('#editModalText').val();
+                }
+                else {
+                    status.Type = $("#Status").val();
+                }
+                $.ajax(
+                    {
+                        method: "post",
+                        url: "/Statuses/Save",
+                        data: JSON.stringify(status),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        sucess: function (result) {
+                            toastr.success("Status successfully added");
+                            $("#addStatus").modal('hide');
+                            window.location.href = result.Url;
+                        },
+                        fail: function () {
+                            toastr.error("Failed to add Status.");
+                        }
+                    }
+                )
+            });
+        });
+
+    </script>
+}
+

@@ -4,39 +4,43 @@
     ViewBag.Title = "Contacts";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="card">
+    <div class="card-header">
+        @Html.ActionLink("New Contact", "New", "Contacts", null, new { @class = "btn btn-primary float-right" })
 
-<p>@Html.ActionLink("New Contact", "New", "Contacts", null, new { @class = "btn btn-primary" })</p>
-
-@if (!Model.Any())
-{
-    <p> We do not have any Contacts yet </p>
-}
-else
-{
-    <table id="contacts" class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>Firstname</th>
-                <th>Surname</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var contact in Model)
-            {
-                <tr>
-                    <td>@Html.ActionLink(contact.Firstname, "Details", "Contacts", new { id = contact.Id }, null)</td>
-                    <td>@Html.ActionLink(contact.Surname, "Details", "Contacts", new { id = contact.Id }, null)</td>
-                    <td>
-                        <button class="btn btn-primary">Edit</button>
-                        <button data-customer-id="@contact.Id" class="btn btn-danger js-delete"><i class="fa fa-trash-o fa-lg"></i></button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-
+    </div>
+    <div class="card-body">
+        @if (!Model.Any())
+        {
+            <p> We do not have any Contacts yet </p>
+        }
+        else
+        {
+            <table id="contacts" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Firstname</th>
+                        <th>Surname</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var contact in Model)
+                    {
+                        <tr>
+                            <td>@Html.ActionLink(contact.Firstname, "Details", "Contacts", new { id = contact.Id }, null)</td>
+                            <td>@Html.ActionLink(contact.Surname, "Details", "Contacts", new { id = contact.Id }, null)</td>
+                            <td>
+                                <button class="btn btn-primary">Edit</button>
+                                <button data-customer-id="@contact.Id" class="btn btn-danger js-delete"><i class="fa fa-trash-o fa-lg"></i></button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
 @section scripts
 {
     <script>

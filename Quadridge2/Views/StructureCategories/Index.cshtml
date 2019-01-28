@@ -10,7 +10,7 @@
 </div>
 
 @Html.AddNewModal("StructureCategory", "Structure Category", "Structure Category")
-@Html.DeleteModal()
+@Html.DeleteModal("structure category")
 @Html.EditModal("Structure Category", "Structure Category", "StructureCategory")
 
 <div class="row">
@@ -75,35 +75,39 @@
             $("#yes").on("click", function () {
                 console.log("Ive been pushed");
                 $.ajax({
-                    url: "/StructureCategories/DeleteStructureCategory/" + $("#deleteId").val(),
+                    url: "/StructureCategories/Delete/" + $("#deleteId").val(),
                     method: "DELETE",
-                    success: function () {
-                        toastr.success("InteractionType removed");
+                    success: function (result) {
+                        toastr.success("Structure category removed");
                         $("#confirmDelete").modal("hide");
                         $(button.parent("tr")).remove();
-                        console.log("Success");
-                        location.reload();
+                        window.location.href = result.Url;
                     }
                 });
             });
 
-            $("#saveStructureCategory").click(function (e) {
+            $(".saveStructureCategory").click(function (e) {
                 e.preventDefault();
                 var structureCategory = {}
-                structureCategory.Category = $("#StructureCategory").val();
+                
+                if ($('input#editId').val() != '') {
+                    structureCategory.Id = $('input#editId').val();
+                    structureCategory.Category = $('#editModalText').val();
+                }
+                else {
+                    structureCategory.Category = $("#StructureCategory").val();
+                }
                 $.ajax(
                     {
                         method: "post",
-                        url: "/StructureCategories/SaveStructureCategory",
-                        data: JSON.stringify(InteractionType),
+                        url: "/StructureCategories/Save",
+                        data: JSON.stringify(structureCategory),
                         contentType: 'application/json; charset=utf-8',
                         dataType: 'json',
-                        complete: function () {
-                            toastr.success("InteractionType successfully added");
+                        sucess: function (result) {
+                            toastr.success("Structure category successfully added");
                             $("#addStructureCategory").modal('hide');
-                            var inside = "<td>" + structureCategory.Category + "/<td>"
-                            $(button.parent("table")).append("<tr>" + inside + "</tr>");
-                            location.reload();
+                            window.location.href = result.Url;
                         },
                         fail: function () {
                             toastr.error("Failed to add Structure Category.");

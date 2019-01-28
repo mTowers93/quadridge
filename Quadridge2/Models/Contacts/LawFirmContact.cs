@@ -9,10 +9,10 @@ namespace Quadridge2.Models.Contacts
     {
         public int? Id { get; set; }
 
-        public LawFirm LawFirm { get; set; }
+        public virtual LawFirm LawFirm { get; set; }
         public int LawFirmId { get; set; }
 
-        public Contact Contact { get; set; }
+        public virtual Contact Contact { get; set; }
         public int ContactId { get; set; }
     }
 }

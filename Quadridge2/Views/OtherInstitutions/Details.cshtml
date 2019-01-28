@@ -1,0 +1,126 @@
+﻿@using Quadridge2.Helpers
+@model Quadridge2.ViewModels.OtherInstitutionDetailViewModel
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.ContactsModal(Model.Contacts)
+<div class="modal fade" id="structuresModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Choose Structures</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <table class="display table table-light table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Select</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var structure in Model.Structures)
+                        {
+                            <tr>
+                                <td>@structure.Name</td>
+                                <td><input type="checkbox" /></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="card">
+    <div class="card-header">
+        <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#structuresModal">Assign Structures</button>
+        @Html.ActionLink("New Structure", "New", "Structures", null, new { @class = "btn btn-info float-right", @style = "margin-right:10px" })
+        <h4>Structures</h4>
+    </div>
+    <div class="card-body">
+        @if (Model.FinancialInstitution.Structures == null)
+        {
+            <p>The institution currently has no structures</p>
+        }
+        else
+        {
+            <table class="display table table-light table-borderd">
+                <thead>
+                    <tr>
+                        <th>
+                            Structure Name
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var structure in Model.FinancialInstitution.Structures)
+                    {
+                        <tr>
+                            <td>@Html.ActionLink(@structure.Name, "Details", "Structures", new { id = structure.Id }, null)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#contactsModal">Assign Contacts</button>
+        @Html.ActionLink("New Contact", "New", "Contacts", null, new { @class = "btn btn-info float-right", @style = "margin-right:10px" })
+        <h4>Contacts</h4>
+    </div>
+    <div class="card-body">
+        @if (Model.FinancialInstitution.FinancialInstitutionContacts.Count() == 0)
+        {
+            <p>This institution currenlty has no contacts.</p>
+            <button>Assign Contacts</button>
+            <button>Add contact</button>
+        }
+        else
+        {
+            <table class="display table table-light table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email Address</th>
+                        <th>Contact Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var contact in Model.FinancialInstitution.FinancialInstitutionContacts)
+                    {
+                        <tr>
+                            <td>@Html.ActionLink(contact.Contact.Fullname, "Details", "Contacts", new { id = contact.ContactId }, null)</td>
+                            <td>@contact.Contact.Email</td>
+                            <td>@contact.Contact.ContactNo</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+    $(document).ready(function () {
+        $(".display").DataTable();
+    });
+    </script>
+}
+

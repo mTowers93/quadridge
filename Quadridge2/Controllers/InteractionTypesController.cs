@@ -31,7 +31,7 @@ namespace Quadridge2.Controllers
         }
 
         [HttpPost]
-        public ActionResult SaveService(InteractionType interactionType)
+        public ActionResult Save(InteractionType interactionType)
         {
             if (interactionType.Id == 0)
                 _context.InteractionTypes.Add(interactionType);
@@ -46,7 +46,7 @@ namespace Quadridge2.Controllers
         }
 
         [HttpDelete]
-        public ActionResult DeleteInteractionType(int id)
+        public ActionResult Delete(int id)
         {
             var interactionTypeInDb = _context.InteractionTypes.SingleOrDefault(i => i.Id == id);
 

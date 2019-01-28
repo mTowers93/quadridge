@@ -8,40 +8,40 @@
         @using (Html.BeginForm("Save", "Contacts", FormMethod.Post))
         {
 
-        <div class="form-row">
-            <div class="col-3">
-                <div class="form-group">
-                    @Html.LabelFor(c => c.Contact.Firstname, new { @class = "form-control-label" })
-                    @Html.TextBoxFor(c => c.Contact.Firstname, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(c => c.Contact.Firstname)
+            <div class="form-row">
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.Contact.Firstname, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Contact.Firstname, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(c => c.Contact.Firstname)
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-3">
-                <div class="form-group">
-                    @Html.LabelFor(c => c.Contact.Surname, new { @class = "form-control-label" })
-                    @Html.TextBoxFor(c => c.Contact.Surname, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(c => c.Contact.Surname)
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.Contact.Surname, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Contact.Surname, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(c => c.Contact.Surname)
+                    </div>
                 </div>
             </div>
-        </div>
 
             <div class="form-row">
 
-            <div class="col-3">
-                <div class="form-group">
-                    @Html.LabelFor(c => c.Contact.Email, new { @class = "form-control-label" })
-                    @Html.TextBoxFor(c => c.Contact.Email, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(c => c.Contact.Email)
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.Contact.Email, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Contact.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(c => c.Contact.Email)
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.Contact.Birthday, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Contact.Birthday, new { @class = "form-control datepicker-here", @data_language = "en", @autocomplete = "off" })
+                    </div>
                 </div>
             </div>
-            <div class="col-3">
-                <div class="form-group">
-                    @Html.LabelFor(c => c.Contact.Birthday, new { @class = "form-control-label" })
-                    @Html.TextBoxFor(c => c.Contact.Birthday, new { @class = "form-control datepicker-here", @data_language = "en", @autocomplete = "off" })
-                </div>
-            </div>
-        </div>
             <div class="form-row">
                 <div class="col-3">
                     <div class="form-group">
@@ -52,24 +52,78 @@
                 </div>
 
                 <div class="col-3">
-                <div class="form-group">
-                    @Html.LabelFor(c => c.Contact.AltContactNo, new { @class = "form-control-label" })
-                    @Html.TextBoxFor(c => c.Contact.AltContactNo, new { @class = "form-control" })
-                </div>
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.Contact.AltContactNo, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Contact.AltContactNo, new { @class = "form-control" })
                     </div>
+                </div>
+
+            </div>
+            <hr />
+
+            <div class="form-row">
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.Contact.FirstAddressLine, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Contact.FirstAddressLine, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.Contact.SecondAddressLine, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Contact.SecondAddressLine, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.Contact.Suburb, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Contact.Suburb, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.Contact.City, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Contact.City, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.Contact.Zip, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Contact.Zip, new { @class = "form-control" })
+                    </div>
+                </div>
+
 
             </div>
 
             <div class="form-row">
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.Contact.ProvinceId, new { @class = "form-control-label" })
+                        @Html.DropDownListFor(c => c.Contact.ProvinceId, new SelectList(Model.Provinces, "Id", "Name"), "", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.Contact.CountryId, new { @class = "form-control-label" })
+                        @Html.DropDownListFor(c => c.Contact.CountryId, new SelectList(Model.Countries, "Id", "Name"), "", new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="form-row">
                 <div class="col-4">
                     <div class="form-group">
                         <input type="radio" name="choice-contact-type" id="choice-contact-type-bank" required>
-                        <label for="choice-contact-type-bank">Bank</label>
+                        <label for="choice-contact-type-bank">Financial Institution</label>
 
                         <div class="reveal-if-active">
 
-                            @Html.DropDownListFor(b => b.RelationId, new SelectList(Model.Banks, "Id", "Name "), "", new { @class = "form-control" })
-                            @Html.HiddenFor(v => v.IsBank)
+                            @Html.DropDownListFor(b => b.RelationId, new SelectList(Model.FinancialInstitutions, "Id", "Name "), "", new { @class = "form-control" })
+                            @Html.HiddenFor(v => v.IsFinancialInstitution)
                         </div>
                     </div>
                 </div>
@@ -115,11 +169,11 @@
     <script>
         $(document).ready(function () {
             $('#choice-contact-type-bank').on("click", function () {
-                $("#IsBank").val(this.checked);
+                $("#IsFinancialInstitution").val(this.checked);
             });
 
             $('#choice-contact-type-lawFirm').on("click", function () {
-                $("#IsBank").val(this.checked);
+                $("#IsLawFirm").val(this.checked);
             });
 
             $('#choice-contact-type-standalone').on("click", function () {

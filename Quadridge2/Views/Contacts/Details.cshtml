@@ -1,78 +1,140 @@
 ﻿@model Quadridge2.Models.Contacts.Contact
 
 @{
-    ViewBag.Title = Model.Firstname + " " + Model.Surname;
+    ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Firstname)
-        </dt>
+<p>@Html.ActionLink("Back to List", "Index")</p>
+<div class="card">
+    <div class="card-header">
+        @Html.ActionLink("Edit", "Edit", "Contacts", new { id = Model.Id }, new { @class = "btn btn-primary float-right" })
+        <h4>@Model.Fullname</h4>
+    </div>
+    <div class="card-body">
+            <div class="form-row">
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.Firstname, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Firstname, new { @class = "form-control", @readonly = "" })
+                        @Html.ValidationMessageFor(c => c.Firstname)
+                    </div>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Firstname)
-        </dd>
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.Surname, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Surname, new { @class = "form-control", @readonly = "" })
+                        @Html.ValidationMessageFor(c => c.Surname)
+                    </div>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Surname)
-        </dt>
+            <div class="form-row">
 
-        <dd>
-            @Html.DisplayFor(model => model.Surname)
-        </dd>
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.Email, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Email, new { @class = "form-control", @readonly = "" })
+                        @Html.ValidationMessageFor(c => c.Email)
+                    </div>
+                </div>
+                <div class="col-3">
+                    @{ 
+                        var birthday = Model.Birthday.ToShortDateString();
+                    }
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.Birthday, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => birthday, new { @class = "form-control", @readonly = "" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.ContactNo, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.ContactNo, new { @class = "form-control", @readonly = "" })
+                        @Html.ValidationMessageFor(c => c.ContactNo)
+                    </div>
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LawFirm)
-        </dt>
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.AltContactNo, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.AltContactNo, new { @class = "form-control", @readonly = "" })
+                    </div>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.LawFirm)
-        </dd>
+            </div>
+            <hr />
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CompanyId)
-        </dt>
+            <div class="form-row">
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.FirstAddressLine, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.FirstAddressLine, new { @class = "form-control", @readonly = "" })
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.SecondAddressLine, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.SecondAddressLine, new { @class = "form-control", @readonly = "" })
+                    </div>
+                </div>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.CompanyId)
-        </dd>
+            <div class="form-row">
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.Suburb, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Suburb, new { @class = "form-control", @readonly = "" })
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.City, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.City, new { @class = "form-control", @readonly = "" })
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.Zip, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Zip, new { @class = "form-control", @readonly = "" })
+                    </div>
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BankId)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.BankId)
-        </dd>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ContactNo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ContactNo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AltContactNo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AltContactNo)
-        </dd>
-
-    </dl>
+            <div class="form-row">
+                @if (Model.Province != null)
+                {
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.ProvinceId, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Province.Name, new { @class = "form-control", @readonly = "" })
+                    </div>
+                </div>
+                }
+                else {
+                    <div class="col-3">
+                        <div class="form-group">
+                            @Html.LabelFor(c => c.ProvinceId, new { @class = "form-control-label" })
+                            @Html.TextBoxFor(c => c.ProvinceId, new { @class = "form-control", @readonly = "" })
+                        </div>
+                    </div>
+                }
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.CountryId, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Country.Name, new { @class = "form-control", @readonly = "" })
+                    </div>
+                </div>
+            </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+
+@section scripts
+{
+ 
+}

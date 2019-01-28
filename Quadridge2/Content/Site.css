@@ -63,3 +63,31 @@ input[type="checkbox"]:checked ~ .reveal-if-active {
 .service-heading {
     background: #eee;
 }
+
+.textboxlink#Company_Structure_Name:hover {
+    background: lightblue;
+    cursor: pointer;
+}
+
+.textboxlink#Company_Trust_Name:hover {
+    background: lightblue;
+    cursor: pointer;
+}
+
+.textboxlink#Structure_FinancialInstitution_Name:Hover {
+    background: lightblue;
+    cursor: pointer;
+}
+
+.main {
+    padding: 30px 15px;
+    margin: 0;
+}
+
+div.dataTables_wrapper .row  {
+    padding: 0;
+}
+
+.btn-primary {
+    background-color: #2B90D9;
+}

@@ -22,9 +22,37 @@
                 <div class="form-row">
                     <div class="col-12">
                         <div class="form-group">
+                            @Html.LabelFor(t => t.Trust.Donor, new { @class = "form-control-label" })
+                            @Html.TextBoxFor(t => t.Trust.Donor, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(t => t.Trust.Donor)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-12">
+                        <div class="form-group">
                             @Html.LabelFor(t => t.Trust.StructureId, new { @class = "form-control-label" })
                             @Html.DropDownListFor(t => t.Trust.StructureId, new SelectList(Model.Structures, "Id", "Name"), "", new { @class = "form-control" })
                             @Html.ValidationMessageFor(t => t.Trust.StructureId)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            @Html.LabelFor(t => t.Trust.AppointmentDate, new { @class = "form-control-label" })
+                            @Html.TextBoxFor(t => t.Trust.AppointmentDate, new { @class = "form-control datepicker-here", @data_language = "en", @autocomplete = "off" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            @Html.LabelFor(t => t.Trust.TrusteeRepresentitive, new { @class = "form-control-label" })
+                            @Html.TextBoxFor(t => t.Trust.TrusteeRepresentitive, new { @class = "form-control" })
                         </div>
                     </div>
                 </div>
@@ -36,7 +64,7 @@
                         @foreach (var service in Model.Services)
                         {
                         <li class="list-group-item">
-                            <input type="checkbox" name="@service.Name" value="@service.Id" id="checked_@service.Id" />
+                            <input type="checkbox" name="services" value="@service.Id" id="checked_@service.Id" />
                             <label for="checked_@service.Id">@service.Name</label>
                         </li>
                         }

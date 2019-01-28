@@ -10,17 +10,17 @@
 </div>
 
 @Html.AddNewModal("FeeType", "Fee Type", "Fee Type")
-@Html.DeleteModal()
+@Html.DeleteModal("fee type")
 @Html.EditModal("Fee Type", "Fee Type", "FeeType")
 
 <div class="row">
     @if (Model == null)
     {
-        <p>There are no sevices, please add one.</p>
+        <p>There are no fee types, please add one.</p>
     }
     else
     {
-        <table id="InteractionTypes" class="table table-bordered table-hover">
+        <table id="feeTypes" class="table table-bordered table-hover">
             @foreach (var feeType in Model)
             {
                 <tr>
@@ -74,7 +74,7 @@
 
             $("#yes").on("click", function () {
                 $.ajax({
-                    url: "/FeeTypes/DeleteFeeType/" + $("#deleteId").val(),
+                    url: "/FeeTypes/Delete/" + $("#deleteId").val(),
                     method: "DELETE",
                     success: function () {
                         toastr.success("Fee Type removed");
@@ -86,15 +86,22 @@
                 });
             });
 
-            $("#saveInteractionType").click(function (e) {
+            $(".saveFeeType").click(function (e) {
                 e.preventDefault();
                 var feeType = {}
-                feeType.Type = $("#FeeType").val();
+                
+                if ($('input#editId').val() != '') {
+                    feeType.Id = $('input#editId').val();
+                    feeType.Type = $('#editModalText').val();
+                }
+                else {
+                    feeType.Type = $("#FeeType").val();
+                }
                 $.ajax(
                     {
                         method: "post",
-                        url: "/FeeTypes/SaveFeeTypes",
-                        data: JSON.stringify(InteractionType),
+                        url: "/FeeTypes/Save",
+                        data: JSON.stringify(feeType),
                         contentType: 'application/json; charset=utf-8',
                         dataType: 'json',
                         complete: function () {

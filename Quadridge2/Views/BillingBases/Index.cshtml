@@ -6,18 +6,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="row">
-    <button class="btn btn-primary" data-target="addBillingBasis" data-toggle="modal" id="btnShowModal">New Billing Basis</button>
+    <button class="btn btn-primary" data-target="#addBillingBasis" data-toggle="modal">New Billing Basis</button>
 </div>
 @Html.AddNewModal("BillingBasis", "Billing Basis", "Billing Basis")
 
-@Html.DeleteModal()
+@Html.DeleteModal("Billing Basis")
 
 @Html.EditModal("Edit Billing Basis", "Billing Basis", "BillingBasis")
 
 <div class="row">
-    @if (Model == null)
+    @if (Model.Count() == 0)
     {
-        <p>There are no sevices, please add one.</p>
+        <p>There are no billing basis, please add one.</p>
     }
     else
     {
@@ -26,7 +26,7 @@
             {
                 <tr>
                     <td>@billingbasis.Basis</td>
-                    <td><button class="btn btn-info edit" onclick="editGroupName('@billingbasis.Id', '@billingbasis.Basis'); return false;">Edit</button>  <button class="btn btn-danger delete" data-billingBasis-id=@billingbasis.Id data-target="#confirmDelete"><i class="fa fa-trash-o fa-lg"></i></button></td>
+                    <td><button class="btn btn-info edit" data-target="#editModal" data-toggle="modal" onclick="editGroupName('@billingbasis.Id', '@billingbasis.Basis'); return false;">Edit</button>  <button data-target="#deleteModal" data-toggle="modal" class="btn btn-danger delete" data-billingBasis-id=@billingbasis.Id data-target="#confirmDelete"><i class="fa fa-trash-o fa-lg"></i></button></td>
                 </tr>
             }
         </table>
@@ -46,36 +46,15 @@
 
             var button;
 
-            $("#btnShowModal").click(function () {
-                button = $(this);
-                $("#addBillingBasis").modal('show');
-            });
-
-            $("#btnHideModal").on("click", function () {
-                $("#addBillingBasis").modal('hide');
-            });
-
-            $("#btnHideEditModal").on("click", function () {
-                $("#editModal").modal("hide");
-            });
-
-            $(".edit").on("click", function () {
-                $("#editModal").modal("show");
-            });
-
-            $("#hideConfirmModal").on("click", function () {
-                $("#confirmDelete").modal('hide');
-            });
-
             $(".delete").on("click", function () {
                 button = $(this);
-                $("#deleteId").val($(this).attr("data-billingBasis-id"));
+                $("#deleteId").val($(this).attr("data-billingbasis-id"));
                 $("#confirmDelete").modal('show');
             });
 
             $("#yes").on("click", function () {
                 $.ajax({
-                    url: "/BillingBases/DeleteBillingBasis/" + $("#deleteId").val(),
+                    url: "/BillingBases/Delete/" + $("#deleteId").val(),
                     method: "DELETE",
                     success: function () {
                         toastr.success("InteractionType removed");
@@ -87,15 +66,23 @@
                 });
             });
 
-            $("#saveInteractionType").click(function (e) {
+            $(".saveBillingBasis").click(function (e) {
                 e.preventDefault();
                 var billingBasis = {}
-                billingBasis.Basis = $("#BillingBasis").val();
+                
+                if ($('input#editId').val() != '') {
+                    billingBasis.Id = $('input#editId').val();
+                    billingBasis.Basis = $('#editModalText').val();
+                }
+                else {
+                    billingBasis.Basis = $("#BillingBasis").val();
+                }
+                    
                 $.ajax(
                     {
                         method: "post",
-                        url: "/BillingBases/SaveBillingBasis",
-                        data: JSON.stringify(InteractionType),
+                        url: "/BillingBases/Save",
+                        data: JSON.stringify(billingBasis),
                         contentType: 'application/json; charset=utf-8',
                         dataType: 'json',
                         complete: function () {

@@ -5,35 +5,42 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<p>@Html.ActionLink("New Law Firm", "New", "LawFirms", null, new { @class = "btn btn-primary" })</p>
+<p></p>
+<div class="card">
+    <div class="card-header">
+        @Html.ActionLink("New Law Firm", "New", "LawFirms", null, new { @class = "btn btn-primary" })
+    </div>
+    <div class="card-body">
+        @if (!Model.Any())
+        {
+            <p> We do not have any Law Firms yet </p>
+        }
+        else
+        {
+            <table id="lawFirms" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var lawFirm in Model)
+                    {
+                        <tr>
+                            <td>@Html.ActionLink(lawFirm.Name, "Details", "LawFirms", new { id = lawFirm.Id }, null)</td>
+                            <td>
+                                <button class="btn btn-primary">Edit</button>
+                                <button data-lawFirm-id="@lawFirm.Id" class="btn btn-primary js-delete"><i class="fa fa-trash-o fa-lg"></i></button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
 
-@if (!Model.Any())
-{
-    <p> We do not have any Law Firms yet </p>
-}
-else
-{
-    <table id="lawFirms" class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var lawFirm in Model)
-            {
-                <tr>
-                    <td>@Html.ActionLink(lawFirm.Name, "Details", "LawFirms", new { id = lawFirm.Id }, null)</td>
-                    <td>
-                        <button class="btn btn-primary">Edit</button>
-                        <button data-lawFirm-id="@lawFirm.Id" class="btn btn-primary js-delete">Delete</button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
 
 @section scripts
 {

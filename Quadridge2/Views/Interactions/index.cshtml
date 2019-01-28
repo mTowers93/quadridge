@@ -30,7 +30,7 @@ else
                     <td>@interaction.InteractionType</td>
                     <td>
                         <span>@Html.ActionLink("Edit", "Details", "Interactions", null, new { @class = "btn btn-primary" })</span>
-                        <button data-interaction-id="@interaction.Id" class="btn btn-primary js-delete">Delete</button>
+                        <button data-interaction-id="@interaction.Id" class="btn btn-primary js-delete"><i class="fa fa-trash-o fa-lg"></i></button>
                     </td>
                 </tr>
             }

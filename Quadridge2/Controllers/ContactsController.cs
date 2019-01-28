@@ -4,6 +4,7 @@ using Quadridge2.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -33,7 +34,10 @@ namespace Quadridge2.Controllers
         public ActionResult Details(int id)
         {
             var contact = _context.Contacts.SingleOrDefault(c => c.Id == id);
-
+            if (contact == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            contact.Country = _context.Countries.Single(c => c.Id == contact.CountryId);
+            contact.Province = _context.Provinces.Single(p => p.Id == contact.ProvinceId);
             return View(contact);
         }
 
@@ -41,10 +45,12 @@ namespace Quadridge2.Controllers
         {
             var viewModel = new ContactFormViewModel
             {
-                Banks = _context.Banks.ToList(),
+                FinancialInstitutions = _context.FinancialInstitutions.ToList(),
                 LawFirms = _context.LawFirms.ToList(),
                 Standalones = _context.Standalones.ToList(),
-                IsBank = false,
+                Provinces = _context.Provinces.ToList(),
+                Countries = _context.Countries.ToList(),
+                IsFinancialInstitution = false,
                 IsLawFirm = false,
                 IsStandalone = false
             };
@@ -66,19 +72,26 @@ namespace Quadridge2.Controllers
                 _context.SaveChanges();
 
                 var contactId = viewModel.Contact.Id;
-                if (viewModel.IsBank)
+                var contactInDb = _context.Contacts.Single(c => c.Id == contactId);
+                if (viewModel.IsFinancialInstitution)
                 {
-                    var bankContact = new BankContact()
+                    contactInDb.IsFinancialContact = true;
+                    contactInDb.IsLawFirmContact = false;
+                    contactInDb.IsStandalone = false;
+                    var financialInstitutionContact = new FinancialInstitutionContact()
                     {
-                        BankId = viewModel.RelationId,
-                        Bank = _context.Banks.Single(b => b.Id == viewModel.RelationId),
+                        FinancialInstitutionId = viewModel.RelationId,
+                        FinancialInstitution = _context.FinancialInstitutions.Single(b => b.Id == viewModel.RelationId),
                         ContactId = contactId,
                         Contact = viewModel.Contact
                     };
-                    _context.BankContacts.Add(bankContact);
+                    _context.FinancialInstitutionContacts.Add(financialInstitutionContact);
                 }
                 else if (viewModel.IsLawFirm)
                 {
+                    contactInDb.IsFinancialContact = false;
+                    contactInDb.IsLawFirmContact = true;
+                    contactInDb.IsStandalone = false;
                     var lawFirmContact = new LawFirmContact()
                     {
                         LawFirmId = viewModel.RelationId,
@@ -91,6 +104,9 @@ namespace Quadridge2.Controllers
                 }
                 else if (viewModel.IsStandalone)
                 {
+                    contactInDb.IsFinancialContact = false;
+                    contactInDb.IsLawFirmContact = false;
+                    contactInDb.IsStandalone = true;
                     var standaloneContact = new StandaloneContact()
                     {
                         StandAloneId = viewModel.RelationId,
@@ -111,13 +127,42 @@ namespace Quadridge2.Controllers
                 contactInDb.Email = viewModel.Contact.Email;
                 contactInDb.ContactNo = viewModel.Contact.ContactNo;
 
+                
                 if (!String.IsNullOrWhiteSpace(viewModel.Contact.AltContactNo))
-                    contactInDb.AltContactNo = viewModel.Contact.AltContactNo;            
+                    contactInDb.AltContactNo = viewModel.Contact.AltContactNo;
+
+                contactInDb.FirstAddressLine = viewModel.Contact.FirstAddressLine;
+                contactInDb.SecondAddressLine = viewModel.Contact.SecondAddressLine;
+                contactInDb.Suburb = viewModel.Contact.Suburb;
+                contactInDb.City = viewModel.Contact.City;
+                contactInDb.Zip = viewModel.Contact.Zip;
+                contactInDb.ProvinceId = viewModel.Contact.ProvinceId;
+                contactInDb.CountryId = viewModel.Contact.CountryId;
+                contactInDb.Birthday = viewModel.Contact.Birthday;
             }
 
             _context.SaveChanges();
             return RedirectToAction("Index", "Contacts");
 
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var contact = _context.Contacts.Single(c => c.Id == id);
+            if (contact == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var viewModel = new ContactFormViewModel()
+            {
+                Contact = contact,
+                FinancialInstitutions = _context.FinancialInstitutions.ToList(),
+                LawFirms = _context.LawFirms.ToList(),
+                Standalones = _context.Standalones.ToList(),
+                Provinces = _context.Provinces.ToList(),
+                Countries = _context.Countries.ToList()
+
+            };
+
+            return View("ContactForm", viewModel);
         }
     }
 }

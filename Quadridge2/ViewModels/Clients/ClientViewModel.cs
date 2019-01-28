@@ -9,7 +9,7 @@ namespace Quadridge2.ViewModels.Clients
 {
     public class ClientViewModel
     {
-        public IEnumerable<Entity> Entities { get; set; }
+        public IEnumerable<Company> Entities { get; set; }
         public IEnumerable<Trust> Trusts { get; set; }
         public IEnumerable<Structure> Structures { get; set; }
     }

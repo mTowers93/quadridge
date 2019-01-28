@@ -26,7 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,6 +36,19 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptModuleKind />
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -212,13 +225,15 @@
     <Compile Include="Controllers\Api\ClientsController.cs" />
     <Compile Include="Controllers\Api\ContactCommentsController.cs" />
     <Compile Include="Controllers\Api\DealsController.cs" />
-    <Compile Include="Controllers\BanksController.cs" />
+    <Compile Include="Controllers\FinancialInstitutionsController.cs" />
     <Compile Include="Controllers\BillingBasesController.cs" />
-    <Compile Include="Controllers\EntitiesController.cs" />
+    <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\FeeTypesController.cs" />
     <Compile Include="Controllers\InteractionsController.cs" />
     <Compile Include="Controllers\InteractionTypesController.cs" />
+    <Compile Include="Controllers\OtherInstitutionsController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
+    <Compile Include="Controllers\StatusesController.cs" />
     <Compile Include="Controllers\StructureCategoriesController.cs" />
     <Compile Include="Controllers\StructuresController.cs" />
     <Compile Include="Controllers\TrustsController.cs" />
@@ -294,24 +309,121 @@
     <Compile Include="Migrations\201901180820136_AllowNullStructureIdInEntity.Designer.cs">
       <DependentUpon>201901180820136_AllowNullStructureIdInEntity.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\BankOffice.cs" />
-    <Compile Include="Models\Contacts\BankContact.cs" />
+    <Compile Include="Migrations\201901210855299_deleteBankOffice.cs" />
+    <Compile Include="Migrations\201901210855299_deleteBankOffice.Designer.cs">
+      <DependentUpon>201901210855299_deleteBankOffice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901210858158_renameBankContactToFinancialContact.cs" />
+    <Compile Include="Migrations\201901210858158_renameBankContactToFinancialContact.Designer.cs">
+      <DependentUpon>201901210858158_renameBankContactToFinancialContact.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901210902039_ChangeBanksToFinancialInstitutions.cs" />
+    <Compile Include="Migrations\201901210902039_ChangeBanksToFinancialInstitutions.Designer.cs">
+      <DependentUpon>201901210902039_ChangeBanksToFinancialInstitutions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901210915211_progressRenamingBank.cs" />
+    <Compile Include="Migrations\201901210915211_progressRenamingBank.Designer.cs">
+      <DependentUpon>201901210915211_progressRenamingBank.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901211014464_RenamingEntityToCompany.cs" />
+    <Compile Include="Migrations\201901211014464_RenamingEntityToCompany.Designer.cs">
+      <DependentUpon>201901211014464_RenamingEntityToCompany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901211016319_AddCompanyServices.cs" />
+    <Compile Include="Migrations\201901211016319_AddCompanyServices.Designer.cs">
+      <DependentUpon>201901211016319_AddCompanyServices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901211202588_AddedOtherInstitutionAndAddressToContact.cs" />
+    <Compile Include="Migrations\201901211202588_AddedOtherInstitutionAndAddressToContact.Designer.cs">
+      <DependentUpon>201901211202588_AddedOtherInstitutionAndAddressToContact.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901220904141_AddedAppointmentDateToTrust.cs" />
+    <Compile Include="Migrations\201901220904141_AddedAppointmentDateToTrust.Designer.cs">
+      <DependentUpon>201901220904141_AddedAppointmentDateToTrust.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901220953438_ChangedContactConrtyToCountry.cs" />
+    <Compile Include="Migrations\201901220953438_ChangedContactConrtyToCountry.Designer.cs">
+      <DependentUpon>201901220953438_ChangedContactConrtyToCountry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901221447176_RemoveCompanyService.cs" />
+    <Compile Include="Migrations\201901221447176_RemoveCompanyService.Designer.cs">
+      <DependentUpon>201901221447176_RemoveCompanyService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901221926100_AddCompanyServicesSecondTime.cs" />
+    <Compile Include="Migrations\201901221926100_AddCompanyServicesSecondTime.Designer.cs">
+      <DependentUpon>201901221926100_AddCompanyServicesSecondTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901230714099_AddStatusToStructure.cs" />
+    <Compile Include="Migrations\201901230714099_AddStatusToStructure.Designer.cs">
+      <DependentUpon>201901230714099_AddStatusToStructure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901231033516_MadeMaintenanceTableNamesRequired.cs" />
+    <Compile Include="Migrations\201901231033516_MadeMaintenanceTableNamesRequired.Designer.cs">
+      <DependentUpon>201901231033516_MadeMaintenanceTableNamesRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901231437573_ChangedReferralContactToContact.cs" />
+    <Compile Include="Migrations\201901231437573_ChangedReferralContactToContact.Designer.cs">
+      <DependentUpon>201901231437573_ChangedReferralContactToContact.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901231439381_MadeContactIdNullable.cs" />
+    <Compile Include="Migrations\201901231439381_MadeContactIdNullable.Designer.cs">
+      <DependentUpon>201901231439381_MadeContactIdNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901240925557_AddedDonorToTrust.cs" />
+    <Compile Include="Migrations\201901240925557_AddedDonorToTrust.Designer.cs">
+      <DependentUpon>201901240925557_AddedDonorToTrust.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901241333455_addedStructureContactAndCompanyContact.cs" />
+    <Compile Include="Migrations\201901241333455_addedStructureContactAndCompanyContact.Designer.cs">
+      <DependentUpon>201901241333455_addedStructureContactAndCompanyContact.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901250817546_AddedTrustService.cs" />
+    <Compile Include="Migrations\201901250817546_AddedTrustService.Designer.cs">
+      <DependentUpon>201901250817546_AddedTrustService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901250915483_RemovedFieldsFromClient.cs" />
+    <Compile Include="Migrations\201901250915483_RemovedFieldsFromClient.Designer.cs">
+      <DependentUpon>201901250915483_RemovedFieldsFromClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901251122210_AddedBoolToContact.cs" />
+    <Compile Include="Migrations\201901251122210_AddedBoolToContact.Designer.cs">
+      <DependentUpon>201901251122210_AddedBoolToContact.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901280704342_AddedIsCheckedToFinancialInstitutionContact.cs" />
+    <Compile Include="Migrations\201901280704342_AddedIsCheckedToFinancialInstitutionContact.Designer.cs">
+      <DependentUpon>201901280704342_AddedIsCheckedToFinancialInstitutionContact.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901280842507_DeleteFinancialInstitutionContact.cs" />
+    <Compile Include="Migrations\201901280842507_DeleteFinancialInstitutionContact.Designer.cs">
+      <DependentUpon>201901280842507_DeleteFinancialInstitutionContact.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901280845165_AddedFinancialContact.cs" />
+    <Compile Include="Migrations\201901280845165_AddedFinancialContact.Designer.cs">
+      <DependentUpon>201901280845165_AddedFinancialContact.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CompanyService.cs" />
+    <Compile Include="Models\Contacts\CompanyContact.cs" />
+    <Compile Include="Models\Contacts\FinancialInstitutionContact.cs" />
     <Compile Include="Models\Contacts\LawFirmContact.cs" />
+    <Compile Include="Models\Contacts\OtherInstitutionContact.cs" />
     <Compile Include="Models\Contacts\StandaloneContact.cs" />
+    <Compile Include="Models\Contacts\StructureContact.cs" />
     <Compile Include="Models\Maintenance\BillingBasis.cs" />
     <Compile Include="Models\Maintenance\ClientCategory.cs" />
     <Compile Include="Models\Document.cs" />
     <Compile Include="Models\Maintenance\DocumentType.cs" />
-    <Compile Include="Models\Entity.cs" />
+    <Compile Include="Models\Company.cs" />
     <Compile Include="Models\Maintenance\FeeType.cs" />
     <Compile Include="Models\Maintenance\InteractionType.cs" />
     <Compile Include="Models\Contacts\Interest.cs" />
     <Compile Include="Models\Maintenance\Service.cs" />
     <Compile Include="Models\Deals\Structure.cs" />
     <Compile Include="Models\Maintenance\StructureCategory.cs" />
+    <Compile Include="Models\OtherInstitution.cs" />
     <Compile Include="Models\Standalone.cs" />
     <Compile Include="Models\Trust.cs" />
-    <Compile Include="ViewModels\BanksFormViewModel.cs" />
+    <Compile Include="Models\TrustService.cs" />
+    <Compile Include="ViewModels\Companies\CompanyDetailsViewModel.cs" />
     <Compile Include="ViewModels\Clients\ClientContactsViewModel.cs" />
     <Compile Include="ViewModels\Clients\ClientViewModel.cs" />
     <Compile Include="ViewModels\ContactFormViewModel.cs" />
@@ -435,7 +547,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminRole.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
-    <Compile Include="Models\Bank.cs" />
+    <Compile Include="Models\FinancialInstitution.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Deals\StructureComment.cs" />
     <Compile Include="Models\Contacts\Contact.cs" />
@@ -456,11 +568,15 @@
     <Compile Include="ViewModels\Clients\ClientDetailsViewModel.cs" />
     <Compile Include="ViewModels\Clients\ClientFormViewModel.cs" />
     <Compile Include="ViewModels\DealFormViewModel.cs" />
-    <Compile Include="ViewModels\Entities\EntityFormViewModel.cs" />
+    <Compile Include="ViewModels\Companies\CompanyFormViewModel.cs" />
+    <Compile Include="ViewModels\FinancialInstitutions\FinancialInstitutionDetailsViewModel.cs" />
+    <Compile Include="ViewModels\FinancialInstitutions\FinancialInstitutionsFormViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\InteractionsFormViewModel.cs" />
     <Compile Include="ViewModels\LawFirms\LawFirmFormViewModel.cs" />
+    <Compile Include="ViewModels\OtherInstitutionDetailViewModel.cs" />
     <Compile Include="ViewModels\Structures\StructureFormViewModel.cs" />
+    <Compile Include="ViewModels\Structures\StructuresDetailsViewModel.cs" />
     <Compile Include="ViewModels\TrustFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1111,29 +1227,34 @@
     <Content Include="Views\Contacts\ContactForm.cshtml" />
     <Content Include="Views\Services\Index.cshtml" />
     <Content Include="Views\Interactions\index.cshtml" />
-    <Content Include="Views\Banks\Index.cshtml" />
+    <Content Include="Views\FinancialInstitutions\Index.cshtml" />
     <Content Include="Views\Interactions\InteractionsForm.cshtml" />
     <Content Include="Views\InteractionTypes\Index.cshtml" />
     <Content Include="Views\Shared\_deleteModalPartial.cshtml" />
-    <Content Include="Views\Entities\Index.cshtml" />
-    <Content Include="Views\Entities\EntityForm.cshtml" />
+    <Content Include="Views\Companies\Index.cshtml" />
+    <Content Include="Views\Companies\CompanyForm.cshtml" />
     <Content Include="Views\FeeTypes\Index.cshtml" />
     <Content Include="Views\BillingBases\Index.cshtml" />
     <Content Include="Views\Structures\Index.cshtml" />
     <Content Include="Views\Structures\StructureForm.cshtml" />
     <Content Include="Views\StructureCategories\Index.cshtml" />
-    <Content Include="Views\Banks\BankForm.cshtml" />
+    <Content Include="Views\FinancialInstitutions\FinancialInstitutionForm.cshtml" />
     <Content Include="Views\LawFirms\LawFirmForm.cshtml" />
     <Content Include="Views\Trusts\Index.cshtml" />
-    <Content Include="Views\Banks\Details.cshtml" />
+    <Content Include="Views\FinancialInstitutions\Details.cshtml" />
     <Content Include="Views\Trusts\TrustForm.cshtml" />
+    <Content Include="Views\Statuses\Index.cshtml" />
+    <Content Include="Views\OtherInstitutions\Index.cshtml" />
+    <Content Include="Views\Structures\Details.cshtml" />
+    <Content Include="Views\Companies\Details.cshtml" />
+    <Content Include="Views\Trusts\Details.cshtml" />
+    <Content Include="Views\OtherInstitutions\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\dashboard\vendor\font-awesome\less\" />
     <Folder Include="Content\dashboard\vendor\font-awesome\scss\" />
     <Folder Include="ViewModels\Banks\" />
-    <Folder Include="Views\Companies\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -1272,6 +1393,75 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901180820136_AllowNullStructureIdInEntity.resx">
       <DependentUpon>201901180820136_AllowNullStructureIdInEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901210855299_deleteBankOffice.resx">
+      <DependentUpon>201901210855299_deleteBankOffice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901210858158_renameBankContactToFinancialContact.resx">
+      <DependentUpon>201901210858158_renameBankContactToFinancialContact.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901210902039_ChangeBanksToFinancialInstitutions.resx">
+      <DependentUpon>201901210902039_ChangeBanksToFinancialInstitutions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901210915211_progressRenamingBank.resx">
+      <DependentUpon>201901210915211_progressRenamingBank.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901211014464_RenamingEntityToCompany.resx">
+      <DependentUpon>201901211014464_RenamingEntityToCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901211016319_AddCompanyServices.resx">
+      <DependentUpon>201901211016319_AddCompanyServices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901211202588_AddedOtherInstitutionAndAddressToContact.resx">
+      <DependentUpon>201901211202588_AddedOtherInstitutionAndAddressToContact.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901220904141_AddedAppointmentDateToTrust.resx">
+      <DependentUpon>201901220904141_AddedAppointmentDateToTrust.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901220953438_ChangedContactConrtyToCountry.resx">
+      <DependentUpon>201901220953438_ChangedContactConrtyToCountry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901221447176_RemoveCompanyService.resx">
+      <DependentUpon>201901221447176_RemoveCompanyService.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901221926100_AddCompanyServicesSecondTime.resx">
+      <DependentUpon>201901221926100_AddCompanyServicesSecondTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901230714099_AddStatusToStructure.resx">
+      <DependentUpon>201901230714099_AddStatusToStructure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901231033516_MadeMaintenanceTableNamesRequired.resx">
+      <DependentUpon>201901231033516_MadeMaintenanceTableNamesRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901231437573_ChangedReferralContactToContact.resx">
+      <DependentUpon>201901231437573_ChangedReferralContactToContact.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901231439381_MadeContactIdNullable.resx">
+      <DependentUpon>201901231439381_MadeContactIdNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901240925557_AddedDonorToTrust.resx">
+      <DependentUpon>201901240925557_AddedDonorToTrust.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901241333455_addedStructureContactAndCompanyContact.resx">
+      <DependentUpon>201901241333455_addedStructureContactAndCompanyContact.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901250817546_AddedTrustService.resx">
+      <DependentUpon>201901250817546_AddedTrustService.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901250915483_RemovedFieldsFromClient.resx">
+      <DependentUpon>201901250915483_RemovedFieldsFromClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901251122210_AddedBoolToContact.resx">
+      <DependentUpon>201901251122210_AddedBoolToContact.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901280704342_AddedIsCheckedToFinancialInstitutionContact.resx">
+      <DependentUpon>201901280704342_AddedIsCheckedToFinancialInstitutionContact.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901280842507_DeleteFinancialInstitutionContact.resx">
+      <DependentUpon>201901280842507_DeleteFinancialInstitutionContact.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901280845165_AddedFinancialContact.resx">
+      <DependentUpon>201901280845165_AddedFinancialContact.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

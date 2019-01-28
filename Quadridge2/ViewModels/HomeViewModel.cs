@@ -13,6 +13,6 @@ namespace Quadridge2.ViewModels
         public IEnumerable<Interaction> Interactions { get; set; }
         public IEnumerable<Contact> Contacts { get; set; }
         public IEnumerable<Deal> Deals { get; set; }
-        public IEnumerable<Client> Clients { get; set; }
+        public IEnumerable<Company> Companies { get; set; }
     }
 }

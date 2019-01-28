@@ -20,7 +20,7 @@ namespace Quadridge2.Models.Deals
         [Display(Name="Referral")]
         public Contact Contact { get; set; }
         [Display(Name = "Referral")]
-        public int ContactId { get; set; }
+        public int? ContactId { get; set; }
 
         // Relationships
 
@@ -28,8 +28,22 @@ namespace Quadridge2.Models.Deals
         [Display(Name=("Structure Category"))]
         public int StructureCategoryId { get; set; }
 
-        public IEnumerable<Entity> Entities { get; set; }
+        public virtual FinancialInstitution FinancialInstitution { get; set; }
+        [Display(Name="Financial Institution")]
+        public int? FinancialInstitutionId { get; set; }
 
-        public IEnumerable<Trust> Trusts { get; set; }
+        public virtual OtherInstitution OtherInstitution { get; set; }
+        [Display(Name="Other Institution")]
+        public int? OtherInstitutionId { get; set; }
+
+        public virtual ICollection<Company> Companies { get; set; }
+
+        public virtual ICollection<Trust> Trusts { get; set; }
+
+        public virtual ICollection<StructureContact> StructureContacts { get; set; }
+
+        public virtual Status Status { get; set; }
+        [Display(Name="Status")]
+        public int StatusId { get; set; }
     }
 }

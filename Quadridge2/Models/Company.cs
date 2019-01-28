@@ -1,9 +1,11 @@
 ﻿using Quadridge2.Models.Maintenance;
+using Quadridge2.Models.Contacts;
+using Quadridge2.Models.Deals;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using System.ComponentModel.DataAnnotations;
 
 namespace Quadridge2.Models
 {
@@ -12,40 +14,43 @@ namespace Quadridge2.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(255)]
+        [StringLength(100)]
         public string Name { get; set; }
 
         [Required]
-        [StringLength(255)]
-        [Display(Name = "First Address Line")]
-        public string FirstAddressLine { get; set; }
+        [Display(Name="Registration Number")]
+        public string RegistrationNumber { get; set; }
 
-        [StringLength(255)]
-        [Display(Name = "Second Address Line")]
-        public string SecondAddressLine { get; set; }
+        [Display(Name="Directorship Start Date")]
+        [DisplayFormat(DataFormatString = "{0:d}")] //Format as ShortDateTime
+        public DateTime DirectorshipStartDate { get; set; }
 
-        [Required]
-        [StringLength(255)]
-        public string Suburb { get; set; }
+        [Display(Name="First Billing Date")]
+        [DisplayFormat(DataFormatString = "{0:d}")] //Format as ShortDateTime
+        public DateTime FirstBillingDate { get; set; }
 
-        [Required]
-        [StringLength(100)]
-        public string City { get; set; }
+        public virtual BillingBasis BillingBasis { get; set; }
+        [Display(Name="Billing Basis")]
+        public int? BillingBasisId { get; set; }
+        
+        public virtual FeeType FeeType { get; set; }
+        [Display(Name="Fee Type")]
+        public int? FeeTypeId { get; set; }
 
-        [StringLength(8)]
-        public string Zip { get; set; }
+        // Relationships
+         
+        public virtual Trust Trust { get; set; }
 
-        public Province Province { get; set; }
+        [Display(Name ="Associated Trust")]
+        public int? TrustId { get; set; }
 
-        [Display(Name = "Province")]
-        public int? ProvinceId { get; set; }
+        public virtual Structure Structure { get; set; }
 
+        [Display(Name="Structure")]
+        public int? StructureId { get; set; }
 
-        public Country Country { get; set; }
+        public virtual ICollection<CompanyContact> CompanyContacts { get; set; }
 
-        [Display(Name = "Country")]
-        public int CountryId { get; set; }
-
-        public IEnumerable<Contact> Contacts { get; set; }
+        public virtual ICollection<CompanyService> CompanyServices { get; set; }
     }
 }

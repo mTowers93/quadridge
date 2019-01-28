@@ -22,7 +22,7 @@ namespace Quadridge2.Models
         public DateTime Date { get; set; }
 
         public int? BankId { get; set; }
-        public Bank Bank { get; set; }
+        public FinancialInstitution Bank { get; set; }
 
         public int StatusId { get; set; }
         public Status Status { get; set; }

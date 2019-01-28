@@ -26,12 +26,12 @@ namespace Quadridge2.Controllers
         {
             var newContacts = _context.Contacts.OrderByDescending(c => c.Id).Take(5).ToList();
             var newInteractions = _context.Interactions.OrderByDescending(i => i.Id).Take(5).ToList();
-            var newClients = _context.Clients.OrderByDescending(c => c.Id).Take(5).ToList();
+            var newCompanies = _context.Companies.OrderByDescending(c => c.Id).Take(5).ToList();
             var viewModel = new HomeViewModel
             {
                 Contacts = newContacts,
                 Interactions = newInteractions,
-                Clients = newClients
+                Companies = newCompanies
             };
             return View(viewModel);
         }

@@ -985,8 +985,8 @@ section.dashboard-counts .number strong {
 }
 
 section.dashboard-counts .row {
-  padding: 30px 15px;
-  margin: 0;
+    padding: 30px 15px;
+    margin: 0;
 }
 
 section.dashboard-counts div[class*='col-'] .item {

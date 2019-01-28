@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Quadridge2.Models.Company>
+@{
+    ViewBag.Title = "Companies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<p>@Html.ActionLink("New Company", "New", "Companies", null, new { @class = "btn btn-primary" })</p>
+
+@if (!Model.Any())
+{
+    <p> We do not have any companies yet </p>
+}
+else
+{
+    <table id="companies" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Services</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var company in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(company.Name, "Details", "Companies", new { id = company.Id }, null)</td>
+                    <td>
+                        <ul>
+                            
+                        </ul>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary">Edit</button>
+                        <button data-company-id="@company.Id" class="btn btn-danger js-delete"><i class="fa fa-trash-o fa-lg"></i></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#companies").DataTable();
+
+            $("#companies .js-delete").on("click", function () {
+                var button = $(this);
+                if (confirm("Are you sure you want to delete this customer?")) {
+                    $.ajax({
+                        url: "/Companies/Delete" + button.attr("data-company-id"),
+                        method: "DELETE",
+                        success: function () {
+                            //console.log("Success");
+                            table.row(button.parents("tr")).remove().draw();
+                        }
+                    }); // ajax
+                }
+            }); // on click function
+        }); // ready function
+    </script>
+}

@@ -51,18 +51,18 @@
             <div class="card-body">
                 <h4>New Clients</h4>
 
-                @if (Model.Clients == null)
+                @if (Model.Companies == null)
                 {
-                    <p>No clients yet</p>
-                    <button class="btn btn-primary">Add client</button>
+                    <p>No companies yet</p>
+                    <button class="btn btn-primary">Add company</button>
                 }
                 else
                 {
                     <ul class="list-group">
-                        @foreach (var client in Model.Clients)
+                        @foreach (var company in Model.Companies)
                         {
                             <li class="list-group-item">
-                                @Html.ActionLink(client.Name, "Details", "Clients", new { id = client.Id }, null)
+                                @Html.ActionLink(company.Name, "Details", "Companies", new { id = company.Id }, null)
                             </li>
                         }
                     </ul>
