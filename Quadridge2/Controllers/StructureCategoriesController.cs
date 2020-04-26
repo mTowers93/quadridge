@@ -1,4 +1,4 @@
-﻿using Quadridge2.Models;
+﻿ using Quadridge2.Models;
 using Quadridge2.Models.Maintenance;
 using System;
 using System.Collections.Generic;
@@ -30,6 +30,7 @@ namespace Quadridge2.Controllers
             return View(structureCategories);
         }
 
+        [HttpPost]
         public ActionResult Save(StructureCategory structureCategory)
         {
             if (structureCategory.Id == 0)
@@ -41,10 +42,11 @@ namespace Quadridge2.Controllers
             }
             _context.SaveChanges();
 
-            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "StructureCategories");;
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "StructureCategories");
             return Json(new { Url = redirectUrl });
         }
 
+        [HttpDelete]
         public ActionResult Delete(int? id)
         {
             if (id == null)

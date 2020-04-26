@@ -5,32 +5,35 @@
     ViewBag.Title = "Structure Categories";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="row">
-    <button class="btn btn-primary" data-target="addStructureCategory" data-toggle="modal" id="btnShowModal">New Structure Category</button>
-</div>
-
 @Html.AddNewModal("StructureCategory", "Structure Category", "Structure Category")
 @Html.DeleteModal("structure category")
 @Html.EditModal("Structure Category", "Structure Category", "StructureCategory")
-
-<div class="row">
-    @if (Model == null)
-    {
-        <p>There are no structure categories, please add one.</p>
-    }
-    else
-    {
-        <table id="InteractionTypes" class="table table-bordered table-hover">
-            @foreach (var structureCategory in Model)
+<div class="card">
+    <div class="card-header">
+        <button class="btn btn-primary float-right" data-target="addStructureCategory" data-toggle="modal" id="btnShowModal">New Structure Category</button>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            @if (Model == null)
             {
-                <tr>
-                    <td>@structureCategory.Category</td>
-                    <td><button class="btn btn-info edit" onclick="editGroupName('@structureCategory.Id', '@structureCategory.Category'); return false;">Edit</button>  <button class="btn btn-danger delete" data-structureCategory-id=@structureCategory.Id data-target="#confirmDelete"><i class="fa fa-trash-o fa-lg"></i></button></td>
-                </tr>
+                <p>There are no structure categories, please add one.</p>
             }
-        </table>
-    }
+            else
+            {
+                <table id="InteractionTypes" class="table table-bordered table-hover">
+                    @foreach (var structureCategory in Model)
+                    {
+                        <tr>
+                            <td>@structureCategory.Category</td>
+                            <td><button class="btn btn-info edit" onclick="editGroupName('@structureCategory.Id', '@structureCategory.Category'); return false;">Edit</button>  <button class="btn btn-danger delete" data-structureCategory-id=@structureCategory.Id data-target="#confirmDelete"><i class="fa fa-trash-o fa-lg"></i></button></td>
+                        </tr>
+                    }
+                </table>
+            }
+        </div>
+    </div>
 </div>
+
 
 @section Scripts
 {
@@ -42,6 +45,10 @@
         };
 
         $(document).ready(function () {
+
+            $('#addStructureCategory').on("shown.bs.modal", function () {
+                $("#StructureCategoryAddModal").focus();
+            });
 
             var button;
 
@@ -73,20 +80,22 @@
             });
 
             $("#yes").on("click", function () {
-                console.log("Ive been pushed");
                 $.ajax({
                     url: "/StructureCategories/Delete/" + $("#deleteId").val(),
                     method: "DELETE",
-                    success: function (result) {
+                    success: function (result, err) {
                         toastr.success("Structure category removed");
                         $("#confirmDelete").modal("hide");
                         $(button.parent("tr")).remove();
                         window.location.href = result.Url;
-                    }
+                  },
+                  error: function (result) {
+                    alert(err);
+                  }
                 });
             });
 
-            $(".saveStructureCategory").click(function (e) {
+            $("#saveStructureCategory").click(function (e) {
                 e.preventDefault();
                 var structureCategory = {}
                 
@@ -95,16 +104,16 @@
                     structureCategory.Category = $('#editModalText').val();
                 }
                 else {
-                    structureCategory.Category = $("#StructureCategory").val();
+                    structureCategory.Category = $("#StructureCategoryAddModal").val();
                 }
                 $.ajax(
                     {
-                        method: "post",
+                        type: "POST",
                         url: "/StructureCategories/Save",
                         data: JSON.stringify(structureCategory),
                         contentType: 'application/json; charset=utf-8',
                         dataType: 'json',
-                        sucess: function (result) {
+                        success: function (result) {
                             toastr.success("Structure category successfully added");
                             $("#addStructureCategory").modal('hide');
                             window.location.href = result.Url;

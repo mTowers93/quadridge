@@ -1,36 +1,41 @@
-﻿@model Quadridge2.Models.Trust
+﻿@using Quadridge2.Helpers
+@model Quadridge2.ViewModels.Trusts.TrustDetailsViewModel
 @{
     ViewBag.Title = "Trust Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@Html.CompaniesModal(Model.Companies, "Trusts", "AssignCompanies", Model.Trust.Id.ToString())
 
 <div class="card">
+    <div class="card-header">
+        @Html.ActionLink("Edit", "Edit", "Trusts", new { id = Model.Trust.Id }, new { @class = "btn btn-info float-right" })
+    </div>
     <div class="card-body">
         <div class="form-row">
             <div class="col-5">
                 <div class="form-row">
                     <div class="col-6">
                         <div class="form-group">
-                            @Html.LabelFor(t => t.Name, new { @class = "form-control-label" })
-                            @Html.TextBoxFor(t => t.Name, new { @class = "form-control", @value = Model.Name, @readonly = "" })
+                            @Html.LabelFor(t => t.Trust.Name, new { @class = "form-control-label" })
+                            @Html.TextBoxFor(t => t.Trust.Name, new { @class = "form-control", @value = Model.Trust.Name, @readonly = "" })
                         </div>
                     </div>
 
                     <div class="col-6">
                         <div class="form-group">
-                            @Html.LabelFor(t => t.Donor, new { @class = "form-control-label" })
-                            @Html.TextBoxFor(t => t.Donor, new { @class = "form-control", @readonly = "" })
+                            @Html.LabelFor(t => t.Trust.Donor, new { @class = "form-control-label" })
+                            @Html.TextBoxFor(t => t.Trust.Donor, new { @class = "form-control", @readonly = "" })
                         </div>
                     </div>
                 </div>
 
                 <div class="form-row">
-                    @if (Model.Structure == null)
+                    @if (Model.Trust.Structure == null)
                     {
                         <div class="col-6">
                             <div class="form-group">
-                                @Html.LabelFor(t => t.StructureId, new { @class = "form-control-label" })
-                                @Html.TextBoxFor(t => t.Structure.Name, new { @class = "form-control", @readonly = "", @id = "structureTextbox" })
+                                @Html.LabelFor(t => t.Trust.StructureId, new { @class = "form-control-label" })
+                                @Html.TextBoxFor(t => t.Trust.Structure.Name, new { @class = "form-control", @readonly = "", @id = "structureTextbox" })
                             </div>
                         </div>
                     }
@@ -38,18 +43,18 @@
                     {
                         <div class="col-6">
                             <div class="form-group">
-                                @Html.LabelFor(t => t.StructureId, new { @class = "form-control-label" })
-                                @Html.TextBoxFor(t => t.Structure.Name, new { @class = "form-control textboxlink", @value = Model.Structure.Name, @readonly = "" })
+                                @Html.LabelFor(t => t.Trust.StructureId, new { @class = "form-control-label" })
+                                @Html.TextBoxFor(t => t.Trust.Structure.Name, new { @class = "form-control textboxlink", @value = Model.Trust.Structure.Name, @readonly = "" })
                             </div>
                         </div>
                     }
 
                     <div class="col-6">
                         @{ 
-                            var appointDate = Model.AppointmentDate.ToShortDateString();
+                            var appointDate = Model.Trust.RegistrationDate.ToShortDateString();
                         }
                         <div class="form-group">
-                            @Html.LabelFor(t => t.AppointmentDate, new { @class = "form-control-label" })
+                            @Html.LabelFor(t => t.Trust.RegistrationDate, new { @class = "form-control-label" })
                             @Html.TextBoxFor(t => appointDate, new { @class = "form-control", @readonly = "" })
                         </div>
                     </div>
@@ -58,8 +63,8 @@
                 <div class="form-row">
                     <div class="col-6">
                         <div class="form-group">
-                            @Html.LabelFor(t => t.TrusteeRepresentitive, new { @class = "form-control-label" })
-                            @Html.TextBoxFor(t => t.TrusteeRepresentitive, new { @class = "form-control", @readonly = "" })
+                            @Html.LabelFor(t => t.Trust.TrusteeRepresentitive, new { @class = "form-control-label" })
+                            @Html.TextBoxFor(t => t.Trust.TrusteeRepresentitive, new { @class = "form-control", @readonly = "" })
                         </div>
                     </div>
                 </div>
@@ -68,7 +73,7 @@
             <div class="col-5">
                 <ul>
                     <li class="list-group-item service-heading">Services</li>
-                    @foreach(var service in Model.TrustServices)
+                    @foreach(var service in Model.Trust.TrustServices)
                     {
                         <li class="list-group-item">@service.Service.Name</li>
                     }
@@ -81,27 +86,30 @@
 
 <div class="card">
     <div class="card-header">
+        <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#companiesModal">Assign Companies</button>
+        @Html.ActionLink("New Company", "New", "Companies", null, new { @class = "btn btn-info float-right", @style = "margin-right:10px" })
         <h4>Companies</h4>
     </div>
     <div class="card-body">
         @if (Model.Companies.Count() == 0)
         {
             <h4>No Companies for this trust</h4>
-            <button>Add companies</button>
         }
         else
         {
-            <table id="contacts" class="table table-light table-bordered">
+            <table id="contacts" class="display table table-light table-bordered">
                 <thead>
                     <tr>
                         <th>Company Name</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var company in Model.Companies)
+                    @foreach (var company in Model.Trust.Companies)
                     {
                         <tr>
                             <td>@Html.ActionLink(company.Name, "Details", "Companies", new { id = company.Id }, null)</td>
+                            <td>@Html.ActionLink("Remove", "RemoveTrust", "Structures", new { id = company.TrustId, cid = company.Id }, new { @class = "btn btn-danger float-right" })</td>
                         </tr>
                     }
                 </tbody>
@@ -114,14 +122,14 @@
 {
     <script>
         $(document).ready(function () {
-            $("#contacts").DataTable();
+            $(".display").DataTable();
 
-            if ($('#Structure_Name').val() != '') {
-                $('#Structure_Name').css('cursor', 'pointer');
-                $('#Structure_Name').mouseover();
-                $("#Structure_Name").on("click", function () {
+            if ($('#Trust_Structure_Name').val() != '') {
+                $('#Trust_Structure_Name').css('cursor', 'pointer');
+                $('#Trust_Structure_Name').mouseover();
+                $("#Trust_Structure_Name").on("click", function () {
                     var url = '@Url.Action("Details", "Structures", new { id = "__id__" })';
-                    window.location.href = url.replace('__id__', @Model.StructureId);
+                    window.location.href = url.replace('__id__', @Model.Trust.StructureId);
                 });
             };
 

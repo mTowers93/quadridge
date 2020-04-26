@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Quadridge2.Models
 {
@@ -16,6 +17,9 @@ namespace Quadridge2.Models
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
+
+        [Display(Name="Registered Name")]
+        public string RegisteredName { get; set; }
 
         [Required]
         [Display(Name="Registration Number")]
@@ -44,6 +48,7 @@ namespace Quadridge2.Models
         [Display(Name ="Associated Trust")]
         public int? TrustId { get; set; }
 
+        [ForeignKey("StructureId")]
         public virtual Structure Structure { get; set; }
 
         [Display(Name="Structure")]

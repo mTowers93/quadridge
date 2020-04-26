@@ -17,10 +17,11 @@
         else
         {
             <table id="contacts" class="table table-bordered table-hover">
-                <thead>
+                <thead class="thead-light">
                     <tr>
                         <th>Firstname</th>
                         <th>Surname</th>
+                        <th>Email Address</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
@@ -30,9 +31,10 @@
                         <tr>
                             <td>@Html.ActionLink(contact.Firstname, "Details", "Contacts", new { id = contact.Id }, null)</td>
                             <td>@Html.ActionLink(contact.Surname, "Details", "Contacts", new { id = contact.Id }, null)</td>
+                            <td><a href="mailto:@contact.Email">@contact.Email</a></td>
                             <td>
-                                <button class="btn btn-primary">Edit</button>
-                                <button data-customer-id="@contact.Id" class="btn btn-danger js-delete"><i class="fa fa-trash-o fa-lg"></i></button>
+                                @Html.ActionLink("Edit", "Edit", "Contacts", new { id = contact.Id }, new { @class = "btn btn-info" })
+                                <button data-contact-id="@contact.Id" class="btn btn-danger js-delete"><i class="fa fa-trash-o fa-lg"></i></button>
                             </td>
                         </tr>
                     }
@@ -51,11 +53,11 @@
                 var button = $(this);
                 if (confirm("Are you sure you want to delete this contact?")) {
                     $.ajax({
-                        url: "/api/contacts/" + button.attr("data-customer-id"),
+                        url: "/Contacts/Delete/" + button.attr("data-contact-id"),
                         method: "DELETE",
                         success: function () {
                             //console.log("Success");
-                            table.row(button.parents("tr")).remove().draw();
+                            location.reload();
                         }
                     }); // ajax
                 }

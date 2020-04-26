@@ -1,4 +1,5 @@
 ﻿using Quadridge2.Models;
+using Quadridge2.Models.Contacts;
 using Quadridge2.Models.Maintenance;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace Quadridge2.ViewModels
 {
     public class InteractionsFormViewModel
     {
-        public IEnumerable<Client> Clients { get; set; }
+        public IEnumerable<Contact> Contacts { get; set; }
         public IEnumerable<InteractionType> InteractionTypes { get; set; }
         public Interaction Interaction { get; set; }
     }

@@ -1,83 +1,55 @@
-﻿@model Quadridge2.Models.LawFirm
-
+﻿@model Quadridge2.ViewModels.LawFirms.LawFirmDetailsViewModel
+@using Quadridge2.Helpers
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.LawFirm.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@Html.ContactsModal(Model.Contacts, "LawFirms", "AssignContacts", Model.LawFirm.Id.ToString())
 
-<h2>Details</h2>
+<div class="card">
+    <div class="card-header">
+        <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#contactsModal">Assign Contacts</button>
+        @Html.ActionLink("New Contact", "New", "Contacts", null, new { @class = "btn btn-info float-right", @style = "margin-right:10px" })
+        <h4>Contacts</h4>
+    </div>
+    <div class="card-body">
+        @if (Model.LawFirm.LawFirmContacts.Count() == 0)
+        {
+            <p>This law firm currently has no contacts, please add or assign contacts.</p>
+        }
+        else
+        {
+            <table class="display table table-light table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email Address</th>
+                        <th>Contact Number</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var contact in Model.LawFirm.LawFirmContacts)
+                    {
+                        <tr>
+                            <td>@Html.ActionLink(contact.Contact.Fullname, "Details", "Contacts", new { id = contact.ContactId }, null)</td>
+                            <td>@contact.Contact.Email</td>
+                            <td>@contact.Contact.ContactNo</td>
+                            <td>@Html.ActionLink("Remove", "RemoveContact", "FinancialInstitutions", new { id = contact.LawFirmId, cid = contact.ContactId }, new { @class = "btn btn-danger float-right" })</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
 
-<div>
-    <h4>LawFirm</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Country.code)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Country.code)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Province.Code)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Province.Code)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstAddressLine)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FirstAddressLine)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SecondAddressLine)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SecondAddressLine)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Suburb)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Suburb)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.City)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Zip)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Zip)
-        </dd>
-
-    </dl>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+@section scripts
+{
+    <script>
+    $(document).ready(function () {
+        $(".display").DataTable();
+    });
+    </script>
+}

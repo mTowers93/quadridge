@@ -1,0 +1,129 @@
+﻿@using Quadridge2.Helpers
+@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+@{
+  ViewBag.Title = "Roles";
+}
+
+@Html.AddNewModal("Role", "Role", "Role")
+@Html.DeleteModal("Role")
+@Html.EditModal("Role", "Role", "Role")
+
+<div class="card">
+  <div class="card-header">
+    <button class="btn btn-primary float-right" data-target="addRole" data-toggle="modal" id="btnShowModal">New Role</button>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      @if (Model == null)
+      {
+        <p>There are no Roles, please add one</p>
+      }
+      else
+      {
+        <table id="Roles" class="table table-bordered table-hover">
+          @foreach (var Role in Model)
+          {
+            <tr>
+              <td>@Role.Name</td>
+              <td><button class="btn btn-info edit" onclick="editGroupName('@Role.Id', '@Role.Name'); return false;">Edit</button>  <button class="btn btn-danger delete" data-InteractionType-id=@Role.Id data-target="#confirmDelete"><i class="fa fa-trash-o fa-lg"></i></button></td>
+            </tr>
+          }
+        </table>
+      }
+    </div>
+  </div>
+</div>
+
+@section Scripts
+{
+  <script>
+
+        function editGroupName(id, name) {
+            $('input#editId').val(id);
+            $('#editModalText').val(name);
+        };
+
+        $(document).ready(function () {
+
+            $('#addRole').on("shown.bs.modal", function () {
+                $("#RoleAddModal").focus();
+            });
+
+            var button;
+
+            $("#btnShowModal").click(function () {
+                button = $(this);
+                $("#addRole").modal('show');
+            });
+
+            $("#btnHideModal").on("click",function () {
+                $("#addRole").modal('hide');
+            });
+
+            $("#btnHideEditModal").on("click", function () {
+                $("#editModal").modal("hide");
+            });
+
+            $(".edit").on("click", function () {
+                $("#editModal").modal("show");
+            });
+
+            $("#hideConfirmModal").on("click", function () {
+                $("#confirmDelete").modal('hide');
+            });
+
+            $(".delete").on("click", function () {
+                button = $(this);
+                $("#deleteId").val($(this).attr("data-role-id"));
+                $("#confirmDelete").modal('show');
+            });
+
+            $("#yes").on("click", function () {
+                $.ajax({
+                    url: "/RolesAdmin/Delete/" + $("#deleteId").val(),
+                    method: "DELETE",
+                    success: function () {
+                        toastr.success("Role removed");
+                        $("#confirmDelete").modal("hide");
+                        $(button.parent("tr")).remove();
+                        location.reload();
+                    }
+                });
+            });
+
+            $("#saveRole").click(function (e) {
+                e.preventDefault();
+                var Role = {}
+
+                if ($('input#editId').val() != '') {
+                    Role.Id = $('input#editId').val();
+                    Role.Name = $('#editModalText').val();
+                }
+                else {
+                    Role.Name = $("#RoleAddModal").val();
+                }
+                $.ajax(
+                    {
+                        method: "post",
+                        url: "/RolesAdmin/Save",
+                        data: JSON.stringify(Role),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        success: function (result) {
+                            toastr.success("Role successfully added");
+                            $("#addRole").modal('hide');
+                            var inside = "<td>" + InteractionType.Type + "/<td>"
+                            $(button.parent("table")).append("<tr>" + inside + "</tr>");
+                            window.location.href = result.Url;
+                        },
+                        fail: function () {
+                            toastr.error("Failed to add Role.");
+                        }
+                    }
+                )
+            });
+        });
+
+  </script>
+}
+

@@ -22,10 +22,8 @@
         <li class="@Html.IsActive("Clients","Index") @Html.IsActive("Companies","Index") @Html.IsActive("Trusts", "Index")">
             <a href="#clientDropDown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-briefcase fa-lg"></i>Entities </a>
             <ul id="clientDropDown" class="collapse list-unstyled ">
-                <li><a href="@Url.Action("Index", "Clients")">Entities</a></li>
                 <li><a href="@Url.Action("Index", "Companies")">Companies</a></li>
                 <li><a href="@Url.Action("Index", "Trusts")">Trusts</a></li>
-                <li><a href="@Url.Action("Index", "Other")">Other</a></li>
             </ul>
         </li>
 
@@ -53,15 +51,23 @@
             <a href="@Url.Action("Index", "LawFirms")"> <i class="icon-pencil-case"></i>Law Firms </a>
         </li>
         <li>
-            <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Maintenance </a>
-            <ul id="exampledropdownDropdown" class="collapse list-unstyled @Html.IsActive("Services","Index") @Html.IsActive("InteractionTypes","Index") @Html.IsActive("BillingBases","Index") @Html.IsActive("FeeTpes","Index") @Html.IsActive("Statuses", "Index") @Html.IsActive("StructureCategories", "Index")">
+            <a href="#maintenancedropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Maintenance </a>
+            <ul id="maintenancedropdownDropdown" class="collapse list-unstyled @Html.IsActive("Services","Index") @Html.IsActive("InteractionTypes","Index") @Html.IsActive("BillingBases","Index") @Html.IsActive("FeeTpes","Index") @Html.IsActive("Statuses", "Index") @Html.IsActive("StructureCategories", "Index")">
                 <li><a href="@Url.Action("Index", "BillingBases")">Billing Bases</a></li>
+                <li><a href="@Url.Action("Index", "Departments")">Departments</a></li>
                 <li><a href="@Url.Action("Index", "InteractionTypes")">Interaction Types</a></li>
                 <li><a href="@Url.Action("Index", "FeeTypes")">Fee Types</a></li>
                 <li><a href="@Url.Action("Index", "Services")">Services</a></li>
                 <li><a href="@Url.Action("Index", "Statuses")">Statuses</a></li>
                 <li><a href="@Url.Action("index", "StructureCategories")">Structure Categories</a></li>
             </ul>
+        </li>
+        <li>
+          <a href="#securitydropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-grid"></i>Security </a>
+          <ul id="securitydropdownDropdown" class="collapse list-unstyled @Html.IsActive("Users","Index") @Html.IsActive("Roles","Index")">
+            <li><a href="@Url.Action("Index", "UsersAdmin")">Users</a></li>
+            <li><a href="@Url.Action("Index", "RolesAdmin")">Roles</a></li>
+          </ul>
         </li>
         @Html.Partial("_LoginPartial")
     </ul>

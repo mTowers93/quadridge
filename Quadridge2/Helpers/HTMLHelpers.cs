@@ -46,11 +46,11 @@ namespace Quadridge2.Helpers
             sb.Append("<div class='modal-body'>");
             sb.Append("<form id='" + name + "TypeForm'>");
             sb.Append("<label for=" + name + ">" + label + "</label>");
-            sb.Append("<input type='"+ inputType + "' id='" + name + "' class='form-control' />");
+            sb.Append("<input type='"+ inputType + "' id='" + name + "AddModal' class='form-control' />");
             sb.Append("</form>");
             sb.Append("</div>");
             sb.Append("<div class='modal-footer'>");
-            sb.Append("<button type='submit' class='btn btn-primary save" + name + "'>Submit</button>");
+            sb.Append("<button type='submit' class='btn btn-primary' id='save" + name + "'>Submit</button>");
             sb.Append("<button type='button' class='btn btn-primary' data-dismiss='modal'>Hide</button>");
             sb.Append("</div>");
             sb.Append("</div>");

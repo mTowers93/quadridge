@@ -22,9 +22,16 @@ namespace Quadridge2.Models.Deals
         [Display(Name = "Referral")]
         public int? ContactId { get; set; }
 
+        [Display(Name="Referral Institution")]
+        public int? ReferralInstitutionId { get; set; }
+        public virtual FinancialInstitution ReferralInstitution { get; set; }
+
+        [Display(Name = "Law Firm Contact")]
+        public int? LawFirmContactId { get; set; }
+
         // Relationships
 
-        public StructureCategory StructureCategory { get; set; }
+        public virtual StructureCategory StructureCategory { get; set; }
         [Display(Name=("Structure Category"))]
         public int StructureCategoryId { get; set; }
 
@@ -35,6 +42,10 @@ namespace Quadridge2.Models.Deals
         public virtual OtherInstitution OtherInstitution { get; set; }
         [Display(Name="Other Institution")]
         public int? OtherInstitutionId { get; set; }
+
+        public virtual LawFirm LawFirm { get; set; }
+        [Display(Name="Law Firm")]
+        public int? LawFirmId { get; set; }
 
         public virtual ICollection<Company> Companies { get; set; }
 

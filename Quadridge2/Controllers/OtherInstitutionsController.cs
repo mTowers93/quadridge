@@ -1,4 +1,6 @@
 ﻿using Quadridge2.Models;
+using Quadridge2.Models.Contacts;
+using Quadridge2.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,6 +66,84 @@ namespace Quadridge2.Controllers
             var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "OtherInstitutions");
             _context.SaveChanges();
             return Json(new { Url = redirectUrl });
+        }
+        
+        public ActionResult Details(int id)
+        {
+            var otherInstitution = _context.OtherInstitutions.Single(o => o.Id == id);
+            if (otherInstitution == null)
+                HttpNotFound();
+            var viewModel = new OtherInstitutionDetailViewModel()
+            {
+                OtherInstitution = otherInstitution,
+                Contacts = _context.Contacts.ToList(),
+                Structures = _context.Structures.ToList()
+            };
+            return View(viewModel);
+        }
+
+        public ActionResult AssignContacts(int id, List<int> contacts)
+        {
+            if (contacts.Count() > 0)
+            {
+                for (int i = 0; i < contacts.Count(); i++)
+                {
+                    var contactId = contacts[i];
+                    var addStandaloneContact = new StandaloneContact()
+                    {
+                        StandAloneId = id,
+                        ContactId = contactId
+                    };
+                    _context.StandaloneContacts.Add(addStandaloneContact);
+                }
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Details", "OtherInstitutions", new { id }); ;
+        }
+
+        public ActionResult AssignStructures(int id, List<int> structures)
+        {
+            if (structures.Count() > 0)
+            {
+                for (int i = 0; i < structures.Count(); i++)
+                {
+                    var structureId = structures[i];
+                    var structureInDb = _context.Structures.Single(s => s.Id == structureId);
+                    if (structureInDb.FinancialInstitutionId != null)
+                        structureInDb.FinancialInstitutionId = null;
+                    structureInDb.OtherInstitutionId = id;
+                }
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Details", "OtherInstitutions", new { id });
+        }
+
+        public ActionResult RemoveStructure(int? id, int? sid)
+        {
+            if (sid == null || id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var structureInDb = _context.Structures.Single(s => s.Id == sid);
+            if (structureInDb == null)
+                return HttpNotFound();
+
+            structureInDb.OtherInstitutionId = null;
+            _context.SaveChanges();
+
+            return RedirectToAction("Details", new { id });
+        }
+
+        public ActionResult RemoveContact(int? id, int? cid)
+        {
+            if (cid == null || id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var sacontact = _context.StandaloneContacts.Single(f => f.StandAloneId == id && f.ContactId == cid);
+            if (sacontact == null)
+                return HttpNotFound();
+
+            _context.StandaloneContacts.Remove(sacontact);
+            _context.SaveChanges();
+
+            return RedirectToAction("Details", new { id });
         }
     }
 }

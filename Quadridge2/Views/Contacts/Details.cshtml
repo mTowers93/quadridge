@@ -1,31 +1,79 @@
-﻿@model Quadridge2.Models.Contacts.Contact
-
+﻿@using Quadridge2.Helpers
+@model Quadridge2.ViewModels.Contacts.ContactDetailsViewModel
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@Html.DeleteModal("Interactions")
+<div class="modal fade" id="interactionModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        @using (Html.BeginForm("SaveOnContact", "Interactions", new { ContactId = Model.Contact.Id }))
+        {
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">New Interaction</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row">
+                        <!--<input type="hidden" value="@Model.Contact.Id" name="contactId" id="contactId"/>-->
+                        <div class="col-3">
+                            <div class="form-group">
+                                @Html.LabelFor(i => i.Interaction.InteractionTypeId, new { @class = "form-control-label" })
+                                @Html.DropDownListFor(i => i.Interaction.InteractionTypeId, new SelectList(Model.InteractionTypes, "Id", "Type"), "", new { @class = "form-control selectpicker" })
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="form-group">
+                                @Html.LabelFor(i => i.Interaction.InteractionDate, new { @class = "form-control-label" })
+                                @Html.TextBoxFor(i => i.Interaction.InteractionDate, new { @class = "form-control datepicker-here", @data_language = "en", @autocomplete = "off" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(i => i.Interaction.Comment, new { @class = "form-control-label" })
+                        @Html.TextAreaFor(i => i.Interaction.Comment, new { @class = "form-control" })
+                    </div>     
+                </div>
+                <div class="modal-footer">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-default">Submit</button> <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
 <p>@Html.ActionLink("Back to List", "Index")</p>
 <div class="card">
     <div class="card-header">
-        @Html.ActionLink("Edit", "Edit", "Contacts", new { id = Model.Id }, new { @class = "btn btn-primary float-right" })
-        <h4>@Model.Fullname</h4>
+        @Html.ActionLink("Edit", "Edit", "Contacts", new { id = Model.Contact.Id }, new { @class = "btn btn-primary float-right" })
+        <h4>@Model.Contact.Fullname</h4>
     </div>
     <div class="card-body">
             <div class="form-row">
                 <div class="col-3">
                     <div class="form-group">
-                        @Html.LabelFor(c => c.Firstname, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.Firstname, new { @class = "form-control", @readonly = "" })
-                        @Html.ValidationMessageFor(c => c.Firstname)
+                        @Html.LabelFor(c => c.Contact.Firstname, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Contact.Firstname, new { @class = "form-control", @readonly = "" })
+                        @Html.ValidationMessageFor(c => c.Contact.Firstname)
                     </div>
                 </div>
 
                 <div class="col-3">
                     <div class="form-group">
-                        @Html.LabelFor(c => c.Surname, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.Surname, new { @class = "form-control", @readonly = "" })
-                        @Html.ValidationMessageFor(c => c.Surname)
+                        @Html.LabelFor(c => c.Contact.Surname, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Contact.Surname, new { @class = "form-control", @readonly = "" })
+                        @Html.ValidationMessageFor(c => c.Contact.Surname)
                     </div>
+                </div>
+                <div class="col-6">
+                    <table></table>
                 </div>
             </div>
 
@@ -33,51 +81,58 @@
 
                 <div class="col-3">
                     <div class="form-group">
-                        @Html.LabelFor(c => c.Email, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.Email, new { @class = "form-control", @readonly = "" })
-                        @Html.ValidationMessageFor(c => c.Email)
+                        @Html.LabelFor(c => c.Contact.Email, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Contact.Email, new { @class = "form-control", @readonly = "" })
+                        @Html.ValidationMessageFor(c => c.Contact.Email)
                     </div>
                 </div>
                 <div class="col-3">
                     @{ 
-                        var birthday = Model.Birthday.ToShortDateString();
+                        string sqlFormattedDate = Model.Contact.Birthday.HasValue
+                            ? Model.Contact.Birthday.Value.ToString("dd-MM-yyyy")
+                            : "<not available>";
                     }
                     <div class="form-group">
-                        @Html.LabelFor(c => c.Birthday, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => birthday, new { @class = "form-control", @readonly = "" })
+                        @Html.LabelFor(c => c.Contact.Birthday, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => sqlFormattedDate, new { @class = "form-control", @readonly = "" })
                     </div>
                 </div>
             </div>
             <div class="form-row">
-                <div class="col-3">
-                    <div class="form-group">
-                        @Html.LabelFor(c => c.ContactNo, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.ContactNo, new { @class = "form-control", @readonly = "" })
-                        @Html.ValidationMessageFor(c => c.ContactNo)
-                    </div>
+              <div class="col-3">
+                <div class="form-group">
+                  @Html.LabelFor(c => c.Contact.ContactNo, new { @class = "form-control-label" })
+                  @Html.TextBoxFor(c => c.Contact.ContactNo, new { @class = "form-control", @readonly = "" })
+                  @Html.ValidationMessageFor(c => c.Contact.ContactNo)
                 </div>
+              </div>
 
-                <div class="col-3">
-                    <div class="form-group">
-                        @Html.LabelFor(c => c.AltContactNo, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.AltContactNo, new { @class = "form-control", @readonly = "" })
-                    </div>
+              <div class="col-3">
+                <div class="form-group">
+                  @Html.LabelFor(c => c.Contact.AltContactNo, new { @class = "form-control-label" })
+                  @Html.TextBoxFor(c => c.Contact.AltContactNo, new { @class = "form-control", @readonly = "" })
                 </div>
-
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  @Html.LabelFor(e => e.Contact.DepartmentId, new { @class = "form-control-label" })
+                  @Html.TextBoxFor(e => e.Contact.Department.Name, new { @class = "form-control", @readonly = "" })
+                </div>
+              </div>
             </div>
             <hr />
 
             <div class="form-row">
                 <div class="col-3">
                     <div class="form-group">
-                        @Html.LabelFor(c => c.FirstAddressLine, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.FirstAddressLine, new { @class = "form-control", @readonly = "" })
+                        @Html.LabelFor(c => c.Contact.FirstAddressLine, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Contact.FirstAddressLine, new { @class = "form-control", @readonly = "" })
                     </div>
                 </div>
                 <div class="col-3">
                     <div class="form-group">
-                        @Html.LabelFor(c => c.SecondAddressLine, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.SecondAddressLine, new { @class = "form-control", @readonly = "" })
+                        @Html.LabelFor(c => c.Contact.SecondAddressLine, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Contact.SecondAddressLine, new { @class = "form-control", @readonly = "" })
                     </div>
                 </div>
             </div>
@@ -85,20 +140,20 @@
             <div class="form-row">
                 <div class="col-3">
                     <div class="form-group">
-                        @Html.LabelFor(c => c.Suburb, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.Suburb, new { @class = "form-control", @readonly = "" })
+                        @Html.LabelFor(c => c.Contact.Suburb, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Contact.Suburb, new { @class = "form-control", @readonly = "" })
                     </div>
                 </div>
                 <div class="col-3">
                     <div class="form-group">
-                        @Html.LabelFor(c => c.City, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.City, new { @class = "form-control", @readonly = "" })
+                        @Html.LabelFor(c => c.Contact.City, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Contact.City, new { @class = "form-control", @readonly = "" })
                     </div>
                 </div>
                 <div class="col-3">
                     <div class="form-group">
-                        @Html.LabelFor(c => c.Zip, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.Zip, new { @class = "form-control", @readonly = "" })
+                        @Html.LabelFor(c => c.Contact.Zip, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Contact.Zip, new { @class = "form-control", @readonly = "" })
                     </div>
                 </div>
 
@@ -106,35 +161,93 @@
             </div>
 
             <div class="form-row">
-                @if (Model.Province != null)
+                @if (Model.Contact.Province != null)
                 {
                 <div class="col-3">
                     <div class="form-group">
-                        @Html.LabelFor(c => c.ProvinceId, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.Province.Name, new { @class = "form-control", @readonly = "" })
+                        @Html.LabelFor(c => c.Contact.ProvinceId, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Contact.Province.Name, new { @class = "form-control", @readonly = "" })
                     </div>
                 </div>
                 }
                 else {
                     <div class="col-3">
                         <div class="form-group">
-                            @Html.LabelFor(c => c.ProvinceId, new { @class = "form-control-label" })
-                            @Html.TextBoxFor(c => c.ProvinceId, new { @class = "form-control", @readonly = "" })
+                            @Html.LabelFor(c => c.Contact.ProvinceId, new { @class = "form-control-label" })
+                            @Html.TextBoxFor(c => c.Contact.ProvinceId, new { @class = "form-control", @readonly = "" })
                         </div>
                     </div>
                 }
                 <div class="col-3">
                     <div class="form-group">
-                        @Html.LabelFor(c => c.CountryId, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.Country.Name, new { @class = "form-control", @readonly = "" })
+                        @Html.LabelFor(c => c.Contact.CountryId, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(c => c.Contact.Country.Name, new { @class = "form-control", @readonly = "" })
                     </div>
                 </div>
             </div>
     </div>
 </div>
 
+<div class="card">
+    <div class="card-header">
+        <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#interactionModal">Add Interaction</button>
+        <h4>Interactions</h4>
+    </div>
+    <div class="card-body">
+        @if(Model.Contact.Interactions.Count() == 0)
+        {
+            <p>This client has no interactions</p>
+        }
+        else
+        {
+            <table class="display table table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Date</th>
+                        <th>Interaction Type</th>
+                        <th>Comment</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var interaction in Model.Contact.Interactions)
+                    {
+                        <tr>
+                            <td>@interaction.InteractionDate.ToShortDateString()</td>
+                            <td>@interaction.InteractionType.Type</td>
+                            <td>@interaction.Comment</td>
+                            <td><a href="/Contacts/Delete" data-interaction-id="@interaction.Id" class="btn btn-danger delete" data-toggle="modal" data-target="#confirmDelete"><i class="fa fa-trash"></i></a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
 
 @section scripts
 {
- 
+ <script>
+
+     $(".delete").on("click", function () {
+         button = $(this);
+         $("#deleteId").val($(this).attr("data-interaction-id"));
+     });
+
+     $("#yes").on("click", function () {
+         var iid = $("#deleteId").val();
+         var id = @Html.ValueFor(c => c.Contact.Id)
+         $.ajax({
+                    data: {id: id, iid: iid },
+                    url: "/Contacts/DeleteInteraction/",
+                    method: "DELETE",
+                    success: function (result) {
+                        toastr.success("Structure category removed");
+                        $("#confirmDelete").modal("hide");
+                        window.location.href = result.Url;
+                    }
+                });
+            });
+    </script>
 }

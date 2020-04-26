@@ -61,16 +61,12 @@ namespace Quadridge2.Controllers
             {
                 var lawFirmInDb = _context.LawFirms.Single(l => l.Id == lawFirm.Id);
                 lawFirmInDb.Name = lawFirm.Name;
-                lawFirmInDb.FirstAddressLine = lawFirm.FirstAddressLine;
-                lawFirmInDb.SecondAddressLine = lawFirm.SecondAddressLine;
-                lawFirmInDb.Suburb = lawFirm.Suburb;
-                lawFirmInDb.City = lawFirm.City;
-                lawFirmInDb.Zip = lawFirm.Zip;
-                lawFirmInDb.ProvinceId = lawFirm.ProvinceId;
-                lawFirmInDb.CountryId = lawFirm.CountryId;
             }
             _context.SaveChanges();
-            return RedirectToAction("Index", "LawFirms");
+
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "LawFirms");
+            _context.SaveChanges();
+            return Json(new { Url = redirectUrl });
         }
 
         // GET: LawFirms/Details/5
@@ -85,33 +81,28 @@ namespace Quadridge2.Controllers
             {
                 return HttpNotFound();
             }
-            return View(lawFirm);
-        }
-
-        // GET: LawFirms/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
+            var viewModel = new LawFirmDetailsViewModel()
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            LawFirm lawFirm = _context.LawFirms.Find(id);
-            if (lawFirm == null)
-            {
-                return HttpNotFound();
-            }
-            return View(lawFirm);
+                LawFirm = lawFirm,
+                Contacts = _context.Contacts.ToList(),
+                Structures = _context.Structures.ToList()
+            };
+            return View(viewModel);
         }
 
         // POST: LawFirms/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Delete(int id)
         {
-            LawFirm lawFirm = _context.LawFirms.Find(id);
+            LawFirm lawFirm = _context.LawFirms.Single(l => l.Id == id);
+            if (lawFirm == null)
+                return HttpNotFound();
+
             _context.LawFirms.Remove(lawFirm);
             _context.SaveChanges();
-            return RedirectToAction("Index");
+
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "LawFirms");
+            _context.SaveChanges();
+            return Json(new { Url = redirectUrl });
         }
     }
 }

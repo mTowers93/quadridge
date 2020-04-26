@@ -1,4 +1,4 @@
-﻿@model Quadridge2.ViewModels.TrustFormViewModel
+﻿@model Quadridge2.ViewModels.Trusts.TrustFormViewModel
 @{
     ViewBag.Title = "Trust Form";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,13 +10,13 @@
         <div class="form-row">
             <div class="col-3">
                 <div class="form-row">
-                    <div class="col-12">
-                        <div class="form-group">
-                            @Html.LabelFor(t => t.Trust.Name, new { @class = "form-control-label" })
-                            @Html.TextBoxFor(t => t.Trust.Name, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(t => t.Trust.Name)
-                        </div>
+                  <div class="col-12">
+                    <div class="form-group">
+                      @Html.LabelFor(t => t.Trust.Name, new { @class = "form-control-label" })
+                      @Html.TextBoxFor(t => t.Trust.Name, new { @class = "form-control", @autofocus = "autofocus" })
+                      @Html.ValidationMessageFor(t => t.Trust.Name)
                     </div>
+                  </div>
                 </div>
 
                 <div class="form-row">
@@ -42,8 +42,8 @@
                 <div class="form-row">
                     <div class="col-12">
                         <div class="form-group">
-                            @Html.LabelFor(t => t.Trust.AppointmentDate, new { @class = "form-control-label" })
-                            @Html.TextBoxFor(t => t.Trust.AppointmentDate, new { @class = "form-control datepicker-here", @data_language = "en", @autocomplete = "off" })
+                            @Html.LabelFor(t => t.Trust.RegistrationDate, new { @class = "form-control-label" })
+                            @Html.TextBoxFor(t => t.Trust.RegistrationDate, new { @class = "form-control datepicker-here", @data_language = "en", @autocomplete = "off" })
                         </div>
                     </div>
                 </div>
@@ -61,12 +61,13 @@
                 <div class="form-row">
                     <ul class="list-group">
                         <li class="list-group-item service-heading">Services</li>
-                        @foreach (var service in Model.Services)
+                        @for (int i = 0; i < Model.Services.Count; i++)
                         {
-                        <li class="list-group-item">
-                            <input type="checkbox" name="services" value="@service.Id" id="checked_@service.Id" />
-                            <label for="checked_@service.Id">@service.Name</label>
-                        </li>
+                            <li class="list-group-item">
+                                @Html.HiddenFor(x => Model.Services[i].Id)
+                                @Html.CheckBoxFor(x => Model.Services[i].IsChecked)
+                                @Html.LabelFor(x => Model.Services[i].IsChecked, Model.Services[i].Name)
+                            </li>
                         }
                     </ul>
 </div>

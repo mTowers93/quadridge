@@ -11,10 +11,15 @@ namespace Quadridge2.ViewModels.Companies
     public class CompanyFormViewModel
     {
         public Company Company { get; set; }
-        public IEnumerable<Service> Services { get; set; }
-        public IEnumerable<Trust> Trusts { get; set; }
-        public IEnumerable<FeeType> FeeTypes { get; set; }
-        public IEnumerable<BillingBasis> BillingBases { get; set; }
-        public IEnumerable<Structure> Structures { get; set; }
+        public List<ServiceCheckboxItem> Services { get; set; }
+        public ICollection<Trust> Trusts { get; set; }
+        public ICollection<FeeType> FeeTypes { get; set; }
+        public ICollection<BillingBasis> BillingBases { get; set; }
+        public ICollection<Structure> Structures { get; set; }
+
+        public CompanyFormViewModel()
+        {
+            Services = new List<ServiceCheckboxItem>();
+        }
     }
 }

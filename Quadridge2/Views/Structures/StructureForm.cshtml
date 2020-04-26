@@ -12,7 +12,7 @@
                 <div class="col-3">
                     <div class="form-group">
                         @Html.LabelFor(s => s.Structure.Name, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(s => s.Structure.Name, new { @class = "form-control" })
+                        @Html.TextBoxFor(s => s.Structure.Name, new { @class = "form-control", @autofocus = "autofocus" })
                         @Html.ValidationMessageFor(s => s.Structure.Name)
                     </div>
                 </div>
@@ -47,6 +47,12 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        @*@Html.LabelFor(s => s.InstContactID, new { @class = "form-control-label" })
+                        @Html.DropDownListFor(s => s.InstContactID, new SelectList(Model.Contacts, "Id", "Fullname"), "Select Contact", new { @class = "form-control selectpicker", @data_live_search = "true" })*@
+                    </div>
+                </div>
             </div>
 
             <div class="form-row">
@@ -55,7 +61,29 @@
                         @Html.LabelFor(s => s.Structure.ContactId, new { @class = "form-control-label" })
                         @Html.DropDownListFor(s => s.Structure.ContactId, new SelectList(Model.Contacts, "Id", "Fullname"), "Select Contact", new { @class = "form-control selectpicker", @data_live_search = "true" })
                     </div>
+                </div> 
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(s => s.Structure.ReferralInstitutionId, new { @class = "form-control-label" })
+                        @Html.DropDownListFor(s => s.Structure.ReferralInstitutionId, new SelectList(Model.FinancialInstitutions, "Id", "Name"), "Select Contact", new { @class = "form-control selectpicker", @data_live_search = "true" })
+                    </div>
                 </div>
+            </div>
+            <div class="form-row">
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(s => s.Structure.LawFirmContactId, new { @class = "form-control-label" })
+                        @Html.DropDownListFor(s => s.Structure.LawFirmContactId, new SelectList(Model.Contacts, "Id", "Fullname"), "Select Contact", new { @class = "form-control selectpicker", @data_live_search = "true" })
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(s => s.Structure.LawFirmId, new { @class = "form-control-label" })
+                        @Html.DropDownListFor(s => s.Structure.LawFirmId, new SelectList(Model.LawFirms, "Id", "Name"), "Select law  firm", new { @class = "form-control selectpicker", @data_live_search = "true" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
                 <div class="col-4">
                     <div class="form-group">
                         @Html.LabelFor(s => s.Structure.StatusId, new { @class = "form-control-label" })
@@ -63,7 +91,6 @@
                     </div>
                 </div>
             </div>
-
             @Html.AntiForgeryToken()
             <button class="btn btn-primary">Save</button>
         }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -18,18 +19,20 @@ namespace Quadridge2.Models
         [Required]
         public string Donor { get; set; }
 
-        public Structure Structure { get; set; }
+        [ForeignKey("StructureId")]
+        public virtual Structure Structure { get; set; }
 
         [Display(Name = "Associated Structure")]
         public int? StructureId { get; set; }
 
-        public DateTime AppointmentDate { get; set;}
+        [Display(Name="Registration Date")]
+        public DateTime RegistrationDate { get; set;}
 
         [Display(Name = "Trustee Representitive")]
         public string TrusteeRepresentitive { get; set; }
 
-        public ICollection<Company> Companies { get; set; }
+        public virtual ICollection<Company> Companies { get; set; }
 
-        public ICollection<TrustService> TrustServices { get; set; }
+        public virtual ICollection<TrustService> TrustServices { get; set; }
     }
 }

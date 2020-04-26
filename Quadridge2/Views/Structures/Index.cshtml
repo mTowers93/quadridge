@@ -30,7 +30,7 @@
                             <td>@Html.ActionLink(structure.Name, "Details", "Structures", new { id = structure.Id }, null)</td>
                             <td>@structure.Status.Type</td>
                             <td>
-                                <button class="btn btn-primary">Edit</button>
+                                @Html.ActionLink("Edit", "Edit", "Structures", new { id = structure.Id }, new { @class = "btn btn-info" })
                                 <button data-structure-id="@structure.Id" class="btn btn-danger js-delete"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>
@@ -51,11 +51,12 @@
                 var button = $(this);
                 if (confirm("Are you sure you want to delete this customer?")) {
                     $.ajax({
-                        url: "/Structures/DeleteStructure" + button.attr("data-structure-id"),
+                        url: "/Structures/Delete/" + button.attr("data-structure-id"),
                         method: "DELETE",
                         success: function () {
                             //console.log("Success");
                             table.row(button.parents("tr")).remove().draw();
+                            window.location.href = result.Url;
                         }
                     }); // ajax
                 }

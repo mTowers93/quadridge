@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<Quadridge2.Models.LawFirm>
-
+@using Quadridge2.Helpers
 @{
     ViewBag.Title = "Law Firms";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@Html.AddNewModal("LawFirm", "Add new law firm", "Law firm")
 <p></p>
 <div class="card">
     <div class="card-header">
-        @Html.ActionLink("New Law Firm", "New", "LawFirms", null, new { @class = "btn btn-primary" })
+        <button class='btn btn-primary float-right' data-target='addLawFirm' data-toggle='modal' id='btnShowModal'>New Law Firm</button>
     </div>
     <div class="card-body">
         @if (!Model.Any())
@@ -31,7 +31,7 @@
                             <td>@Html.ActionLink(lawFirm.Name, "Details", "LawFirms", new { id = lawFirm.Id }, null)</td>
                             <td>
                                 <button class="btn btn-primary">Edit</button>
-                                <button data-lawFirm-id="@lawFirm.Id" class="btn btn-primary js-delete"><i class="fa fa-trash-o fa-lg"></i></button>
+                                <button data-lawFirm-id="@lawFirm.Id" class="btn btn-danger js-delete"><i class="fa fa-trash-o fa-lg"></i></button>
                             </td>
                         </tr>
                     }
@@ -44,23 +44,63 @@
 
 @section scripts
 {
-    <script>
-        $(document).ready(function () {
-            $("#lawFirms").DataTable();
+<script>
 
-            $("#lawFirms .js-delete").on("click", function () {
-                var button = $(this);
-                if (confirm("Are you sure you want to delete this bank?")) {
-                    $.ajax({
-                        url: "/LawFirms/Delete" + button.attr("data-lawFirm-id"),
-                        method: "DELETE",
-                        success: function () {
-                            //console.log("Success");
-                            table.row(button.parents("tr")).remove().draw();
-                        }
-                    }); // ajax
+    var button;
+
+    $('#addLawFirm').on("shown.bs.modal", function () {
+        $("#LawFirmAddModal").focus();
+    });
+
+    $("#btnShowModal").click(function () {
+        button = $(this);
+        $("#addLawFirm").modal('show');
+    });
+
+    $("#btnHideModal").on("click", function () {
+        $("#addLawFirm").modal('hide');
+    });
+
+    $("#saveLawFirm").click(function (e) {
+        e.preventDefault();
+        var LawFirm = {}
+        LawFirm.Name = $("#LawFirmAddModal").val();
+        var sendData = JSON.stringify(LawFirm)
+        $.ajax(
+            {
+                method: "post",
+                url: "/LawFirms/Save",
+                data: sendData,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (result) {
+                    //toastr.success("Bank successfully added");
+                    //$("#addBank").modal('hide');
+                    window.location.href = result.Url;
+                },
+                fail: function () {
+                    toastr.error("Failed to add financial institution.");
                 }
-            }); // on click function
-        }); // ready function
-    </script>
+            }
+        )
+    });
+
+    $(document).ready(function () {
+        $("#lawFirms").DataTable();
+
+        $("#lawFirms .js-delete").on("click", function () {
+            var button = $(this);
+            if (confirm("Are you sure you want to delete this law firm?")) {
+                $.ajax({
+                    url: "/LawFirms/Delete/" + button.attr("data-lawFirm-id"),
+                    method: "DELETE",
+                    success: function (result) {
+                        //console.log("Success");
+                        window.location.href = result.Url;
+                    }
+                }); // ajax
+            }
+        }); // on click function
+    }); // ready function
+</script>
 }

@@ -49,7 +49,10 @@ namespace Quadridge2
                       "~/Content/toastr.css",
                       "~/Content/airdatepicker/datepicker.min.css",
                       "~/Content/bootstrap-select.min.css",
-                      "~/Content/site.css"
+                      "~/Content/site.css",
+                      "~/Content/dashboard/vendor/font-awesome/fonts/fontawesome-webfont.woff2",
+                      "~/Content/dashboard/vendor/font-awesome/fonts/fontawesome-webfont.woff",
+                      "~/Content/dashboard/vendor/font-awesome/fonts/fontawesome-webfont.ttf"
                       ));
         }
     }

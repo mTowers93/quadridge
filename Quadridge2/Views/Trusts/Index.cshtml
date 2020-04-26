@@ -3,39 +3,44 @@
     ViewBag.Title = "Trusts";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<p>@Html.ActionLink("New Trust", "New", "Trusts", null, new { @class = "btn btn-primary" })</p>
-
-@if (!Model.Any())
-{
-    <p> We do not have any Trusts yet </p>
-}
-else
-{
-    <table id="trusts" class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Services</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var trust in Model)
-            {
-                <tr>
-                    <td>@Html.ActionLink(trust.Name, "Details", "Trusts", new { id = trust.Id }, null)</td>
-                    <td>
-                        <ul></ul>
-                    </td>
-                    <td>
-                        <button class="btn btn-primary">Edit</button>
-                        <button data-trust-id="@trust.Id" class="btn btn-primary js-delete">Delete</button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+<div class="card">
+    <div class="card-header">
+        @Html.ActionLink("New Trust", "New", "Trusts", null, new { @class = "btn btn-primary float-right" })
+    </div>
+    <div class="card-body">
+        @if (!Model.Any())
+        {
+            <p> We do not have any Trusts yet </p>
+        }
+        else
+        {
+            <table id="trusts" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Services</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var trust in Model)
+                    {
+                        <tr>
+                            <td>@Html.ActionLink(trust.Name, "Details", "Trusts", new { id = trust.Id }, null)</td>
+                            <td>
+                                <ul></ul>
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", "Trusts", new { id = trust.Id }, new { @class = "btn btn-info" })
+                                <button data-trust-id="@trust.Id" class="btn btn-danger js-delete"><i class="fa fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
 
 @section scripts
 {

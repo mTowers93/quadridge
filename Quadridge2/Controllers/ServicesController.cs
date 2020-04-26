@@ -23,6 +23,7 @@ namespace Quadridge2.Controllers
             _context.Dispose();
         }
 
+        [HttpGet]
         // GET: Services
         public ActionResult Index()
         {
@@ -42,7 +43,9 @@ namespace Quadridge2.Controllers
             }
 
             _context.SaveChanges();
-            return RedirectToAction("Index", "Services");
+
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "Services");
+            return Json(new { Url = redirectUrl });
         }
 
         [HttpDelete]
@@ -56,7 +59,8 @@ namespace Quadridge2.Controllers
             _context.Services.Remove(serviceInDb);
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Services");
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "Services"); ;
+            return Json(new { Url = redirectUrl });
         }
     }
 }

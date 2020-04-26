@@ -1,0 +1,130 @@
+﻿@using Quadridge2.Helpers
+@model IEnumerable<Quadridge2.Models.Security.Users>
+@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.AddNewModal("User", "User", "User")
+@Html.DeleteModal("User")
+@Html.EditModal("User", "User", "User")
+<div class="card">
+    <div class="card-header">
+        <button class="btn btn-primary float-right" data-target="addInteractionType" data-toggle="modal" id="btnShowModal">New User</button>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            @if (Model == null)
+            {
+                <p>There are no Users, please add one.</p>
+            }
+            else
+            {
+                <table id="InteractionTypes" class="table table-bordered table-hover">
+                    @foreach (var User in Model)
+                    {
+                        <tr>
+                            <td>@User.Username</td>
+                            <td>@User.Name + " " + @User.Surname</td>
+                            <td><button class="btn btn-info edit" onclick="editGroupName('@User.Id', '@User.Username'); return false;">Edit</button>  <button class="btn btn-danger delete" data-user-id=@User.Id data-target="#confirmDelete"><i class="fa fa-trash-o fa-lg"></i></button></td>
+                        </tr>
+                    }
+                </table>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+
+        function editGroupName(id, name) {
+            $('input#editId').val(id);
+            $('#editModalText').val(name);
+        };
+
+        $(document).ready(function () {
+
+            $('#addInteractionType').on("shown.bs.modal", function () {
+                $("#InteractionTypeAddModal").focus();
+            });
+
+            var button;
+
+            $("#btnShowModal").click(function () {
+                button = $(this);
+                $("#addInteractionType").modal('show');
+            });
+
+            $("#btnHideModal").on("click", function () {
+                $("#addInteractionType").modal('hide');
+            });
+
+            $("#btnHideEditModal").on("click", function () {
+                $("#editModal").modal("hide");
+            });
+
+            $(".edit").on("click", function () {
+                $("#editModal").modal("show");
+            });
+
+            $("#hideConfirmModal").on("click", function () {
+                $("#confirmDelete").modal('hide');
+            });
+
+            $(".delete").on("click", function () {
+                button = $(this);
+                $("#deleteId").val($(this).attr("data-InteractionType-id"));
+                $("#confirmDelete").modal('show');
+            });
+
+            $("#yes").on("click", function () {
+                $.ajax({
+                    url: "/InteractionTypes/Delete/" + $("#deleteId").val(),
+                    method: "DELETE",
+                    success: function () {
+                        toastr.success("Interaction type removed");
+                        $("#confirmDelete").modal("hide");
+                        $(button.parent("tr")).remove();
+                        location.reload();
+                    }
+                });
+            });
+
+            $("#saveInteractionType").click(function (e) {
+                e.preventDefault();
+                var InteractionType = {}
+
+                if ($('input#editId').val() != '') {
+                    InteractionType.Id = $('input#editId').val();
+                    InteractionType.Type = $('#editModalText').val();
+                }
+                else {
+                    InteractionType.Type = $("#InteractionTypeAddModal").val();
+                }
+                $.ajax(
+                    {
+                        method: "post",
+                        url: "/InteractionTypes/Save",
+                        data: JSON.stringify(InteractionType),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        success: function (result) {
+                            toastr.success("Interaction Type successfully added");
+                            $("#addInteractionType").modal('hide');
+                            var inside = "<td>" + InteractionType.Type + "/<td>"
+                            $(button.parent("table")).append("<tr>" + inside + "</tr>");
+                            window.location.href = result.Url;
+                        },
+                        fail: function () {
+                            toastr.error("Failed to add InteractionType.");
+                        }
+                    }
+                )
+            });
+        });
+
+    </script>
+}
+

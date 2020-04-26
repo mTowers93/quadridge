@@ -6,31 +6,37 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="row">
-    <button class="btn btn-primary" data-target="#addBillingBasis" data-toggle="modal">New Billing Basis</button>
+    
 </div>
 @Html.AddNewModal("BillingBasis", "Billing Basis", "Billing Basis")
 
 @Html.DeleteModal("Billing Basis")
 
 @Html.EditModal("Edit Billing Basis", "Billing Basis", "BillingBasis")
-
-<div class="row">
-    @if (Model.Count() == 0)
-    {
-        <p>There are no billing basis, please add one.</p>
-    }
-    else
-    {
-        <table id="billingBasis" class="table table-bordered table-hover">
-            @foreach (var billingbasis in Model)
+<div class="card">
+    <div class="card-header">
+        <button class="btn btn-primary float-right" data-target="#addBillingBasis" data-toggle="modal">New Billing Basis</button>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            @if (Model.Count() == 0)
             {
-                <tr>
-                    <td>@billingbasis.Basis</td>
-                    <td><button class="btn btn-info edit" data-target="#editModal" data-toggle="modal" onclick="editGroupName('@billingbasis.Id', '@billingbasis.Basis'); return false;">Edit</button>  <button data-target="#deleteModal" data-toggle="modal" class="btn btn-danger delete" data-billingBasis-id=@billingbasis.Id data-target="#confirmDelete"><i class="fa fa-trash-o fa-lg"></i></button></td>
-                </tr>
+                <p>There are no billing basis, please add one.</p>
             }
-        </table>
-    }
+            else
+            {
+                <table id="billingBasis" class="table table-bordered table-hover">
+                    @foreach (var billingbasis in Model)
+                    {
+                        <tr>
+                            <td>@billingbasis.Basis</td>
+                            <td><button class="btn btn-info edit" data-target="#editModal" data-toggle="modal" onclick="editGroupName('@billingbasis.Id', '@billingbasis.Basis'); return false;">Edit</button>  <button data-toggle="modal" class="btn btn-danger delete" data-billingBasis-id=@billingbasis.Id data-target="#confirmDelete"><i class="fa fa-trash-o fa-lg"></i></button></td>
+                        </tr>
+                    }
+                </table>
+            }
+        </div>
+    </div>
 </div>
 
 @section Scripts
@@ -45,6 +51,10 @@
         $(document).ready(function () {
 
             var button;
+
+            $('#addBillingBasis').on("shown.bs.modal", function () {
+                $("#BillingBasisAddModal").focus();
+            });
 
             $(".delete").on("click", function () {
                 button = $(this);
@@ -66,7 +76,7 @@
                 });
             });
 
-            $(".saveBillingBasis").click(function (e) {
+            $("#saveBillingBasis").click(function (e) {
                 e.preventDefault();
                 var billingBasis = {}
                 
@@ -75,7 +85,7 @@
                     billingBasis.Basis = $('#editModalText').val();
                 }
                 else {
-                    billingBasis.Basis = $("#BillingBasis").val();
+                    billingBasis.Basis = $("#BillingBasisAddModal").val();
                 }
                     
                 $.ajax(
@@ -85,12 +95,12 @@
                         data: JSON.stringify(billingBasis),
                         contentType: 'application/json; charset=utf-8',
                         dataType: 'json',
-                        complete: function () {
+                        success: function (result) {
                             toastr.success("Billing Basis successfully added");
                             $("#addBillingBasis").modal('hide');
                             var inside = "<td>" + billingBasis.Basis + "/<td>"
                             $(button.parent("table")).append("<tr>" + inside + "</tr>");
-                            location.reload();
+                            window.location.href = result.Url;
                         },
                         fail: function () {
                             toastr.error("Failed to add Billing Basis.");

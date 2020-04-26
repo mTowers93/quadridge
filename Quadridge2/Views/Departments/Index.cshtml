@@ -1,0 +1,129 @@
+﻿@using Quadridge2.Helpers
+@model ICollection<Quadridge2.Models.Contacts.Department>
+@{
+  ViewBag.Title = "Index";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+
+</div>
+
+@Html.AddNewModal("Department", "Add New Department", "Department")
+@Html.DeleteModal("Department")
+@Html.EditModal("Edit Department", "Department", "Department")
+<div class="card">
+  <div class="card-header">
+    <button class="btn btn-primary float-right" data-target="addDepartment" data-toggle="modal" id="btnShowModal">New Department</button>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      @if (Model.Count() == 0)
+      {
+        <p>There are no departments, please add one.</p>
+      }
+      else
+      {
+        <table id="departments" class="table table-bordered table-hover">
+          @foreach (var department in Model)
+          {
+            <tr>
+              <td>@department.Name</td>
+              <td><button class="btn btn-info edit" onclick="editGroupName('@department.Id', '@department.Name'); return false;">Edit</button>  <button class="btn btn-danger delete" data-department-id=@department.Id data-target="#confirmDelete"><i class="fa fa-trash-o fa-lg"></i></button></td>
+            </tr>
+          }
+        </table>
+      }
+    </div>
+  </div>
+</div>
+
+@section Scripts
+{
+  <script>
+
+        function editGroupName(id, name) {
+            $('input#editId').val(id);
+            $('#editModalText').val(name);
+        };
+
+        $(document).ready(function () {
+
+            $('#addDepartment').on("shown.bs.modal", function () {
+                $("#DepartmentAddModal").focus();
+            });
+
+            var button;
+
+            $("#btnShowModal").click(function () {
+                button = $(this);
+                $("#addDepartment").modal('show');
+            });
+
+            $("#btnHideModal").on("click",function () {
+                $("#addDepartment").modal('hide');
+            });
+
+            $("#btnHideEditModal").on("click", function () {
+                $("#editModal").modal("hide");
+            });
+
+            $(".edit").on("click", function () {
+                $("#editModal").modal("show");
+            });
+
+            $("#hideConfirmModal").on("click", function () {
+                $("#confirmDelete").modal('hide');
+            });
+
+            $(".delete").on("click", function () {
+                button = $(this);
+                $("#deleteId").val($(this).attr("data-department-id"));
+                $("#confirmDelete").modal('show');
+            });
+
+            $("#yes").on("click", function () {
+                $.ajax({
+                    url: "/Departments/Delete/" + $("#deleteId").val(),
+                    method: "DELETE",
+                    success: function (result) {
+                        toastr.success("Department removed");
+                        $("#confirmDelete").modal("hide");
+                        $(button.parent("tr")).remove();
+                        window.location.href = result.Url;
+                    }
+                });
+            });
+
+            $("#saveDepartment").click(function (e) {
+                e.preventDefault();
+                var department = {}
+                if ($('input#editId').val() != '') {
+                    department.Id = $('input#editId').val();
+                    department.Name = $('#editModalText').val();
+                }
+                else {
+                    department.Name = $("#DepartmentAddModal").val();
+                }
+                $.ajax(
+                    {
+                        method: "post",
+                        url: "/Departments/Save",
+                        data: JSON.stringify(department),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        success: function (result) {
+                            toastr.success("Department successfully added");
+                            $("#addDepartment").modal('hide');
+                            window.location.href = result.Url;
+                        },
+                        fail: function () {
+                            toastr.error("Failed to add Department.");
+                        }
+                    }
+                )
+            });
+        });
+
+  </script>
+}
+

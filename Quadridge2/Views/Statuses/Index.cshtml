@@ -5,30 +5,36 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="row">
-    <button class="btn btn-primary" data-target="addStatus" data-toggle="modal" id="btnShowModal">New Status</button>
+    
 </div>
 
 @Html.AddNewModal("Status","Add New Status", "Status")
 @Html.DeleteModal("Status")
 @Html.EditModal("Edit Status", "Status", "Status")
-
-<div class="row">
-    @if (Model.Count() == 0)
-    {
-        <p>There are no statuses, please add one.</p>
-    }
-    else
-    {
-        <table id="statuses" class="table table-bordered table-hover">
-            @foreach (var status in Model)
+<div class="card">
+    <div class="card-header">
+        <button class="btn btn-primary float-right" data-target="addStatus" data-toggle="modal" id="btnShowModal">New Status</button>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            @if (Model.Count() == 0)
             {
-                <tr>
-                    <td>@status.Type</td>
-                    <td><button class="btn btn-info edit" onclick="editGroupName('@status.Id', '@status.Type'); return false;">Edit</button>  <button class="btn btn-danger delete" data-status-id=@status.Id data-target="#confirmDelete"><i class="fa fa-trash-o fa-lg"></i></button></td>
-                </tr>
+                <p>There are no statuses, please add one.</p>
             }
-        </table>
-    }
+            else
+            {
+                <table id="statuses" class="table table-bordered table-hover">
+                    @foreach (var status in Model)
+                    {
+                        <tr>
+                            <td>@status.Type</td>
+                            <td><button class="btn btn-info edit" onclick="editGroupName('@status.Id', '@status.Type'); return false;">Edit</button>  <button class="btn btn-danger delete" data-status-id=@status.Id data-target="#confirmDelete"><i class="fa fa-trash-o fa-lg"></i></button></td>
+                        </tr>
+                    }
+                </table>
+            }
+        </div>
+    </div>
 </div>
 
 @section Scripts
@@ -41,6 +47,10 @@
         };
 
         $(document).ready(function () {
+
+            $('#addStatus').on("shown.bs.modal", function () {
+                $("#StatusAddModal").focus();
+            });
 
             var button;
 
@@ -84,7 +94,7 @@
                 });
             });
 
-            $(".saveStatus").click(function (e) {
+            $("#saveStatus").click(function (e) {
                 e.preventDefault();
                 var status = {}
                 if ($('input#editId').val() != '') {
@@ -92,7 +102,7 @@
                     status.Type = $('#editModalText').val();
                 }
                 else {
-                    status.Type = $("#Status").val();
+                    status.Type = $("#StatusAddModal").val();
                 }
                 $.ajax(
                     {
@@ -101,7 +111,7 @@
                         data: JSON.stringify(status),
                         contentType: 'application/json; charset=utf-8',
                         dataType: 'json',
-                        sucess: function (result) {
+                        success: function (result) {
                             toastr.success("Status successfully added");
                             $("#addStatus").modal('hide');
                             window.location.href = result.Url;

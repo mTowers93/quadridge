@@ -4,7 +4,7 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@Html.ContactsModal(Model.Contacts)
+@Html.ContactsModal(Model.Contacts, "OtherInstitutions", "AssignContacts", Model.OtherInstitution.Id.ToString())
 <div class="modal fade" id="structuresModal" role="dialog">
     <div class="modal-dialog modal-lg">
 
@@ -49,7 +49,7 @@
         <h4>Structures</h4>
     </div>
     <div class="card-body">
-        @if (Model.FinancialInstitution.Structures == null)
+        @if (Model.OtherInstitution.Structures.Count() == 0)
         {
             <p>The institution currently has no structures</p>
         }
@@ -64,7 +64,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var structure in Model.FinancialInstitution.Structures)
+                    @foreach (var structure in Model.OtherInstitution.Structures)
                     {
                         <tr>
                             <td>@Html.ActionLink(@structure.Name, "Details", "Structures", new { id = structure.Id }, null)</td>
@@ -83,11 +83,9 @@
         <h4>Contacts</h4>
     </div>
     <div class="card-body">
-        @if (Model.FinancialInstitution.FinancialInstitutionContacts.Count() == 0)
+        @if (Model.OtherInstitution.OtherContacts.Count() == 0)
         {
             <p>This institution currenlty has no contacts.</p>
-            <button>Assign Contacts</button>
-            <button>Add contact</button>
         }
         else
         {
@@ -100,7 +98,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var contact in Model.FinancialInstitution.FinancialInstitutionContacts)
+                    @foreach (var contact in Model.OtherInstitution.OtherContacts)
                     {
                         <tr>
                             <td>@Html.ActionLink(contact.Contact.Fullname, "Details", "Contacts", new { id = contact.ContactId }, null)</td>

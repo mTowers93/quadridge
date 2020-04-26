@@ -8,9 +8,11 @@
         @using (Html.BeginForm("Save", "Interactions"))
         {
             <div class="form-row">
-                <div class="form-group">
-                    @Html.LabelFor(c => c.Interaction.ClientId, new { @class = "form-control-label" })
-                    @Html.DropDownListFor(c => c.Interaction.ClientId, new SelectList(Model.Clients, "Id", "Name"), "", new { @class = "form-control" })
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.Interaction.ContactId, new { @class = "form-control-label" })
+                        @Html.DropDownListFor(c => c.Interaction.ContactId, new SelectList(Model.Contacts, "Id", "Fullname"), "", new { @class = "form-control selectpicker show-tick", @data_live_search = "true" })
+                    </div>
                 </div>
 
             </div>
@@ -19,14 +21,14 @@
                 <div class="col-3">
                     <div class="form-group">
                         @Html.LabelFor(i => i.Interaction.InteractionTypeId, new { @class = "form-control-label" })
-                        @Html.DropDownListFor(i => i.Interaction.InteractionTypeId, new SelectList(Model.InteractionTypes, "Id", "Type"), "", new { @class = "form-control" })
+                        @Html.DropDownListFor(i => i.Interaction.InteractionTypeId, new SelectList(Model.InteractionTypes, "Id", "Type"), "", new { @class = "form-control selectpicker" })
                     </div>
                 </div>
 
                 <div class="col-3">
                     <div class="form-group">
                         @Html.LabelFor(i => i.Interaction.InteractionDate, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(i => i.Interaction.InteractionDate, new { @class = "form-control datepicker-here", @data_language="en" })
+                        @Html.TextBoxFor(i => i.Interaction.InteractionDate, new { @class = "form-control datepicker-here", @data_language="en", @autocomplete="off" })
                     </div>
                 </div>
             </div>

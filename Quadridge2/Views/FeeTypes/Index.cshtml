@@ -5,36 +5,41 @@
     ViewBag.Title = "Fee Types";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="row">
-    <button class="btn btn-primary" data-target="addFeetype" data-toggle="modal" id="btnShowModal">New Fee Type</button>
-</div>
 
 @Html.AddNewModal("FeeType", "Fee Type", "Fee Type")
 @Html.DeleteModal("fee type")
 @Html.EditModal("Fee Type", "Fee Type", "FeeType")
-
-<div class="row">
-    @if (Model == null)
-    {
-        <p>There are no fee types, please add one.</p>
-    }
-    else
-    {
-        <table id="feeTypes" class="table table-bordered table-hover">
-            @foreach (var feeType in Model)
+<div class="card">
+    <div class="card-header">
+        <button class="btn btn-primary float-right" data-target="addFeetype" data-toggle="modal" id="btnShowModal">New Fee Type</button>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            @if (Model == null)
             {
-                <tr>
-                    <td>@feeType.Type</td>
-                    <td><button class="btn btn-info edit" onclick="editGroupName('@feeType.Id', '@feeType.Type'); return false;">Edit</button>  <button class="btn btn-danger delete" data-feeType-id=@feeType.Id data-target="#confirmDelete"><i class="fa fa-trash-o fa-lg"></i></button></td>
-                </tr>
+                <p>There are no fee types, please add one.</p>
             }
-        </table>
-    }
+            else
+            {
+                <table id="feeTypes" class="table table-bordered table-hover">
+                    @foreach (var feeType in Model)
+                    {
+                        <tr>
+                            <td>@feeType.Type</td>
+                            <td><button class="btn btn-info edit" onclick="editGroupName('@feeType.Id', '@feeType.Type'); return false;">Edit</button>  <button class="btn btn-danger delete" data-feeType-id=@feeType.Id data-target="#confirmDelete"><i class="fa fa-trash-o fa-lg"></i></button></td>
+                        </tr>
+                    }
+                </table>
+            }
+        </div>
+    </div>
 </div>
 
 @section Scripts
 {
     <script>
+
+        
 
         function editGroupName(id, name) {
             $('input#editId').val(id);
@@ -42,6 +47,10 @@
         };
 
         $(document).ready(function () {
+
+            $('#addFeeType').on("shown.bs.modal", function () {
+                $("#FeeTypeAddModal").focus();
+            });
 
             var button;
 
@@ -80,13 +89,12 @@
                         toastr.success("Fee Type removed");
                         $("#confirmDelete").modal("hide");
                         $(button.parent("tr")).remove();
-                        console.log("Success");
                         location.reload();
                     }
                 });
             });
 
-            $(".saveFeeType").click(function (e) {
+            $("#saveFeeType").click(function (e) {
                 e.preventDefault();
                 var feeType = {}
                 
@@ -95,7 +103,7 @@
                     feeType.Type = $('#editModalText').val();
                 }
                 else {
-                    feeType.Type = $("#FeeType").val();
+                    feeType.Type = $("#FeeTypeAddModal").val();
                 }
                 $.ajax(
                     {

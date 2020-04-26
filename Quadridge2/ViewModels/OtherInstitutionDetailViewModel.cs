@@ -11,7 +11,7 @@ namespace Quadridge2.ViewModels
     public class OtherInstitutionDetailViewModel
     {
         public OtherInstitution OtherInstitution { get; set; }
-        //public ICollection<Structures> Structures { get; set; }
-        //public ICollection<Contacts> Contacts { get; set; }
+        public ICollection<Structure> Structures { get; set; }
+        public ICollection<Contact> Contacts { get; set; }
     }
 }

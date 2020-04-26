@@ -45,7 +45,7 @@ namespace Quadridge2.Models
         public Country Country { get; set; }
 
         [Display(Name = "Country")]
-        public int CountryId { get; set; }
+        public int? CountryId { get; set; }
 
         public IEnumerable<Contact> Contacts { get; set; }
 

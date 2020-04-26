@@ -79,6 +79,11 @@ input[type="checkbox"]:checked ~ .reveal-if-active {
     cursor: pointer;
 }
 
+.textboxlink#Trust_Structure_Name:hover {
+    background: lightblue;
+    cursor: pointer;
+}
+
 .main {
     padding: 30px 15px;
     margin: 0;
@@ -90,4 +95,8 @@ div.dataTables_wrapper .row  {
 
 .btn-primary {
     background-color: #2B90D9;
+}
+
+.datepicker {
+    z-index: 99999999 !important;
 }

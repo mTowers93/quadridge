@@ -76,7 +76,7 @@ namespace Quadridge2.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, false, shouldLockout: false).ConfigureAwait(false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -137,7 +137,8 @@ namespace Quadridge2.Controllers
 
         //
         // GET: /Account/Register
-        [Authorize(Roles=(AdminRole.Admin))]
+        //[Authorize(Roles=(AdminRole.Admin))]
+        [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
@@ -146,7 +147,8 @@ namespace Quadridge2.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [Authorize(Roles = (AdminRole.Admin))]
+       // [Authorize(Roles = (AdminRole.Admin))]
+       [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
