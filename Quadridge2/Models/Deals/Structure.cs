@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Quadridge2.Models.Deals
 {
@@ -24,7 +25,7 @@ namespace Quadridge2.Models.Deals
 
         [Display(Name="Referral Institution")]
         public int? ReferralInstitutionId { get; set; }
-        public virtual FinancialInstitution ReferralInstitution { get; set; }
+        public virtual Institute ReferralInstitution { get; set; }
 
         [Display(Name = "Law Firm Contact")]
         public int? LawFirmContactId { get; set; }
@@ -35,15 +36,11 @@ namespace Quadridge2.Models.Deals
         [Display(Name=("Structure Category"))]
         public int StructureCategoryId { get; set; }
 
-        public virtual FinancialInstitution FinancialInstitution { get; set; }
-        [Display(Name="Financial Institution")]
-        public int? FinancialInstitutionId { get; set; }
+        public virtual Institute Institute { get; set; }
+        [Display(Name="Institute")]
+        public int? InstituteId { get; set; }
 
-        public virtual OtherInstitution OtherInstitution { get; set; }
-        [Display(Name="Other Institution")]
-        public int? OtherInstitutionId { get; set; }
-
-        public virtual LawFirm LawFirm { get; set; }
+        public virtual Institute LawFirm { get; set; }
         [Display(Name="Law Firm")]
         public int? LawFirmId { get; set; }
 

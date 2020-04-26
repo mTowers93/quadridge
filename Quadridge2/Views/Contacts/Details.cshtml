@@ -56,135 +56,125 @@
         <h4>@Model.Contact.Fullname</h4>
     </div>
     <div class="card-body">
-            <div class="form-row">
-                <div class="col-3">
-                    <div class="form-group">
-                        @Html.LabelFor(c => c.Contact.Firstname, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.Contact.Firstname, new { @class = "form-control", @readonly = "" })
-                        @Html.ValidationMessageFor(c => c.Contact.Firstname)
-                    </div>
-                </div>
+      <div class="form-row">
+        <div class="col-3">
+          <div class="form-group">
+            @Html.LabelFor(c => c.Contact.Firstname, new { @class = "form-control-label" })
+            @Html.TextBoxFor(c => c.Contact.Firstname, new { @class = "form-control", @readonly = "" })
+            @Html.ValidationMessageFor(c => c.Contact.Firstname)
+          </div>
+        </div>
 
-                <div class="col-3">
-                    <div class="form-group">
-                        @Html.LabelFor(c => c.Contact.Surname, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.Contact.Surname, new { @class = "form-control", @readonly = "" })
-                        @Html.ValidationMessageFor(c => c.Contact.Surname)
-                    </div>
-                </div>
-                <div class="col-6">
-                    <table></table>
-                </div>
-            </div>
+        <div class="col-3">
+          <div class="form-group">
+            @Html.LabelFor(c => c.Contact.Surname, new { @class = "form-control-label" })
+            @Html.TextBoxFor(c => c.Contact.Surname, new { @class = "form-control", @readonly = "" })
+            @Html.ValidationMessageFor(c => c.Contact.Surname)
+          </div>
+        </div>
+        <div class="col-6">
+          <table></table>
+        </div>
+      </div>
 
-            <div class="form-row">
+      <div class="form-row">
 
-                <div class="col-3">
-                    <div class="form-group">
-                        @Html.LabelFor(c => c.Contact.Email, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.Contact.Email, new { @class = "form-control", @readonly = "" })
-                        @Html.ValidationMessageFor(c => c.Contact.Email)
-                    </div>
-                </div>
-                <div class="col-3">
-                    @{ 
-                        string sqlFormattedDate = Model.Contact.Birthday.HasValue
-                            ? Model.Contact.Birthday.Value.ToString("dd-MM-yyyy")
-                            : "<not available>";
-                    }
-                    <div class="form-group">
-                        @Html.LabelFor(c => c.Contact.Birthday, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => sqlFormattedDate, new { @class = "form-control", @readonly = "" })
-                    </div>
-                </div>
-            </div>
-            <div class="form-row">
-              <div class="col-3">
-                <div class="form-group">
-                  @Html.LabelFor(c => c.Contact.ContactNo, new { @class = "form-control-label" })
-                  @Html.TextBoxFor(c => c.Contact.ContactNo, new { @class = "form-control", @readonly = "" })
-                  @Html.ValidationMessageFor(c => c.Contact.ContactNo)
-                </div>
-              </div>
+        <div class="col-3">
+          <div class="form-group">
+            @Html.LabelFor(c => c.Contact.Email, new { @class = "form-control-label" })
+            @Html.TextBoxFor(c => c.Contact.Email, new { @class = "form-control", @readonly = "" })
+            @Html.ValidationMessageFor(c => c.Contact.Email)
+          </div>
+        </div>
+        <div class="col-3">
+          @{
+            string sqlFormattedDate = Model.Contact.Birthday.HasValue
+                ? Model.Contact.Birthday.Value.ToString("dd-MM-yyyy")
+                : "<not available>";
+          }
+          <div class="form-group">
+            @Html.LabelFor(c => c.Contact.Birthday, new { @class = "form-control-label" })
+            @Html.TextBoxFor(c => sqlFormattedDate, new { @class = "form-control", @readonly = "" })
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-3">
+          <div class="form-group">
+            @Html.LabelFor(c => c.Contact.ContactNo, new { @class = "form-control-label" })
+            @Html.TextBoxFor(c => c.Contact.ContactNo, new { @class = "form-control", @readonly = "" })
+            @Html.ValidationMessageFor(c => c.Contact.ContactNo)
+          </div>
+        </div>
 
-              <div class="col-3">
-                <div class="form-group">
-                  @Html.LabelFor(c => c.Contact.AltContactNo, new { @class = "form-control-label" })
-                  @Html.TextBoxFor(c => c.Contact.AltContactNo, new { @class = "form-control", @readonly = "" })
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="form-group">
-                  @Html.LabelFor(e => e.Contact.DepartmentId, new { @class = "form-control-label" })
-                  @Html.TextBoxFor(e => e.Contact.Department.Name, new { @class = "form-control", @readonly = "" })
-                </div>
-              </div>
-            </div>
-            <hr />
-
-            <div class="form-row">
-                <div class="col-3">
-                    <div class="form-group">
-                        @Html.LabelFor(c => c.Contact.FirstAddressLine, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.Contact.FirstAddressLine, new { @class = "form-control", @readonly = "" })
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="form-group">
-                        @Html.LabelFor(c => c.Contact.SecondAddressLine, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.Contact.SecondAddressLine, new { @class = "form-control", @readonly = "" })
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="col-3">
-                    <div class="form-group">
-                        @Html.LabelFor(c => c.Contact.Suburb, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.Contact.Suburb, new { @class = "form-control", @readonly = "" })
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="form-group">
-                        @Html.LabelFor(c => c.Contact.City, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.Contact.City, new { @class = "form-control", @readonly = "" })
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="form-group">
-                        @Html.LabelFor(c => c.Contact.Zip, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.Contact.Zip, new { @class = "form-control", @readonly = "" })
-                    </div>
-                </div>
-
-
-            </div>
-
-            <div class="form-row">
-                @if (Model.Contact.Province != null)
-                {
-                <div class="col-3">
-                    <div class="form-group">
-                        @Html.LabelFor(c => c.Contact.ProvinceId, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.Contact.Province.Name, new { @class = "form-control", @readonly = "" })
-                    </div>
-                </div>
-                }
-                else {
-                    <div class="col-3">
-                        <div class="form-group">
-                            @Html.LabelFor(c => c.Contact.ProvinceId, new { @class = "form-control-label" })
-                            @Html.TextBoxFor(c => c.Contact.ProvinceId, new { @class = "form-control", @readonly = "" })
-                        </div>
-                    </div>
-                }
-                <div class="col-3">
-                    <div class="form-group">
-                        @Html.LabelFor(c => c.Contact.CountryId, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(c => c.Contact.Country.Name, new { @class = "form-control", @readonly = "" })
-                    </div>
-                </div>
-            </div>
+        <div class="col-3">
+          <div class="form-group">
+            @Html.LabelFor(c => c.Contact.AltContactNo, new { @class = "form-control-label" })
+            @Html.TextBoxFor(c => c.Contact.AltContactNo, new { @class = "form-control", @readonly = "" })
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div class="form-row">
+        <div class="col-3">
+          <div class="form-group">
+            @Html.LabelFor(e => e.Contact.InstituteId, new { @class = "form-control-label" })
+            @Html.TextBoxFor(e => e.Contact.Institute.Name, new { @class = "form-control", @readonly = "" })
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-group">
+            @Html.LabelFor(e => e.Contact.DepartmentId, new { @class = "form-control-label" })
+            @Html.TextBoxFor(e => e.Contact.Department.Name, new { @class = "form-control", @readonly = "" })
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-3">
+          <div class="form-group">
+            @Html.LabelFor(e => e.Contact.Location.FirstLine, new { @class = "form-control-label" })
+            @Html.TextBoxFor(e => e.Contact.Location.FirstLine, new { @class = "form-control", @readonly = "" })
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-group">
+            @Html.LabelFor(e => e.Contact.Location.SecondLine, new { @class = "form-control-label" })
+            @Html.TextBoxFor(e => e.Contact.Location.SecondLine, new { @class = "form-control", @readonly = "" })
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-group">
+            @Html.LabelFor(e => e.Contact.Location.Suburb, new { @class = "form-control-label" })
+            @Html.TextBoxFor(e => e.Contact.Location.Suburb, new { @class = "form-control", @readonly = "" })
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-3">
+          <div class="form-group">
+            @Html.LabelFor(e => e.Contact.Location.City, new { @class = "form-control-label" })
+            @Html.TextBoxFor(e => e.Contact.Location.City, new { @class = "form-control", @readonly = "" })
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-group">
+            @Html.LabelFor(e => e.Contact.Location.PostalCode, new { @class = "form-control-label" })
+            @Html.TextBoxFor(e => e.Contact.Location.PostalCode, new { @class = "form-control", @readonly = "" })
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-group">
+            @Html.LabelFor(e => e.Contact.Location.Province, new { @class = "form-control-label" })
+            @Html.TextBoxFor(e => e.Contact.Location.Province.Name, new { @class = "form-control", @readonly = "" })
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-group">
+            @Html.LabelFor(e => e.Contact.Location.Country, new { @class = "form-control-label" })
+            @Html.TextBoxFor(e => e.Contact.Location.Country.Name, new { @class = "form-control", @readonly = "" })
+          </div>
+        </div>
+      </div>
     </div>
 </div>
 

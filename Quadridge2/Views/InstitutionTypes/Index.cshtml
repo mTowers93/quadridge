@@ -1,0 +1,128 @@
+﻿@using Quadridge2.Helpers
+@model IEnumerable<Quadridge2.Models.Maintenance.InstitutionType>
+@{
+  ViewBag.Title = "Institution Types";
+}
+
+@Html.AddNewModal("InstitutionType", "Institution Type", "Institution Type")
+@Html.DeleteModal("Institution Type")
+@Html.EditModal("Institution Type", "Institution Type", "InstitutionType")
+<div class="card">
+  <div class="card-header">
+    <button class="btn btn-primary float-right" data-target="addInstitutionType" data-toggle="modal" id="btnShowModal">New Institution Type</button>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      @if (Model == null)
+      {
+        <p>There are no Institution types, please add one.</p>
+      }
+      else
+      {
+        <table id="InstitutionTypes" class="table table-bordered table-hover">
+          @foreach (var InstitutionType in Model)
+          {
+            <tr>
+              <td>@InstitutionType.Type</td>
+              <td><button class="btn btn-info edit" onclick="editGroupName('@InstitutionType.Id', '@InstitutionType.Type'); return false;">Edit</button>  <button class="btn btn-danger delete" data-InstitutionType-id=@InstitutionType.Id data-target="#confirmDelete"><i class="fa fa-trash-o fa-lg"></i></button></td>
+            </tr>
+          }
+        </table>
+      }
+    </div>
+  </div>
+</div>
+
+@section Scripts
+{
+  <script>
+
+    function editGroupName(id, name) {
+      $('input#editId').val(id);
+      $('#editModalText').val(name);
+    };
+
+    $(document).ready(function () {
+
+      $('#addInstitutionType').on("shown.bs.modal", function () {
+        $("#InstitutionTypeAddModal").focus();
+      });
+
+      var button;
+
+      $("#btnShowModal").click(function () {
+        button = $(this);
+        $("#addInstitutionType").modal('show');
+      });
+
+      $("#btnHideModal").on("click", function () {
+        $("#addInstitutionType").modal('hide');
+      });
+
+      $("#btnHideEditModal").on("click", function () {
+        $("#editModal").modal("hide");
+      });
+
+      $(".edit").on("click", function () {
+        $("#editModal").modal("show");
+      });
+
+      $("#hideConfirmModal").on("click", function () {
+        $("#confirmDelete").modal('hide');
+      });
+
+      $(".delete").on("click", function () {
+        button = $(this);
+        $("#deleteId").val($(this).attr("data-InstitutionType-id"));
+        $("#confirmDelete").modal('show');
+      });
+
+      $("#yes").on("click", function () {
+        $.ajax({
+          url: "/InstitutionTypes/Delete/" + $("#deleteId").val(),
+          method: "DELETE",
+          success: function () {
+            toastr.success("Institution type removed");
+            $("#confirmDelete").modal("hide");
+            $(button.parent("tr")).remove();
+            location.reload();
+          }
+        });
+      });
+
+      $("#saveInstitutionType").click(function (e) {
+        e.preventDefault();
+        var InstitutionType = {}
+
+        if ($('input#editId').val() != '') {
+          InstitutionType.Id = $('input#editId').val();
+          InstitutionType.Type = $('#editModalText').val();
+        }
+        else {
+          InstitutionType.Type = $("#InstitutionTypeAddModal").val();
+        }
+        $.ajax(
+          {
+            method: "post",
+            url: "/InstitutionTypes/Save",
+            data: JSON.stringify(InstitutionType),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (result) {
+              toastr.success("Institution Type successfully added");
+              $("#addInstitutionType").modal('hide');
+              var inside = "<td>" + InstitutionType.Type + "/<td>"
+              $(button.parent("table")).append("<tr>" + inside + "</tr>");
+              window.location.href = result.Url;
+            },
+            fail: function () {
+              toastr.error("Failed to add Institution Type.");
+            }
+          }
+        )
+      });
+    });
+
+  </script>
+}
+

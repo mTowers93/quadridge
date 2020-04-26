@@ -37,35 +37,6 @@ namespace Quadridge2.Models.Contacts
 
     public DateTime? Birthday { get; set; }
 
-    // Address
-    [Required]
-    [Display(Name = "First Address Line")]
-    public string FirstAddressLine { get; set; }
-
-    [Display(Name = "Second Address Line")]
-    public string SecondAddressLine { get; set; }
-
-    [Required]
-    public string Suburb { get; set; }
-
-    public string City { get; set; }
-
-    [Required]
-    [Display(Name = "Postal Code")]
-    public string Zip { get; set; }
-
-    public virtual Province Province { get; set; }
-    [Display(Name = "Province")]
-    public int ProvinceId { get; set; }
-
-    public virtual Country Country { get; set; }
-    [Required]
-    [Display(Name = "Country")]
-    public int CountryId { get; set; }
-
-    public bool? IsLawFirmContact { get; set; }
-    public bool? IsFinancialContact { get; set; }
-    public bool? IsStandalone { get; set; }
     public virtual Department Department { get; set; }
 
     [Display(Name="Department")]
@@ -82,9 +53,12 @@ namespace Quadridge2.Models.Contacts
 
     public ICollection<StructureContact> StructureContacts { get; set; }
 
-    public ICollection<LawFirmContact> LawFirmContact { get; set; }
-
-    public ICollection<FinancialInstitutionContact> FinancialInstitutionContacts { get; set; }
+    public virtual Institute Institute { get; set; }
+    // Temporarily null so that everyone gets assigned to a company = could set to 0 so that they all get defaulted and must be changed. probably better
+    [Display(Name="Institution")]
+    public int? InstituteId { get; set; }
+    public virtual Location Location { get; set; }
+    public int? LocationId{ get; set; }
 
     public string Fullname
     {

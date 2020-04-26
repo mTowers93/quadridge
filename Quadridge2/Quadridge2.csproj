@@ -683,8 +683,11 @@
     <Compile Include="Controllers\BillingBasesController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\FeeTypesController.cs" />
+    <Compile Include="Controllers\InstitutesController.cs" />
+    <Compile Include="Controllers\InstitutionTypesController.cs" />
     <Compile Include="Controllers\InteractionsController.cs" />
     <Compile Include="Controllers\InteractionTypesController.cs" />
+    <Compile Include="Controllers\LocationsController.cs" />
     <Compile Include="Controllers\OtherInstitutionsController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
@@ -707,6 +710,38 @@
     <Compile Include="Migrations\202004131625387_populateCountries.Designer.cs">
       <DependentUpon>202004131625387_populateCountries.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004261457456_addLocationInstituteInstitutionType.cs" />
+    <Compile Include="Migrations\202004261457456_addLocationInstituteInstitutionType.Designer.cs">
+      <DependentUpon>202004261457456_addLocationInstituteInstitutionType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004261512255_addLocation.cs" />
+    <Compile Include="Migrations\202004261512255_addLocation.Designer.cs">
+      <DependentUpon>202004261512255_addLocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004261555160_fixLocation.cs" />
+    <Compile Include="Migrations\202004261555160_fixLocation.Designer.cs">
+      <DependentUpon>202004261555160_fixLocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004261819341_TypeId.cs" />
+    <Compile Include="Migrations\202004261819341_TypeId.Designer.cs">
+      <DependentUpon>202004261819341_TypeId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004262056404_changeContact.cs" />
+    <Compile Include="Migrations\202004262056404_changeContact.Designer.cs">
+      <DependentUpon>202004262056404_changeContact.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004262105229_removeAddressFromContact.cs" />
+    <Compile Include="Migrations\202004262105229_removeAddressFromContact.Designer.cs">
+      <DependentUpon>202004262105229_removeAddressFromContact.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004262122322_changedSomething.cs" />
+    <Compile Include="Migrations\202004262122322_changedSomething.Designer.cs">
+      <DependentUpon>202004262122322_changedSomething.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004262207392_changeContact1.cs" />
+    <Compile Include="Migrations\202004262207392_changeContact1.Designer.cs">
+      <DependentUpon>202004262207392_changeContact1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CompanyService.cs" />
     <Compile Include="Models\Contacts\CompanyContact.cs" />
@@ -716,6 +751,9 @@
     <Compile Include="Models\Contacts\OtherInstitutionContact.cs" />
     <Compile Include="Models\Contacts\StandaloneContact.cs" />
     <Compile Include="Models\Contacts\StructureContact.cs" />
+    <Compile Include="Models\Institute.cs" />
+    <Compile Include="Models\Maintenance\InstitutionType.cs" />
+    <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Maintenance\BillingBasis.cs" />
     <Compile Include="Models\Maintenance\ClientCategory.cs" />
     <Compile Include="Models\Document.cs" />
@@ -760,7 +798,7 @@
     <Compile Include="Models\Deals\StructureComment.cs" />
     <Compile Include="Models\Contacts\Contact.cs" />
     <Compile Include="Models\Contacts\ContactComment.cs" />
-    <Compile Include="Models\Country.cs" />
+    <Compile Include="Models\Maintenance\Country.cs" />
     <Compile Include="Models\Deal.cs" />
     <Compile Include="Models\Maintenance\DealType.cs" />
     <Compile Include="Models\EmployeeRole.cs" />
@@ -780,9 +818,11 @@
     <Compile Include="ViewModels\FinancialInstitutions\FinancialInstitutionDetailsViewModel.cs" />
     <Compile Include="ViewModels\FinancialInstitutions\FinancialInstitutionsFormViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
+    <Compile Include="ViewModels\InstituteViewModel.cs" />
     <Compile Include="ViewModels\InteractionsFormViewModel.cs" />
     <Compile Include="ViewModels\LawFirms\LawFirmDetailsViewModel.cs" />
     <Compile Include="ViewModels\LawFirms\LawFirmFormViewModel.cs" />
+    <Compile Include="ViewModels\LocationViewModel.cs" />
     <Compile Include="ViewModels\OtherInstitutionDetailViewModel.cs" />
     <Compile Include="ViewModels\Security\AdminViewModel.cs" />
     <Compile Include="ViewModels\Security\ChangePassword.cs" />
@@ -1480,6 +1520,10 @@
     <Content Include="Views\UsersAdmin\Index.cshtml" />
     <Content Include="Views\UsersAdmin\UserForm.cshtml" />
     <Content Include="Views\Departments\Index.cshtml" />
+    <Content Include="Views\Locations\Index.cshtml" />
+    <Content Include="Views\Locations\LocationForm.cshtml" />
+    <Content Include="Views\Locations\Details.cshtml" />
+    <Content Include="Views\InstitutionTypes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1488,7 +1532,7 @@
     <Folder Include="DataAccess\" />
     <Folder Include="ViewModels\Banks\" />
     <Folder Include="Views\Admin\" />
-    <Folder Include="Views\NewFolder1\" />
+    <Folder Include="Views\Institutes\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -1523,6 +1567,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004131625387_populateCountries.resx">
       <DependentUpon>202004131625387_populateCountries.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004261457456_addLocationInstituteInstitutionType.resx">
+      <DependentUpon>202004261457456_addLocationInstituteInstitutionType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004261512255_addLocation.resx">
+      <DependentUpon>202004261512255_addLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004261555160_fixLocation.resx">
+      <DependentUpon>202004261555160_fixLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004261819341_TypeId.resx">
+      <DependentUpon>202004261819341_TypeId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004262056404_changeContact.resx">
+      <DependentUpon>202004262056404_changeContact.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004262105229_removeAddressFromContact.resx">
+      <DependentUpon>202004262105229_removeAddressFromContact.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004262122322_changedSomething.resx">
+      <DependentUpon>202004262122322_changedSomething.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004262207392_changeContact1.resx">
+      <DependentUpon>202004262207392_changeContact1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

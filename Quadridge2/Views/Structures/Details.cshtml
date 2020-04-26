@@ -1,216 +1,196 @@
 ﻿@using Quadridge2.Helpers
 @model Quadridge2.ViewModels.Structures.StructuresDetailsViewModel
 @{
-    ViewBag.Title = "Structure Details for " + Model.Structure.Name;
-    Layout = "~/Views/Shared/_Layout.cshtml";
+  ViewBag.Title = "Structure Details for " + Model.Structure.Name;
+  Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Html.CompaniesModal(Model.Companies, "Structures", "AssignCompanies", Model.Structure.Id.ToString())
 @Html.TrustsModal(Model.Trusts, "Structures", "AssignTrusts", Model.Structure.Id.ToString())
 @Html.ContactsModal(Model.Contacts, "Structures", "AssignContacts", Model.Structure.Id.ToString())
 <div>
-    @Html.ActionLink("Back", "index", "Structures", null, new { @class = "btn btn-primary float-left" })
+  @Html.ActionLink("Back", "index", "Structures", null, new { @class = "btn btn-primary float-left" })
 </div>
 <div class="clearfix"></div>
 <div class="card">
-    <div class="card-header">
-        @Html.ActionLink("Edit", "Edit", "Structures", new { id = Model.Structure.Id }, new { @class = "btn btn-primary float-right" })
-        <h4>Details</h4>
-    </div>
-    <div class="card-body">
-        <div class="form-row">
-            <div class="col-3">
-                <div class="form-group">
-                    @Html.LabelFor(s => s.Structure.Name, new { @class = "form-control-label", @readonly = "" })
-                    @Html.TextBoxFor(s => s.Structure.Name, new { @class = "form-control", @readonly = "" })
-                </div>
-            </div>
-            <div class="col-3">
-                @if (Model.Structure.FinancialInstitution != null)
-                {
-                    <div class="form-group">
-                        @Html.LabelFor(s => s.Structure.FinancialInstitutionId)
-                        @Html.TextBoxFor(s => s.Structure.FinancialInstitution.Name, new { @class = "form-control textboxlink", @readonly = "" })
-                    </div>
-                }
-                else if (Model.Structure.OtherInstitution != null)
-                {
-                    <div class="form-group">
-                        @Html.LabelFor(s => s.Structure.OtherInstitutionId)
-                        @Html.TextBoxFor(s => s.Structure.OtherInstitution.Name, new { @class = "form-control textboxlink", @readonly = "" })
-                    </div>
-                }
-            </div>
-            <div class="col-3">
-                <div class="form-group">
-                    @Html.LabelFor(s => s.Structure.StructureCategoryId)
-                    @Html.TextBoxFor(s => s.Structure.StructureCategory.Category, new { @class = "form-control textboxlink", @readonly = "" })
-                </div>
-            </div>
+  <div class="card-header">
+    @Html.ActionLink("Edit", "Edit", "Structures", new { id = Model.Structure.Id }, new { @class = "btn btn-primary float-right" })
+    <h4>Details</h4>
+  </div>
+  <div class="card-body">
+    <div class="form-row">
+      <div class="col-3">
+        <div class="form-group">
+          @Html.LabelFor(s => s.Structure.Name, new { @class = "form-control-label", @readonly = "" })
+          @Html.TextBoxFor(s => s.Structure.Name, new { @class = "form-control", @readonly = "" })
         </div>
-        <div class="form-row">
-            <div class="col-3">
-                <div class="form-group">
-                    @Html.LabelFor(s => s.Structure.LawFirmId, new { @class = "form-control-label", @readonly = "" })
-                    @Html.TextBoxFor(s => s.Structure.LawFirmId, new { @class = "form-control", @readonly = "" })
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="form-group">
-                    @Html.LabelFor(s => s.Structure.LawFirmContactId, new { @class = "form-control-label", @readonly = "" })
-                    @Html.TextBoxFor(s => s.Structure.LawFirmContactId, new { @class = "form-control", @readonly = "" })
-                </div>
-            </div>
+      </div>
+      <div class="col-3">
+        <div class="form-group">
+          @Html.LabelFor(s => s.Structure.InstituteId)
+          @Html.TextBoxFor(s => s.Structure.Institute.Name, new { @class = "form-control textboxlink", @readonly = "" })
         </div>
-        <div class="form-row">
-            <div class="col-3">
-                @if (Model.Structure.FinancialInstitution != null)
-                {
-                    <div class="form-group">
-                        @Html.LabelFor(s => s.Structure.ReferralInstitutionId)
-                        @Html.TextBoxFor(s => s.Structure.ReferralInstitution.Name, new { @class = "form-control textboxlink", @readonly = "" })
-                    </div>
-                }
-                else if (Model.Structure.OtherInstitution != null)
-                {
-                    <div class="form-group">
-                        @Html.LabelFor(s => s.Structure.OtherInstitutionId)
-                        @Html.TextBoxFor(s => s.Structure.OtherInstitution.Name, new { @class = "form-control textboxlink", @readonly = "" })
-                    </div>
-                }
-            </div>
-            <div class="col-3">
-                @if (Model.Structure.Contact != null)
-                {
-                    <div class="form-group">
-                        @Html.LabelFor(s => s.Structure.ContactId, new { @class = "form-control-label", @readonly = "" })
-                        @Html.TextBoxFor(s => s.Structure.Contact.Fullname, new { @value = Model.Structure.Contact.Fullname, @class = "form-control", @readonly = "" })
-                    </div>
-                }
-                else
-                {
-                    <div class="form-group">
-                        @Html.LabelFor(s => s.Structure.ContactId, new { @class = "form-control-label", @readonly = "" })
-                        @Html.TextBoxFor(s => s.Structure.ContactId, new { @class = "form-control", @readonly = "" })
-                    </div>
-                }
-            </div>
+      </div>
+      <div class="col-3">
+        <div class="form-group">
+          @Html.LabelFor(s => s.Structure.StructureCategoryId)
+          @Html.TextBoxFor(s => s.Structure.StructureCategory.Category, new { @class = "form-control textboxlink", @readonly = "" })
         </div>
+      </div>
     </div>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#companiesModal">Assign Companies</button>
-        @Html.ActionLink("New Company", "New", "Companies", null, new { @class = "btn btn-primary float-right", @style = "margin-right:10px" })
-        <h4>Companies</h4>
+    <div class="form-row">
+      <div class="col-3">
+        <div class="form-group">
+          @Html.LabelFor(s => s.Structure.LawFirmId, new { @class = "form-control-label", @readonly = "" })
+          @Html.TextBoxFor(s => s.Structure.LawFirmId, new { @class = "form-control", @readonly = "" })
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="form-group">
+          @Html.LabelFor(s => s.Structure.LawFirmContactId, new { @class = "form-control-label", @readonly = "" })
+          @Html.TextBoxFor(s => s.Structure.LawFirmContactId, new { @class = "form-control", @readonly = "" })
+        </div>
+      </div>
     </div>
-    <div class="card-body">
-        @if(Model.Structure.Companies.Count() == 0)
+    <div class="form-row">
+      <div class="col-3">
+        <div class="form-group">
+          @Html.LabelFor(s => s.Structure.ReferralInstitutionId)
+          @Html.TextBoxFor(s => s.Structure.ReferralInstitution.Name, new { @class = "form-control textboxlink", @readonly = "" })
+        </div>
+      </div>
+      <div class="col-3">
+        @if (Model.Structure.Contact != null)
         {
-            <p>This structure has no companies. Please add or assign companies.</p>
-        }
-         else
-        {
-        <table class="table table-bordered display">
-            <thead class="thead-light">
-                <tr>
-                    <th>Name</th>
-                    <th>Registration Number</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var company in Model.Structure.Companies)
-                {
-                    <tr>
-                        <td>@Html.ActionLink(company.Name, "Details", "Companies", new { id = company.Id }, null)</td>
-                        <td>@company.RegistrationNumber</td>
-                        <td>@Html.ActionLink("Remove", "RemoveCompany", "Structures", new { id = company.StructureId, cid = company.Id }, new { @class = "btn btn-danger float-right" })</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-        }
-    </div>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#trustsModal">Assign Trusts</button>
-        @Html.ActionLink("New Trust", "New", "Trusts", null, new { @class = "btn btn-primary float-right", @style = "margin-right:10px" })
-        <h4>Trusts</h4>
-    </div>
-    <div class="card-body">
-        @if(Model.Structure.Trusts.Count() == 0)
-        {
-            <p>This structure does not have any trusts, please add or assign trusts</p>
+          <div class="form-group">
+            @Html.LabelFor(s => s.Structure.ContactId, new { @class = "form-control-label", @readonly = "" })
+            @Html.TextBoxFor(s => s.Structure.Contact.Fullname, new { @value = Model.Structure.Contact.Fullname, @class = "form-control", @readonly = "" })
+          </div>
         }
         else
         {
-            <table class="table table-bordered display">
-                <thead class="thead-light">
-                    <tr>
-                        <th>Name</th>
-                        <th>Trustee Representitive</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach(var trust in Model.Structure.Trusts)
-                    {
-                    <tr>
-                        <td>@Html.ActionLink(trust.Name, "Details", "Trusts", new { id = trust.Id }, null)</td>
-                        <td>@trust.TrusteeRepresentitive</td>
-                        <td>@Html.ActionLink("Remove", "RemoveTrust", "Structures", new { id = trust.StructureId, tid = trust.Id }, new { @class = "btn btn-danger float-right" })</td>
-                    </tr>
-                    }
-                </tbody>
-            </table>
+          <div class="form-group">
+            @Html.LabelFor(s => s.Structure.ContactId, new { @class = "form-control-label", @readonly = "" })
+            @Html.TextBoxFor(s => s.Structure.ContactId, new { @class = "form-control", @readonly = "" })
+          </div>
         }
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="card">
-    <div class="card-header">
-        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#contactsModal">Assign Contacts</button>
-        @Html.ActionLink("New Contact", "New", "Contacts", null, new { @class = "btn btn-primary float-right", @style = "margin-right:10px" })
-        <h4>Associated Parties</h4>
-    </div>
-    <div class="card-body">
-        @if (Model.Structure.StructureContacts.Count() == 0)
-        {
-            <p>No Contacts for this structure</p>
-        }
-        else
-        {
-            <table id="contacts" class="table display table-light">
-                <thead>
-                    <tr>
-                        <th>Contact Name</th>
-                        <th>Contact Email</th>
-                        <th>Contact Number</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var contact in Model.Structure.StructureContacts)
-                    {
-                        <tr>
-                            <td>@Html.ActionLink(contact.Contact.Fullname, "Details", "Contacts", new { id = contact.Contact.Id }, null)</td>
-                            <td>@contact.Contact.Email</td>
-                            <td>@contact.Contact.ContactNo</td>
-                            <td>@Html.ActionLink("Remove", "RemoveContact", "Structures", new { id = contact.StructureId, cid = contact.ContactId }, new { @class = "btn btn-danger float-right" })</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
-    </div>
+  <div class="card-header">
+    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#companiesModal">Assign Companies</button>
+    @Html.ActionLink("New Company", "New", "Companies", null, new { @class = "btn btn-primary float-right", @style = "margin-right:10px" })
+    <h4>Companies</h4>
+  </div>
+  <div class="card-body">
+    @if (Model.Structure.Companies.Count() == 0)
+    {
+      <p>This structure has no companies. Please add or assign companies.</p>
+    }
+    else
+    {
+      <table class="table table-bordered display">
+        <thead class="thead-light">
+          <tr>
+            <th>Name</th>
+            <th>Registration Number</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach (var company in Model.Structure.Companies)
+          {
+            <tr>
+              <td>@Html.ActionLink(company.Name, "Details", "Companies", new { id = company.Id }, null)</td>
+              <td>@company.RegistrationNumber</td>
+              <td>@Html.ActionLink("Remove", "RemoveCompany", "Structures", new { id = company.StructureId, cid = company.Id }, new { @class = "btn btn-danger float-right" })</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#trustsModal">Assign Trusts</button>
+    @Html.ActionLink("New Trust", "New", "Trusts", null, new { @class = "btn btn-primary float-right", @style = "margin-right:10px" })
+    <h4>Trusts</h4>
+  </div>
+  <div class="card-body">
+    @if (Model.Structure.Trusts.Count() == 0)
+    {
+      <p>This structure does not have any trusts, please add or assign trusts</p>
+    }
+    else
+    {
+      <table class="table table-bordered display">
+        <thead class="thead-light">
+          <tr>
+            <th>Name</th>
+            <th>Trustee Representitive</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach (var trust in Model.Structure.Trusts)
+          {
+            <tr>
+              <td>@Html.ActionLink(trust.Name, "Details", "Trusts", new { id = trust.Id }, null)</td>
+              <td>@trust.TrusteeRepresentitive</td>
+              <td>@Html.ActionLink("Remove", "RemoveTrust", "Structures", new { id = trust.StructureId, tid = trust.Id }, new { @class = "btn btn-danger float-right" })</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#contactsModal">Assign Contacts</button>
+    @Html.ActionLink("New Contact", "New", "Contacts", null, new { @class = "btn btn-primary float-right", @style = "margin-right:10px" })
+    <h4>Associated Parties</h4>
+  </div>
+  <div class="card-body">
+    @if (Model.Structure.StructureContacts.Count() == 0)
+    {
+      <p>No Contacts for this structure</p>
+    }
+    else
+    {
+      <table id="contacts" class="table display table-light">
+        <thead>
+          <tr>
+            <th>Contact Name</th>
+            <th>Contact Email</th>
+            <th>Contact Number</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach (var contact in Model.Structure.StructureContacts)
+          {
+            <tr>
+              <td>@Html.ActionLink(contact.Contact.Fullname, "Details", "Contacts", new { id = contact.Contact.Id }, null)</td>
+              <td>@contact.Contact.Email</td>
+              <td>@contact.Contact.ContactNo</td>
+              <td>@Html.ActionLink("Remove", "RemoveContact", "Structures", new { id = contact.StructureId, cid = contact.ContactId }, new { @class = "btn btn-danger float-right" })</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
 </div>
 
 @section Scripts
 {
-    <script>
+  @*<script>
         $(document).ready(function () {
 
                 $('table.display').DataTable();
@@ -219,7 +199,7 @@
                 $('#Structure_FinancialInstitution_Name').css('cursor', 'pointer');
                 $("#Structure_FinancialInstitution_Name").on("click", function () {
                     var url = '@Url.Action("Details", "FinancialInstitutions", new { id = "__id__" })';
-                    window.location.href = url.replace('__id__', @Model.Structure.FinancialInstitutionId);
+                    window.location.href = url.replace('__id__', @Model.Structure.InstituteId);
                 });
             }
             else if ($('#Structure_OtherInstitution_Name').val() != '') {
@@ -230,6 +210,6 @@
                 });
             }
         });
-    </script>
+  </script>*@
 }
 

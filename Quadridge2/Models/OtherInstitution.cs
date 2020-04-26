@@ -12,8 +12,6 @@ namespace Quadridge2.Models
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public virtual ICollection<Structure> Structures { get; set; }
-        public virtual ICollection<OtherInstitutionContact> OtherContacts { get; set; }
 
     }
 }

@@ -52,7 +52,7 @@
         <h4>Structures</h4>
     </div>
     <div class="card-body">
-        @if (Model.FinancialInstitution.Structures == null)
+        @if (Model.FiStructures == null)
         {
             <p>The institution currently has no structures, please add or assign structures.</p>
         }
@@ -66,11 +66,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var structure in Model.FinancialInstitution.Structures)
+                    @foreach (var structure in Model.FiStructures)
                     {
                         <tr>
                             <td>@Html.ActionLink(@structure.Name, "Details", "Structures", new { id = structure.Id }, null)</td>
-                            <td>@Html.ActionLink("Remove", "RemoveStructure", "FinancialInstitutions", new { id = structure.FinancialInstitutionId, sid = structure.Id }, new { @class = "btn btn-danger float-right" })</td>
+                            <td>@Html.ActionLink("Remove", "RemoveStructure", "FinancialInstitutions", new { id = structure.InstituteId, sid = structure.Id }, new { @class = "btn btn-danger float-right" })</td>
                         </tr>
                     }
                 </tbody>
@@ -86,7 +86,7 @@
         <h4>Contacts</h4>
     </div>
     <div class="card-body">
-        @if (Model.FinancialInstitution.FinancialInstitutionContacts.Count() == 0)
+        @if (Model.FiContacts.Count() == 0)
         {
             <p>This institution currently has no contacts, please add or assign contacts.</p>
         }
@@ -102,13 +102,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var contact in Model.FinancialInstitution.FinancialInstitutionContacts)
+                    @foreach (var contact in Model.FiContacts)
                     {
                         <tr>
-                            <td>@Html.ActionLink(contact.Contact.Fullname, "Details", "Contacts", new { id = contact.ContactId }, null)</td>
-                            <td>@contact.Contact.Email</td>
-                            <td>@contact.Contact.ContactNo</td>
-                            <td>@Html.ActionLink("Remove", "RemoveContact", "FinancialInstitutions", new { id = contact.FinancialInstitutionId, cid = contact.ContactId }, new { @class = "btn btn-danger float-right" })</td>
+                            <td>@Html.ActionLink(contact.Fullname, "Details", "Contacts", new { id = contact.Id }, null)</td>
+                            <td>@contact.Email</td>
+                            <td>@contact.ContactNo</td>
+                            <td>@Html.ActionLink("Remove", "RemoveContact", "FinancialInstitutions", new { id = contact.InstituteId, cid = contact.Id }, new { @class = "btn btn-danger float-right" })</td>
                         </tr>
                     }
                 </tbody>

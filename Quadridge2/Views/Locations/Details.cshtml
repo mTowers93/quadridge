@@ -1,0 +1,61 @@
+﻿@model Quadridge2.Models.Location
+@{
+  ViewBag.Title = "Trust Details";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="card">
+  <div class="card-header">
+    @Html.ActionLink("Edit", "Edit", "Locations", new { id = Model.Id }, new { @class = "btn btn-info float-right" })
+  </div>
+  <div class="card-body">
+    <div class="form-row">
+      <div class="col-5">
+        <div class="form-row">
+          <div class="col-6">
+            <div class="form-group">
+              @Html.LabelFor(t => t.Name, new { @class = "form-control-label" })
+              @Html.TextBoxFor(t => t.Name, new { @class = "form-control", @value = Model.Name, @readonly = "" })
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="form-group">
+              @Html.LabelFor(t => t.FirstLine, new { @class = "form-control-label" })
+              @Html.TextBoxFor(t => t.FirstLine, new { @class = "form-control", @readonly = "" })
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              @Html.LabelFor(t => t.SecondLine, new { @class = "form-control-label" })
+              @Html.TextBoxFor(t => t.SecondLine, new { @class = "form-control", @readonly = "" })
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              @Html.LabelFor(t => t.Suburb, new { @class = "form-control-label" })
+              @Html.TextBoxFor(t => t.Suburb, new { @class = "form-control", @readonly = "" })
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              @Html.LabelFor(t => t.City, new { @class = "form-control-label" })
+              @Html.TextBoxFor(t => t.City, new { @class = "form-control", @readonly = "" })
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              @Html.LabelFor(t => t.Province, new { @class = "form-control-label" })
+              @Html.TextBoxFor(t => t.Province, new { @class = "form-control", @readonly = "" })
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              @Html.LabelFor(t => t.Country, new { @class = "form-control-label" })
+              @Html.TextBoxFor(t => t.Country, new { @class = "form-control", @readonly = "" })
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

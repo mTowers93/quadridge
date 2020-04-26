@@ -42,6 +42,10 @@ namespace Quadridge2.Models
     public DbSet<Interaction> Interactions { get; set; }
     public DbSet<InteractionType> InteractionTypes { get; set; }
 
+    public DbSet<Institute> Institutes { get; set; }
+    public DbSet<InstitutionType> InstitutionTypes { get; set; }
+    public DbSet<Location> Locations { get; set; }
+
     public DbSet<LawFirm> LawFirms { get; set; }
     public DbSet<LawFirmContact> LawFirmContacts { get; set; }
 

@@ -17,6 +17,5 @@ namespace Quadridge2.Models
         public string Name { get; set; }
 
         public ICollection<FinancialInstitutionContact> FinancialInstitutionContacts { get; set; }
-        public ICollection<Structure> Structures { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Quadridge2.Models.LawFirm>
+﻿@model IEnumerable<Quadridge2.Models.Institute>
 @using Quadridge2.Helpers
 @{
     ViewBag.Title = "Law Firms";
@@ -63,9 +63,9 @@
 
     $("#saveLawFirm").click(function (e) {
         e.preventDefault();
-        var LawFirm = {}
-        LawFirm.Name = $("#LawFirmAddModal").val();
-        var sendData = JSON.stringify(LawFirm)
+        var Institute = {}
+        Institute.Name = $("#LawFirmAddModal").val();
+        var sendData = JSON.stringify(Institute)
         $.ajax(
             {
                 method: "post",

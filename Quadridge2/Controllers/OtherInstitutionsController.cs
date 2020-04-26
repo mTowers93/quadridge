@@ -109,9 +109,9 @@ namespace Quadridge2.Controllers
                 {
                     var structureId = structures[i];
                     var structureInDb = _context.Structures.Single(s => s.Id == structureId);
-                    if (structureInDb.FinancialInstitutionId != null)
-                        structureInDb.FinancialInstitutionId = null;
-                    structureInDb.OtherInstitutionId = id;
+                    if (structureInDb.InstituteId != null)
+                        structureInDb.InstituteId = null;
+                    structureInDb.InstituteId = id;
                 }
                 _context.SaveChanges();
             }
@@ -126,7 +126,7 @@ namespace Quadridge2.Controllers
             if (structureInDb == null)
                 return HttpNotFound();
 
-            structureInDb.OtherInstitutionId = null;
+            structureInDb.InstituteId = null;
             _context.SaveChanges();
 
             return RedirectToAction("Details", new { id });

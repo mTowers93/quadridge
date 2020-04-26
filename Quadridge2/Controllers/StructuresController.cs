@@ -40,12 +40,9 @@ namespace Quadridge2.Controllers
       var viewModel = new StructureFormViewModel
       {
         StructureCategories = _context.StructureCategories.ToList(),
-        FinancialInstitutions = _context.FinancialInstitutions.ToList(),
+        Institutes = _context.Institutes.ToList(),
         LawFirms = _context.LawFirms.ToList(),
-        OtherInstitutions = _context.OtherInstitutions.ToList(),
         Statuses = _context.Statuses.ToList(),
-        isFinancialInst = false,
-        isOtherInst = false,
         Contacts = _context.Contacts.ToList()
       };
       return View("StructureForm", viewModel);
@@ -61,11 +58,8 @@ namespace Quadridge2.Controllers
       {
         Structure = structure,
         StructureCategories = _context.StructureCategories.ToList(),
-        FinancialInstitutions = _context.FinancialInstitutions.ToList(),
-        OtherInstitutions = _context.OtherInstitutions.ToList(),
+        Institutes = _context.Institutes.ToList(),
         Statuses = _context.Statuses.ToList(),
-        isFinancialInst = false,
-        isOtherInst = false,
         Contacts = _context.Contacts.ToList(),
         LawFirms = _context.LawFirms.ToList()
       };

@@ -1,0 +1,88 @@
+﻿@model Quadridge2.ViewModels.LocationViewModel
+@{
+  ViewBag.Title = "Locations";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+  <div class="card-body">
+    @using (@Html.BeginForm("Save", "Locations"))
+    {
+    <div class="form-row">
+      <div class="col-3">
+        <div class="form-group">
+          @Html.LabelFor(l => l.Location.Name, new { @class = "form-control-label" })
+          @Html.TextBoxFor(l => l.Location.Name, new { @class = "form-control" })
+          @Html.ValidationMessageFor(l => l.Location.Name)
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="form-group">
+          @Html.LabelFor(s => s.Location.InstituteId, new { @class = "form-control-label" })
+          @Html.DropDownListFor(s => s.Location.InstituteId, new SelectList(Model.Institutes, "Id", "Name"), "Select Institute", new { @class = "form-control selectpicker", @data_live_search = "true" })
+        </div>
+      </div>
+    </div>
+
+      <div class="form-row">
+        <div class="col-3">
+          <div class="form-group">
+            @Html.LabelFor(l => l.Location.FirstLine, new { @class = "form-control-label" })
+            @Html.TextBoxFor(l => l.Location.FirstLine, new { @class = "form-control" })
+            @Html.ValidationMessageFor(l => l.Location.FirstLine)
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-group">
+            @Html.LabelFor(l => l.Location.SecondLine, new { @class = "form-control-label" })
+            @Html.TextBoxFor(l => l.Location.SecondLine, new { @class = "form-control" })
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-3">
+          <div class="form-group">
+            @Html.LabelFor(l => l.Location.Suburb, new { @class = "form-control-label" })
+            @Html.TextBoxFor(l => l.Location.Suburb, new { @class = "form-control" })
+            @Html.ValidationMessageFor(l => l.Location.Suburb)
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-group">
+            @Html.LabelFor(l => l.Location.City, new { @class = "form-control-label" })
+            @Html.TextBoxFor(l => l.Location.City, new { @class = "form-control" })
+            @Html.ValidationMessageFor(l => l.Location.City)
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-group">
+            @Html.LabelFor(l => l.Location.PostalCode, new { @class = "form-control-label" })
+            @Html.TextBoxFor(l => l.Location.PostalCode, new { @class = "form-control" })
+            @Html.ValidationMessageFor(l => l.Location.PostalCode)
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-3">
+          <div class="form-group">
+            @Html.LabelFor(l => l.Location.ProvinceId, new { @class = "form-control-lable" })
+            @Html.DropDownListFor(l => l.Location.ProvinceId, new SelectList(Model.Provinces, "Id", "Name"), "Please select province", new { @class = "form-control" })
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-group">
+            @Html.LabelFor(l => l.Location.CountryId, new { @class = "form-control-lable" })
+            @Html.DropDownListFor(l => l.Location.CountryId, new SelectList(Model.Countries, "Id", "Name"), "Please select country", new { @class = "form-control" })
+          </div>
+        </div>
+      </div>
+
+      @Html.AntiForgeryToken()
+      <button type="submit" class="btn btn-primary">Submit</button>
+
+    }
+  </div>
+</div>
+

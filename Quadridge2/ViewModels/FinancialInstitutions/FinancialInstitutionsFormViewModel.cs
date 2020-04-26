@@ -9,7 +9,7 @@ namespace Quadridge2.ViewModels.FinancialInstitutions
 {
     public class FinancialInstitutionsFormViewModel
     {
-        public FinancialInstitution FinancialInstitution { get; set; }
+        public Institute Institute { get; set; }
         public IEnumerable<Province> Provinces { get; set; }
         public IEnumerable<Country> Countries { get; set; }
     }
