@@ -71,7 +71,7 @@ namespace Quadridge2.Controllers
       {
         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
       }
-      LawFirm lawFirm = _context.LawFirms.Find(id);
+      var lawFirm = _context.Institutes.Find(id);
       if (lawFirm == null)
       {
         return HttpNotFound();
@@ -80,7 +80,9 @@ namespace Quadridge2.Controllers
       {
         LawFirm = lawFirm,
         Contacts = _context.Contacts.ToList(),
-        Structures = _context.Structures.ToList()
+        Structures = _context.Structures.ToList(),
+        LfContacts = _context.Contacts.Where(x => x.InstituteId == id).ToList(),
+        LfStructures = _context.Structures.Where(x => x.InstituteId == id).ToList()
       };
       return View(viewModel);
     }
@@ -98,6 +100,37 @@ namespace Quadridge2.Controllers
       var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "LawFirms");
       _context.SaveChanges();
       return Json(new { Url = redirectUrl });
+    }
+
+    public ActionResult AssignContacts(int id, List<int> contacts)
+    {
+      if (contacts.Count() > 0)
+      {
+        for (int i = 0; i < contacts.Count(); i++)
+        {
+          var contactId = contacts[i];
+          var contactInDb = _context.Contacts.Single(x => x.Id == contactId);
+          if (contactInDb.InstituteId != null)
+            contactInDb.InstituteId = null;
+          contactInDb.InstituteId = id;
+        }
+        _context.SaveChanges();
+      }
+      return RedirectToAction("Details", "FinancialInstitutions", new { id }); ;
+    }
+
+    public ActionResult RemoveContact(int? id, int? cid)
+    {
+      if (cid == null || id == null)
+        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+      var fiContact = _context.FinancialInstitutionContacts.Single(f => f.FinancialInstitutionId == id && f.ContactId == cid);
+      if (fiContact == null)
+        return HttpNotFound();
+
+      _context.FinancialInstitutionContacts.Remove(fiContact);
+      _context.SaveChanges();
+
+      return RedirectToAction("Details", new { id });
     }
   }
 }

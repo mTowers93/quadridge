@@ -123,8 +123,8 @@ namespace Quadridge2.Controllers
         Institutes = _context.Institutes.ToList(),
         Provinces = _context.Provinces.ToList(),
         Countries = _context.Countries.ToList(),
-        Departments = _context.Departments.ToList()
-
+        Departments = _context.Departments.ToList(),
+        Locations = _context.Locations.ToList()
       };
 
       return View("ContactForm", viewModel);

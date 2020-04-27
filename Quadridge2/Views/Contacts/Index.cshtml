@@ -1,67 +1,76 @@
 ﻿@model IEnumerable<Quadridge2.Models.Contacts.Contact>
 
 @{
-    ViewBag.Title = "Contacts";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+  ViewBag.Title = "Contacts";
+  Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="card">
-    <div class="card-header">
-        @Html.ActionLink("New Contact", "New", "Contacts", null, new { @class = "btn btn-primary float-right" })
+  <div class="card-header">
+    @Html.ActionLink("New Contact", "New", "Contacts", null, new { @class = "btn btn-primary float-right" })
 
-    </div>
-    <div class="card-body">
-        @if (!Model.Any())
-        {
-            <p> We do not have any Contacts yet </p>
-        }
-        else
-        {
-            <table id="contacts" class="table table-bordered table-hover">
-                <thead class="thead-light">
-                    <tr>
-                        <th>Firstname</th>
-                        <th>Surname</th>
-                        <th>Email Address</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var contact in Model)
-                    {
-                        <tr>
-                            <td>@Html.ActionLink(contact.Firstname, "Details", "Contacts", new { id = contact.Id }, null)</td>
-                            <td>@Html.ActionLink(contact.Surname, "Details", "Contacts", new { id = contact.Id }, null)</td>
-                            <td><a href="mailto:@contact.Email">@contact.Email</a></td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", "Contacts", new { id = contact.Id }, new { @class = "btn btn-info" })
-                                <button data-contact-id="@contact.Id" class="btn btn-danger js-delete"><i class="fa fa-trash-o fa-lg"></i></button>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
-    </div>
+  </div>
+  <div class="card-body">
+    @if (!Model.Any())
+    {
+      <p> We do not have any Contacts yet </p>
+    }
+    else
+    {
+      <table id="contacts" class="table table-bordered table-hover">
+        <thead class="thead-light">
+          <tr>
+            <th>Firstname</th>
+            <th>Surname</th>
+            <th>Email Address</th>
+            <th>Institution</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach (var contact in Model)
+          {
+            <tr>
+              <td>@Html.ActionLink(contact.Firstname, "Details", "Contacts", new { id = contact.Id }, null)</td>
+              <td>@Html.ActionLink(contact.Surname, "Details", "Contacts", new { id = contact.Id }, null)</td>
+              <td><a href="mailto:@contact.Email">@contact.Email</a></td>
+              @if (contact.Institute != null)
+              {
+                <td>@Html.ActionLink(contact.Institute.Name, "Details", "Institutes", new { id = contact.InstituteId }, null)</td>
+              }
+              else
+              {
+                <td></td>
+              }
+              <td>
+                @Html.ActionLink("Edit", "Edit", "Contacts", new { id = contact.Id }, new { @class = "btn btn-info" })
+                <button data-contact-id="@contact.Id" class="btn btn-danger js-delete"><i class="fa fa-trash-o fa-lg"></i></button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
 </div>
 @section scripts
 {
-    <script>
-        $(document).ready(function () {
-            $("#contacts").DataTable();
+  <script>
+    $(document).ready(function () {
+      $("#contacts").DataTable();
 
-            $("#contacts .js-delete").on("click", function () {
-                var button = $(this);
-                if (confirm("Are you sure you want to delete this contact?")) {
-                    $.ajax({
-                        url: "/Contacts/Delete/" + button.attr("data-contact-id"),
-                        method: "DELETE",
-                        success: function () {
-                            //console.log("Success");
-                            location.reload();
-                        }
-                    }); // ajax
-                }
-            }); // on click function
-        }); // ready function
-    </script>
+      $("#contacts .js-delete").on("click", function () {
+        var button = $(this);
+        if (confirm("Are you sure you want to delete this contact?")) {
+          $.ajax({
+            url: "/Contacts/Delete/" + button.attr("data-contact-id"),
+            method: "DELETE",
+            success: function () {
+              //console.log("Success");
+              location.reload();
+            }
+          }); // ajax
+        }
+      }); // on click function
+    }); // ready function
+  </script>
 }

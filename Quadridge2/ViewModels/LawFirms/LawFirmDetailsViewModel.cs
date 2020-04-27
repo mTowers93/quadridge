@@ -10,8 +10,10 @@ namespace Quadridge2.ViewModels.LawFirms
 {
     public class LawFirmDetailsViewModel
     {
-        public LawFirm LawFirm { get; set; }
+        public Institute LawFirm { get; set; }
         public ICollection<Contact> Contacts { get; set; }
+        public ICollection<Contact> LfContacts { get; set; }
         public ICollection<Structure> Structures { get; set; }
+        public ICollection<Structure> LfStructures { get; set; }
     }
 }

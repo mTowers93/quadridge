@@ -742,6 +742,10 @@
     <Compile Include="Migrations\202004262207392_changeContact1.Designer.cs">
       <DependentUpon>202004262207392_changeContact1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004271538210_seedInstitutionTypes.cs" />
+    <Compile Include="Migrations\202004271538210_seedInstitutionTypes.Designer.cs">
+      <DependentUpon>202004271538210_seedInstitutionTypes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CompanyService.cs" />
     <Compile Include="Models\Contacts\CompanyContact.cs" />
@@ -1591,6 +1595,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004262207392_changeContact1.resx">
       <DependentUpon>202004262207392_changeContact1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004271538210_seedInstitutionTypes.resx">
+      <DependentUpon>202004271538210_seedInstitutionTypes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

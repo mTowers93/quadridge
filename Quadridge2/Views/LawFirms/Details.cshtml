@@ -13,7 +13,7 @@
         <h4>Contacts</h4>
     </div>
     <div class="card-body">
-        @if (Model.LawFirm.LawFirmContacts.Count() == 0)
+        @if (Model.LfContacts.Count() == 0)
         {
             <p>This law firm currently has no contacts, please add or assign contacts.</p>
         }
@@ -29,13 +29,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var contact in Model.LawFirm.LawFirmContacts)
+                    @foreach (var contact in Model.LfContacts)
                     {
                         <tr>
-                            <td>@Html.ActionLink(contact.Contact.Fullname, "Details", "Contacts", new { id = contact.ContactId }, null)</td>
-                            <td>@contact.Contact.Email</td>
-                            <td>@contact.Contact.ContactNo</td>
-                            <td>@Html.ActionLink("Remove", "RemoveContact", "FinancialInstitutions", new { id = contact.LawFirmId, cid = contact.ContactId }, new { @class = "btn btn-danger float-right" })</td>
+                            <td>@Html.ActionLink(contact.Fullname, "Details", "Contacts", new { id = contact.Id }, null)</td>
+                            <td>@contact.Email</td>
+                            <td>@contact.ContactNo</td>
+                            <td>@Html.ActionLink("Remove", "RemoveContact", "FinancialInstitutions", new { id = contact.Id, cid = contact.Id }, new { @class = "btn btn-danger float-right" })</td>
                         </tr>
                     }
                 </tbody>

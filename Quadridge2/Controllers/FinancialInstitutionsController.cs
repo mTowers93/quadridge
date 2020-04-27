@@ -110,6 +110,7 @@ namespace Quadridge2.Controllers
       return View(viewModel);
     }
 
+    [HttpPost]
     public ActionResult AssignContacts(int id, List<int> contacts)
     {
       if (contacts.Count() > 0)
@@ -117,12 +118,10 @@ namespace Quadridge2.Controllers
         for (int i = 0; i < contacts.Count(); i++)
         {
           var contactId = contacts[i];
-          var addFinContact = new FinancialInstitutionContact()
-          {
-            FinancialInstitutionId = id,
-            ContactId = contactId
-          };
-          _context.FinancialInstitutionContacts.Add(addFinContact);
+          var contactInDb = _context.Contacts.Single(x => x.Id == contactId);
+          if (contactInDb.InstituteId != null)
+            contactInDb.InstituteId = null;
+          contactInDb.InstituteId = id;
         }
         _context.SaveChanges();
       }
