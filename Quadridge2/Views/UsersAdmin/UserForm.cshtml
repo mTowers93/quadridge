@@ -9,31 +9,31 @@
       @using (Html.BeginForm("Edit", "UsersAdmin", FormMethod.Post))
       {
         @Html.HiddenFor(c => c.user.Id)
-      <div class="form-row">
-        <div class="col-3">
-          <div class="form-group">
-            @Html.LabelFor(c => c.user.UserName, new { @class = "form-control-label" })
-            @Html.TextBoxFor(c => c.user.UserName, new { @class = "form-control", @autofocus = "autofocus" })
-            @Html.ValidationMessageFor(c => c.user.UserName)
+        <div class="form-row">
+          <div class="col-3">
+            <div class="form-group">
+              @Html.LabelFor(c => c.user.UserName, new { @class = "form-control-label" })
+              @Html.TextBoxFor(c => c.user.UserName, new { @class = "form-control", @autofocus = "autofocus" })
+              @Html.ValidationMessageFor(c => c.user.UserName)
+            </div>
           </div>
-        </div>
 
-        <div class="col-3">
-          <div class="form-group">
-            @Html.LabelFor(c => c.user.FirstName, new { @class = "form-control-label" })
-            @Html.TextBoxFor(c => c.user.FirstName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(c => c.user.FirstName)
+          <div class="col-3">
+            <div class="form-group">
+              @Html.LabelFor(c => c.user.FirstName, new { @class = "form-control-label" })
+              @Html.TextBoxFor(c => c.user.FirstName, new { @class = "form-control" })
+              @Html.ValidationMessageFor(c => c.user.FirstName)
+            </div>
           </div>
-        </div>
 
-        <div class="col-3">
-          <div class="form-group">
-            @Html.LabelFor(c => c.user.LastName, new { @class = "form-control-label" })
-            @Html.TextBoxFor(c => c.user.LastName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(c => c.user.LastName)
+          <div class="col-3">
+            <div class="form-group">
+              @Html.LabelFor(c => c.user.LastName, new { @class = "form-control-label" })
+              @Html.TextBoxFor(c => c.user.LastName, new { @class = "form-control" })
+              @Html.ValidationMessageFor(c => c.user.LastName)
+            </div>
           </div>
         </div>
-      </div>
 
         <div class="form-row">
 
@@ -60,14 +60,23 @@
             </div>
           </div>
         </div>
+        <div class="form-row">
+          <div class="col-3">
+            <div class="form-group">
+              @Html.Label("Profile Photo", new { @class = "form-control-label" })
+              <input type="file" name="UserPhoto" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
+              @Html.ValidationMessageFor(c => c.user.PhoneNumber)
+            </div>
+          </div>
+        </div>
 
         <div class="col-4">
           <div class="form-row">
-              @foreach(var Role in Model.rolesList)
-              {
-                <input type="checkbox" name="SelectedRole" value="@Role.Value" checked="@Role.Selected" class="custom-checkbox" />
-                @Html.Label(Role.Value, new { @class="form-control-label"})
-              }
+            @foreach (var Role in Model.rolesList)
+            {
+              <input type="checkbox" name="SelectedRole" value="@Role.Value" checked="@Role.Selected" class="custom-checkbox" />
+              @Html.Label(Role.Value, new { @class = "form-control-label" })
+            }
           </div>
         </div>
 

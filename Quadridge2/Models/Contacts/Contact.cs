@@ -58,6 +58,7 @@ namespace Quadridge2.Models.Contacts
     [Display(Name="Institution")]
     public int? InstituteId { get; set; }
     public virtual Location Location { get; set; }
+    [Display(Name="Location")]
     public int? LocationId{ get; set; }
 
     public string Fullname

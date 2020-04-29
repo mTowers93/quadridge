@@ -34,7 +34,7 @@
               <td>@Html.ActionLink(location.Suburb, "Details", "Locations", new { id = location.Id }, null)</td>
               <td>
                 @Html.ActionLink("Edit", "Edit", "Contacts", new { id = location.Id }, new { @class = "btn btn-info" })
-                <button data-contact-id="@location.Id" class="btn btn-danger js-delete"><i class="fa fa-trash-o fa-lg"></i></button>
+                <button data-location-id="@location.Id" class="btn btn-danger js-delete"><i class="fa fa-trash-o fa-lg"></i></button>
               </td>
             </tr>
           }

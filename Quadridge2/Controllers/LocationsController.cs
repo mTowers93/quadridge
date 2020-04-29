@@ -36,7 +36,7 @@ namespace Quadridge2.Controllers
     {
       var locationViewModel = new LocationViewModel
       {
-        Location = new Location(),
+        Location = new Location() { CountryId = 200 },
         Provinces = _context.Provinces.ToList(),
         Countries = _context.Countries.ToList(),
         Institutes = _context.Institutes.ToList()
@@ -71,8 +71,18 @@ namespace Quadridge2.Controllers
         locationInDb.CountryId = location.CountryId;
       }
       _context.SaveChanges();
+      var locations = _context.Locations.ToList();
+      return View("Index", locations);
+    }
 
-      return View("Index");
+    public ActionResult Delete(int id)
+    {
+      var locationInDb = _context.Locations.SingleOrDefault(x => x.Id == id);
+      if (locationInDb == null) return new HttpNotFoundResult();
+      _context.Locations.Remove(locationInDb);
+      _context.SaveChanges();
+      var locations = _context.Locations.ToList();
+      return View("Index", locations);
     }
   }
 }

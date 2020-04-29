@@ -90,7 +90,7 @@ namespace Quadridge2.Controllers
 
         _context.Contacts.Add(viewModel.Contact);
         _context.SaveChanges();
-        return RedirectToAction("Index", "Contacts");
+        return RedirectToAction("Details", "Contacts", viewModel.Contact);
       }
       else
       {
@@ -106,9 +106,10 @@ namespace Quadridge2.Controllers
           contactInDb.AltContactNo = viewModel.Contact.AltContactNo;
         contactInDb.Birthday = viewModel.Contact.Birthday;
         contactInDb.InstituteId = viewModel.Contact.InstituteId;
+        contactInDb.LocationId = viewModel.Contact.LocationId;
 
         _context.SaveChanges();
-        return RedirectToAction("Index", "Contacts");
+        return RedirectToAction("Details", "Contacts", contactInDb);
       }
     }
 

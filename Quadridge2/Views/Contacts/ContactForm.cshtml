@@ -65,19 +65,19 @@
         <div class="col-3">
           <div class="form-group">
             @Html.LabelFor(e => e.Contact.InstituteId, new { @class = "form-control-label" })
-            @Html.DropDownListFor(e => e.Contact.InstituteId, new SelectList(Model.Institutes, "Id", "Name"), "", new { @class = "form-control" })
+            @Html.DropDownListFor(e => e.Contact.InstituteId, new SelectList(Model.Institutes, "Id", "Name"), "Select Institute", new { @class = "form-control selectpicker", @data_live_search = "true" })
           </div>
         </div>
         <div class="col-3">
           <div class="form-group">
             @Html.LabelFor(e => e.Contact.DepartmentId, new { @class = "form-control-label" })
-            @Html.DropDownListFor(e => e.Contact.DepartmentId, new SelectList(Model.Departments, "Id", "Name"), "", new { @class = "form-control" })
+            @Html.DropDownListFor(e => e.Contact.DepartmentId, new SelectList(Model.Departments, "Id", "Name"), "Select Department", new { @class = "form-control selectpicker", @data_live_search = "true" })
           </div>
         </div>
         <div class="col-3">
           <div class="form-group">
             @Html.LabelFor(e => e.Contact.LocationId, new { @class = "form-control-label" })
-            @Html.DropDownListFor(e => e.Contact.LocationId, new SelectList(Model.Locations, "Id", "Name"), "", new { @class = "form-control" })
+            @Html.DropDownListFor(e => e.Contact.LocationId, new SelectList(Model.Locations, "Id", "Name"), "Select Location", new { @class = "form-control selectpicker", @data_live_search = "true" })
           </div>
         </div>
       </div>

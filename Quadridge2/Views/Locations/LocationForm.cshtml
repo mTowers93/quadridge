@@ -68,13 +68,13 @@
         <div class="col-3">
           <div class="form-group">
             @Html.LabelFor(l => l.Location.ProvinceId, new { @class = "form-control-lable" })
-            @Html.DropDownListFor(l => l.Location.ProvinceId, new SelectList(Model.Provinces, "Id", "Name"), "Please select province", new { @class = "form-control" })
+            @Html.DropDownListFor(l => l.Location.ProvinceId, new SelectList(Model.Provinces, "Id", "Name"), "Select Province", new { @class = "form-control selectpicker", @data_live_search = "true" })
           </div>
         </div>
         <div class="col-3">
           <div class="form-group">
             @Html.LabelFor(l => l.Location.CountryId, new { @class = "form-control-lable" })
-            @Html.DropDownListFor(l => l.Location.CountryId, new SelectList(Model.Countries, "Id", "Name"), "Please select country", new { @class = "form-control" })
+            @Html.DropDownListFor(l => l.Location.CountryId, new SelectList(Model.Countries, "Id", "Name"), "Select Country", new { @class = "form-control selectpicker", @data_live_search = "true" })
           </div>
         </div>
       </div>

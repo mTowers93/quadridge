@@ -23,65 +23,73 @@
             }
             ]
         </dd>
-        <dt>External Logins:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Manage", "ManageLogins") ]
-        </dd>
-        @*
-            Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-             
-             See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-             
-             Uncomment the following block after you have set up two-factor authentication
-        *@
-        @*  
-            <dt>Phone Number:</dt>
-            <dd>
-                @(Model.PhoneNumber ?? "None")
-                @if (Model.PhoneNumber != null)
-                {
-                    <br />
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
-                    }
-                }
-                else
-                {
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
-                }
-            </dd>
-        *@
-        <dt>Two-Factor Authentication:</dt>
-        <dd>
-            <p>
-                There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication.
-            </p>
-            @*@if (Model.TwoFactor)
-                {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Enabled
-                        <input type="submit" value="Disable" class="btn btn-link" />
-                        </text>
-                    }
-                }
-                else
-                {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Disabled
-                        <input type="submit" value="Enable" class="btn btn-link" />
-                        </text>
-                    }
-                }*@
-        </dd>
     </dl>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    @Html.ActionLink("Edit", "Edit", "Contacts", new { id = Model.User.Id }, new { @class = "btn btn-primary float-right" })
+    <h4>@Model.User.Fullname</h4>
+  </div>
+  <div class="card-body">
+    <div class="form-row">
+      <div class="col-3">
+        <div class="form-group">
+          @Html.LabelFor(c => c.User.FirstName, new { @class = "form-control-label" })
+          @Html.TextBoxFor(c => c.User.FirstName, new { @class = "form-control", @readonly = "" })
+          @Html.ValidationMessageFor(c => c.User.FirstName)
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="form-group">
+          @Html.LabelFor(c => c.User.LastName, new { @class = "form-control-label" })
+          @Html.TextBoxFor(c => c.User.LastName, new { @class = "form-control", @readonly = "" })
+          @Html.ValidationMessageFor(c => c.User.LastName)
+        </div>
+      </div>
+      <div class="col-6">
+        <table></table>
+      </div>
+    </div>
+
+    <div class="form-row">
+
+      <div class="col-3">
+        <div class="form-group">
+          @Html.LabelFor(c => c.User.Email, new { @class = "form-control-label" })
+          @Html.TextBoxFor(c => c.User.Email, new { @class = "form-control", @readonly = "" })
+          @Html.ValidationMessageFor(c => c.User.Email)
+        </div>
+      </div>
+      <div class="col-3">
+        @{
+          string sqlFormattedDate = Model.User.Birthday.HasValue
+              ? Model.User.Birthday.Value.ToString("dd-MM-yyyy")
+              : "<not available>";
+        }
+        <div class="form-group">
+          @Html.LabelFor(c => c.User.Birthday, new { @class = "form-control-label" })
+          @Html.TextBoxFor(c => sqlFormattedDate, new { @class = "form-control", @readonly = "" })
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-3">
+        <div class="form-group">
+          @Html.LabelFor(c => c.User.PhoneNumber, new { @class = "form-control-label" })
+          @Html.TextBoxFor(c => c.User.PhoneNumber, new { @class = "form-control", @readonly = "" })
+          @Html.ValidationMessageFor(c => c.User.PhoneNumber)
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="form-group">
+          @Html.LabelFor(c => c.User.UserName, new { @class = "form-control-label" })
+          @Html.TextBoxFor(c => c.User.UserName, new { @class = "form-control", @readonly = "" })
+        </div>
+      </div>
+    </div>
+    <hr />
+  </div>
 </div>

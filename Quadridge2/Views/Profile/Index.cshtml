@@ -1,0 +1,74 @@
+﻿@model Quadridge2.Models.ApplicationUser
+@{
+  ViewBag.Title = "Profile";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+  <div class="card-header">
+    @Html.ActionLink("Edit", "Edit", "Contacts", new { id = Model.Id }, new { @class = "btn btn-primary float-right" })
+    <h4>@Model.Fullname</h4>
+  </div>
+  <div class="card-body">
+    <div class="form-row">
+      <div class="col-3">
+        <div class="form-group">
+          @Html.LabelFor(c => c.FirstName, new { @class = "form-control-label" })
+          @Html.TextBoxFor(c => c.FirstName, new { @class = "form-control", @readonly = "" })
+          @Html.ValidationMessageFor(c => c.FirstName)
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="form-group">
+          @Html.LabelFor(c => c.LastName, new { @class = "form-control-label" })
+          @Html.TextBoxFor(c => c.LastName, new { @class = "form-control", @readonly = "" })
+          @Html.ValidationMessageFor(c => c.LastName)
+        </div>
+      </div>
+      <div class="col-6">
+        <table></table>
+      </div>
+    </div>
+
+    <div class="form-row">
+
+      <div class="col-3">
+        <div class="form-group">
+          @Html.LabelFor(c => c.Email, new { @class = "form-control-label" })
+          @Html.TextBoxFor(c => c.Email, new { @class = "form-control", @readonly = "" })
+          @Html.ValidationMessageFor(c => c.Email)
+        </div>
+      </div>
+      <div class="col-3">
+        @{
+          string sqlFormattedDate = Model.Birthday.HasValue
+              ? Model.Birthday.Value.ToString("dd-MM-yyyy")
+              : "<not available>";
+        }
+        <div class="form-group">
+          @Html.LabelFor(c => c.Birthday, new { @class = "form-control-label" })
+          @Html.TextBoxFor(c => sqlFormattedDate, new { @class = "form-control", @readonly = "" })
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-3">
+        <div class="form-group">
+          @Html.LabelFor(c => c.PhoneNumber, new { @class = "form-control-label" })
+          @Html.TextBoxFor(c => c.PhoneNumber, new { @class = "form-control", @readonly = "" })
+          @Html.ValidationMessageFor(c => c.PhoneNumber)
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="form-group">
+          @Html.LabelFor(c => c.UserName, new { @class = "form-control-label" })
+          @Html.TextBoxFor(c => c.UserName, new { @class = "form-control", @readonly = "" })
+        </div>
+      </div>
+    </div>
+    <hr />
+  </div>
+</div>
+

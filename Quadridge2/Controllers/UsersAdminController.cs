@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using Quadridge2.Models.Enums;
 
 namespace Quadridge2.Controllers
 {
@@ -142,17 +143,27 @@ namespace Quadridge2.Controllers
     [ValidateAntiForgeryToken]
     public async Task<ActionResult> Save(RegisterViewModel model)
     {
+      var photo = new Document();
+      photo.FilePath = "~/Content/dashboard/img/avatar-1.jpg";
+      photo.DocumentTypeId = (int)DocumentTypes.Photo;
+      if (model.file != null)
+      {
+        string pic = System.IO.Path.GetFileName(model.file.FileName);
+        string path = System.IO.Path.Combine(
+                               Server.MapPath("~/images/profile"), pic);
+        // file is uploaded
+        model.file.SaveAs(path);
+
+        photo.FilePath = path;
+        //_context.SaveChanges();
+      }
       if (ModelState.IsValid)
       {
-        var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+        var user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserPhoto = photo };
+        //var user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserPhotoId = 1 };
         var result = await UserManager.CreateAsync(user, model.Password).ConfigureAwait(false);
         if (result.Succeeded)
         {
-          //temp code
-          // var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
-          // var roleManager = new RoleManager<IdentityRole>(roleStore);
-          // await roleManager.CreateAsync(new IdentityRole("Employee"));
-          // await UserManager.AddToRoleAsync(user.Id, "Employee");
 
           await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false).ConfigureAwait(false);
 

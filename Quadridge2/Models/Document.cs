@@ -7,14 +7,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Quadridge2.Models
 {
-    public class Document
-    {
-        public int Id { get; set; }
+  public class Document
+  {
+    public int Id { get; set; }
 
-        public DocumentType DocumentType { get; set; }
-        public int DocumentTypeId { get; set; }
+    public DocumentType DocumentType { get; set; }
+    public int DocumentTypeId { get; set; }
+    public string FilePath { get; set; }
 
-        [DataType(DataType.Upload)]
-        HttpPostedFileBase File { get; set; }
-    }
+    //[DataType(DataType.Upload)]
+    //HttpPostedFileBase File { get; set; }
+  }
 }

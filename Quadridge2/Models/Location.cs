@@ -25,9 +25,11 @@ namespace Quadridge2.Models
     public string PostalCode { get; set; }
 
     //Foreign tables
+    [Display(Name="Province")]
     public int? ProvinceId { get; set; }
     public virtual Province Province { get; set; }
 
+    [Display(Name="Country")]
     public int CountryId { get; set; }
     public virtual Country Country { get; set; }
 
